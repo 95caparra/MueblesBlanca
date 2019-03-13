@@ -1,5 +1,3 @@
-
-
 package mueblesblanca.dao;
 
 import mueblesblanca.vo.CiudadVO;
@@ -15,10 +13,10 @@ public interface CiudadDAO {
     
     public int actualizar(CiudadVO ciudadVO)throws Exception;
     
-    public int eliminar(long idciudadVO)throws Exception;
+    public int eliminar(long id)throws Exception;
     
     public ArrayList<CiudadVO> listar() throws Exception; 
     
-    public CiudadVO consultarPorId(long idCiudad) throws Exception;
+    public CiudadVO consultarPorId(long id) throws Exception;
     
 }
