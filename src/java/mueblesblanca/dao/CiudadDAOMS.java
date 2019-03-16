@@ -134,7 +134,7 @@ public class CiudadDAOMS extends ConexionSQL implements CiudadDAO {
         try {
             this.Conectar();
             String consulta = " SELECT Id_Ciudad, Descripcion, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
-                    + " FROM Ciudad  WHERE Id_Ciudad = ? ";
+                    + " FROM Ciudad WHERE Id_Ciudad = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);

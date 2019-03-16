@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EstadoEnum {
-    ELIMINADO(1), ACTIVO(2), DESHABILITADO(3);
+    ACTIVO(1), INACTIVO(2), ELIMINADO(3);
 
     protected static final Map<Integer, EstadoEnum> mapByID = new HashMap<Integer, EstadoEnum>();
     protected static final Map<String, EstadoEnum> mapByNAME = new HashMap<String, EstadoEnum>();
