@@ -78,7 +78,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             pstm.setString(6, autorizacionVO.getEliminaAutorizacion());
             pstm.setString(7, autorizacionVO.getUsuarioModificacion()); 
 
-            pstm.setInt(3, autorizacionVO.getIdAutorizacion());
+            pstm.setInt(8, autorizacionVO.getIdAutorizacion());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -166,7 +166,8 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
         try {
             this.Conectar();
             String consulta = " SELECT id_Autorizacion, codigoOpcion_Autorizacion, id_rol_Autorizacion, Modifica_Autorizacion, "
-                    + "Crea_Autorizacion, Consulta_Autorizacion, Elimina_Autorizacion, fechaCreacion_Autorizacion, usuarioCreacion_Autorizacion, estado_Autorizacion"
+                    + "Crea_Autorizacion, Consulta_Autorizacion, Elimina_Autorizacion, fechaCreacion_Autorizacion, usuarioCreacion_Autorizacion, "
+                    + "fechaModificacion_Autorizacion, usuarioModificacion_Autorizacion, estado_Autorizacion"
                     + " FROM Autorizaciones WHERE id_Autorizacion = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);

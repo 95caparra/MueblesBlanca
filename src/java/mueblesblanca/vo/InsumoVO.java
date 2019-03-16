@@ -16,6 +16,7 @@ public class InsumoVO {
     
     private Integer idInsumo;
     private String nombreInsumo;
+    private Integer cantidadExistente;
     private Integer idMedida;
     private BigDecimal precioUnidadInsumo;
     private String detalleInsumo;
@@ -39,6 +40,14 @@ public class InsumoVO {
 
     public void setNombreInsumo(String nombreInsumo) {
         this.nombreInsumo = nombreInsumo;
+    }
+    
+    public String getcantidadExistente() {
+        return nombreInsumo;
+    }
+
+    public void setcantidadExistente(Integer cantidadExistente) {
+        this.cantidadExistente = cantidadExistente;
     }
 
     public Integer getIdMedida() {
