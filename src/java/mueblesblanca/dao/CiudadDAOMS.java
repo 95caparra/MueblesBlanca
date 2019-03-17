@@ -42,7 +42,8 @@ public class CiudadDAOMS extends ConexionSQL implements CiudadDAO {
             String consulta = " UPDATE Ciudad SET "
                     + " Descripcion = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
-                    + " Usuario_Modificacion = ? "
+                    + " Usuario_Modificacion = ?,"
+                    + " Estado = ?, "
                     + " WHERE Id_Ciudad = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -50,8 +51,9 @@ public class CiudadDAOMS extends ConexionSQL implements CiudadDAO {
 
             pstm.setString(1, ciudadVO.getDescripcionCiudad());
             pstm.setString(2, ciudadVO.getUsuarioModificacionCiudad());
-
-            pstm.setInt(3, ciudadVO.getIdCiudad());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            
+            pstm.setInt(4, ciudadVO.getIdCiudad());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {

@@ -12,7 +12,7 @@ import mueblesblanca.vo.Modelo3DVO;
 
 /**
  *
- * @author cochoa
+ * @author Sergio AlfonsoG
  */
 public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
 
@@ -21,12 +21,8 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
         int resultado = -1;
         try {
             this.Conectar();
-            String consulta = "INSERT INTO [dbo].[Modelo3D]\n"
-                    + "           ([NombreModelo]\n"
-                    + "           ,[ruta])\n"
-                    + "     VALUES\n"
-                    + "           (?"
-                    + "           ,?)";
+            String consulta = " INSERT INTO Modelo3D ( NombreModelo, ruta)"
+                    + " VALUES(?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -36,7 +32,7 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
-            System.out.println(" Modelo3DVO: Se presento un error al insertar un modelo 3D."
+            System.out.println(" Modelo3DDAOMS: Se presento un error al insertar un Modelo."
                     + e.getMessage());
             throw e;
         } finally {
@@ -50,21 +46,22 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
         int resultado = -1;
         try {
             this.Conectar();
-            String consulta = "UPDATE [dbo].[Modelo3D]\n"
-                    + "   SET [NombreModelo] = ?"
-                    + "      ,[ruta] = ?"
-                    + " WHERE [Id_modelo] = ?";
+            String consulta = " UPDATE Modelo3D SET "
+                    + " NombreModelo = ?, "
+                    + " ruta = ? "
+                    + "WHERE Id_modelo = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, modelo3DVO.getNombreModelo());
             pstm.setString(2, modelo3DVO.getRutaModelo());
+               
             pstm.setInt(3, modelo3DVO.getIdModelo3D());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
-            System.out.println(" Modelo3DVO: Se presento un error al actualizar un modelo 3D."
+            System.out.println(" Modelo3DDAOMS: Se presento un error al actualizar un Modelo."
                     + e.getMessage());
             throw e;
         } finally {
@@ -74,18 +71,36 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
     }
 
     @Override
-    public int eliminar(long id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int eliminar(long idModelo) throws Exception {
+        int resultado = -1;
+        try {
+            this.Conectar();
+            String consulta = " DELETE FROM Modelo3D WHERE Id_modelo = ? ";
+
+            System.out.println("QUERY eliminar " + consulta);
+            PreparedStatement pstm = this.conection.prepareStatement(consulta);
+
+            pstm.setLong(2, idModelo);
+
+            resultado = pstm.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(" Modelo3DDAOMS: Se presento un error al eliminar un Modelo."
+                    + e.getMessage());
+            throw e;
+        } finally {
+            this.Desconectar();
+        }
+        return resultado;
+
     }
 
     @Override
     public ArrayList<Modelo3DVO> listar() throws Exception {
         ArrayList<Modelo3DVO> lista = new ArrayList<Modelo3DVO>();
-        Modelo3DVO modelo3DVO;
+        Modelo3DVO modeloVO;
         try {
             this.Conectar();
-            String consulta = "SELECT * "
-                    + " FROM [dbo].[Modelo3D]";
+            String consulta = "SELECT Id_modelo, NombreModelo, ruta FROM Modelo3D";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -94,15 +109,15 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
 
             while (rs.next()) {
                 int t = 1;
-                modelo3DVO = new Modelo3DVO();
-                modelo3DVO.setIdModelo3D(rs.getInt(t++));
-                modelo3DVO.setNombreModelo(rs.getString(t++));
-                modelo3DVO.setRutaModelo(rs.getString(t++));
+                modeloVO = new Modelo3DVO();
+                modeloVO.setIdModelo3D(rs.getInt(t++));
+                modeloVO.setNombreModelo(rs.getString(t++));
+                modeloVO.setRutaModelo(rs.getString(t++));
 
-                lista.add(modelo3DVO);
+                lista.add(modeloVO);
             }
         } catch (Exception e) {
-            System.out.println(" Modelo3DVO: Se presento un error al consultar la tabla modelo 3D. "
+            System.out.println(" Modelo3DDAOMS: Se presento un error al consultar la tabla Modelo3D. "
                     + e.getMessage());
             throw e;
         } finally {
@@ -112,31 +127,31 @@ public class Modelo3DDAOMS extends ConexionSQL implements Modelo3DDAO {
     }
 
     @Override
-    public Modelo3DVO consultarPorId(long id) throws Exception {
-        Modelo3DVO modelo3DVO = null;
+    public Modelo3DVO consultarPorId(long idModelo) throws Exception {
+        Modelo3DVO modeloVO = null;
         try {
             this.Conectar();
-            String consulta = " SELECT *"
-                    + " FROM [dbo].[Modelo3D] WHERE [Id_modelo] = ? ";
+            String consulta = "SELECT Id_modelo, NombreModelo, ruta FROM Modelo3D WHERE Id_modelo = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
-            pstm.setLong(1, id);
+            pstm.setLong(1, idModelo);
 
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 int t = 1;
-                modelo3DVO = new Modelo3DVO();
-                modelo3DVO.setIdModelo3D(rs.getInt(t++));
-                modelo3DVO.setNombreModelo(rs.getString(t++));
-                modelo3DVO.setRutaModelo(rs.getString(t++));
+                modeloVO = new Modelo3DVO();
+                modeloVO.setIdModelo3D(rs.getInt(t++));
+                modeloVO.setNombreModelo(rs.getString(t++));
+                modeloVO.setRutaModelo(rs.getString(t++));
+                
             }
 
         } catch (Exception e) {
-            System.out.println("Modelo3DVO : se presento un error al consultar por id: " + e.getMessage());
+            System.out.println("Modelo3DDAOMS : se presento un error al consultar por id: " + e.getMessage());
         } finally {
             this.Desconectar();
         }
-        return modelo3DVO;
+        return modeloVO;
     }
 }

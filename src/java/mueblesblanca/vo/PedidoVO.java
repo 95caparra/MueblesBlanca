@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 public class PedidoVO {
     
     private Integer idPedido;
-    private Integer idInsumo;
-    private Integer idProveedor;
+    private InsumoVO Insumo;
+    private ProveedorVO Proveedor;
     private Timestamp fechaSugeridaPedido;
     private String observacionPedido;
     private Timestamp fechaCreacionPedido;
@@ -32,20 +32,20 @@ public class PedidoVO {
         this.idPedido = idPedido;
     }
 
-    public Integer getIdInsumo() {
-        return idInsumo;
+    public InsumoVO getInsumo() {
+        return Insumo;
     }
 
-    public void setIdInsumo(Integer idInsumo) {
-        this.idInsumo = idInsumo;
+    public void setInsumo(InsumoVO Insumo) {
+        this.Insumo = Insumo;
     }
 
-    public Integer getIdProveedor() {
-        return idProveedor;
+    public ProveedorVO getProveedor() {
+        return Proveedor;
     }
 
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setProveedor(ProveedorVO Proveedor) {
+        this.Proveedor = Proveedor;
     }
 
     public Timestamp getFechaSugeridaPedido() {

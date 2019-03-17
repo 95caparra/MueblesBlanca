@@ -52,6 +52,7 @@ public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
                     + " Descripcion_Categoria = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
+                    + " Estado = ?, "
                     + " WHERE Id_Categoria = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -59,8 +60,9 @@ public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
 
             pstm.setString(1, categoriaVO.getDescripcionCategoria());
             pstm.setString(2, categoriaVO.getUsuarioModificacionCategoria());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
 
-            pstm.setInt(3, categoriaVO.getIdCategoria());
+            pstm.setInt(4, categoriaVO.getIdCategoria());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {

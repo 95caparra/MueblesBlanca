@@ -63,7 +63,8 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
                     + " Consulta_Autorizacion = ?, " 
                     + " Elimina_Autorizacion = ?, "
                     + " fechaModificacion_Autorizacion = GETDATE(), "
-                    + " usuarioModificacion_Autorizacion = ? "
+                    + " usuarioModificacion_Autorizacion = ?, "
+                    + " estado_Autorizacion = ?, "
                     + " WHERE id_Autorizacion = ? ";        
 
             System.out.println("QUERY actualizar " + consulta);
@@ -76,8 +77,9 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             pstm.setString(5, autorizacionVO.getConsultaAutorizacion());
             pstm.setString(6, autorizacionVO.getEliminaAutorizacion());
             pstm.setString(7, autorizacionVO.getUsuarioModificacion()); 
-
-            pstm.setInt(8, autorizacionVO.getIdAutorizacion());
+            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
+            
+            pstm.setInt(9, autorizacionVO.getIdAutorizacion());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {

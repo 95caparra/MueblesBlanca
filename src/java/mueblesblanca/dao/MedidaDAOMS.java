@@ -53,6 +53,7 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
                     + " Descripcion_Medida = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
+                    + " Estado = ?, "
                     + " WHERE Id_Medida = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -61,8 +62,9 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
             pstm.setString(1, medidaVO.getDescripcionMedida());
             pstm.setTimestamp(2, medidaVO.getFechaModificacionMedida());
             pstm.setString(3, medidaVO.getUsuarioModificacionMedida());
-               
-            pstm.setInt(4, medidaVO.getIdMedida());
+            pstm.setInt(4, EstadoEnum.ACTIVO.getIndex());
+            
+            pstm.setInt(5, medidaVO.getIdMedida());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {

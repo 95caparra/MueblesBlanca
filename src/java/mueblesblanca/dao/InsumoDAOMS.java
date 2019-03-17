@@ -62,6 +62,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                     + " Detalle_Insumo = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
+                    + " Estado = ?, "
                     + " WHERE Id_insumo = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -73,9 +74,10 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
             pstm.setTimestamp(6, insumoVO.getFechaModificacionInsumo());
-            pstm.setString(6, insumoVO.getUsuarioModificacionInsumo());
+            pstm.setString(7, insumoVO.getUsuarioModificacionInsumo());
+            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
                
-            pstm.setInt(7, insumoVO.getIdInsumo());
+            pstm.setInt(9, insumoVO.getIdInsumo());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {

@@ -15,7 +15,7 @@ public class PersonaNaturalVO {
     
     private Integer idPersonaNatural;
     private Long identificacionPersonaNatural;
-    private Integer idTipoDocumentoPersonaNatural;
+    private TipoDocumentoVO TipoDocumentoPersonaNatural;
     private String primerNombrePersonaNatural;
     private String segundoNombrePersonaNatural;
     private String primerApellidoPersonaNatural;
@@ -23,13 +23,13 @@ public class PersonaNaturalVO {
     private String telefonoPersonaNatural;
     private String celularPersonaNatural;
     private String direccionPersonaNatural;
-    private Integer idCiudadPersonaNatural;
+    private CiudadVO CiudadPersonaNatural;
     private Timestamp fechaCreacionPersonaNatural;
     private String usuarioCreacionPersonaNatural;
     private Timestamp fechaModificacionPersonaNatural;
     private String usuarioModificacionPersonaNatural;
     private Integer estado;
-    private Integer idRolPersonaNatural;
+    private RolVO RolPersonaNatural;
 
     public Integer getIdPersonaNatural() {
         return idPersonaNatural;
@@ -47,12 +47,12 @@ public class PersonaNaturalVO {
         this.identificacionPersonaNatural = identificacionPersonaNatural;
     }
 
-    public Integer getIdTipoDocumentoPersonaNatural() {
-        return idTipoDocumentoPersonaNatural;
+    public TipoDocumentoVO getTipoDocumentoPersonaNatural() {
+        return TipoDocumentoPersonaNatural;
     }
 
-    public void setIdTipoDocumentoPersonaNatural(Integer idTipoDocumentoPersonaNatural) {
-        this.idTipoDocumentoPersonaNatural = idTipoDocumentoPersonaNatural;
+    public void setTipoDocumentoPersonaNatural(TipoDocumentoVO TipoDocumentoPersonaNatural) {
+        this.TipoDocumentoPersonaNatural = TipoDocumentoPersonaNatural;
     }
 
     public String getPrimerNombrePersonaNatural() {
@@ -111,12 +111,12 @@ public class PersonaNaturalVO {
         this.direccionPersonaNatural = direccionPersonaNatural;
     }
 
-    public Integer getIdCiudadPersonaNatural() {
-        return idCiudadPersonaNatural;
+    public CiudadVO getCiudadPersonaNatural() {
+        return CiudadPersonaNatural;
     }
 
-    public void setIdCiudadPersonaNatural(Integer idCiudadPersonaNatural) {
-        this.idCiudadPersonaNatural = idCiudadPersonaNatural;
+    public void setIdCiudadPersonaNatural(CiudadVO CiudadPersonaNatural) {
+        this.CiudadPersonaNatural = CiudadPersonaNatural;
     }
 
     public Timestamp getFechaCreacionPersonaNatural() {
@@ -159,12 +159,12 @@ public class PersonaNaturalVO {
         this.estado = estado;
     }
 
-    public Integer getIdRolPersonaNatural() {
-        return idRolPersonaNatural;
+    public RolVO getRolPersonaNatural() {
+        return RolPersonaNatural;
     }
 
-    public void setIdRolPersonaNatural(Integer idRolPersonaNatural) {
-        this.idRolPersonaNatural = idRolPersonaNatural;
+    public void setIdRolPersonaNatural(RolVO idRolPersonaNatural) {
+        this.RolPersonaNatural = RolPersonaNatural;
     }
     
     
