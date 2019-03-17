@@ -18,7 +18,7 @@ public interface ProductoInsumoDAO {
 
     public int actualizar(ProductoInsumoVO productoInsumoVO) throws Exception;
 
-    public int eliminar(long id) throws Exception;
+    public int eliminar(long idproducto, long idinsumo) throws Exception;
 
     public ArrayList<ProductoInsumoVO> listar() throws Exception;
 
