@@ -21,4 +21,60 @@ public class RolVO {
     private String usuarioModificacionRol;
     private Integer estado;
     
+    public Integer getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Integer idRol) {
+        this.idRol = idRol;
+    }
+
+    public String getDescripcionRol() {
+        return descripcionRol;
+    }
+
+    public void setDescripcionRol(String descripcionRol) {
+        this.descripcionRol = descripcionRol;
+    }
+
+    public Timestamp getFechaCreacionRol() {
+        return fechaCreacionRol;
+    }
+
+    public void setFechaCreacionRol(Timestamp fechaCreacionRol) {
+        this.fechaCreacionRol = fechaCreacionRol;
+    }
+
+    public String getUsuarioCreacionRol() {
+        return usuarioCreacionRol;
+    }
+
+    public void setUsuarioCreacionRol(String usuarioCreacionRol) {
+        this.usuarioCreacionRol = usuarioCreacionRol;
+    }
+
+    public Timestamp getFechaModificacionRol() {
+        return fechaModificacionRol;
+    }
+
+    public void setFechaModificacionRol(Timestamp fechaModificacionRol) {
+        this.fechaModificacionRol = fechaModificacionRol;
+    }
+
+    public String getUsuarioModificacionRol() {
+        return usuarioModificacionRol;
+    }
+
+    public void setUsuarioModificacionRol(String usuarioModificacionRol) {
+        this.usuarioModificacionRol = usuarioModificacionRol;
+    }
+
+    public Integer getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Integer estado) {
+        this.estado = estado;
+    }
+    
 }

@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.vo.AutorizacionVO;
-import mueblesblanca.vo.CiudadVO;
 
 /**
  *
@@ -32,7 +31,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setInt(1, autorizacionVO.getCodigoOpcionAutorizacion());
-            pstm.setInt(2, autorizacionVO.getIdRolAutorizacion());
+            pstm.setInt(2, autorizacionVO.getRol().getIdRol());
             pstm.setString(3, autorizacionVO.getModificaAutorizacion());
             pstm.setString(4, autorizacionVO.getCreaAutorizacion());
             pstm.setString(5, autorizacionVO.getConsultaAutorizacion());
@@ -71,7 +70,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setInt(1, autorizacionVO.getCodigoOpcionAutorizacion());
-            pstm.setInt(2, autorizacionVO.getIdRolAutorizacion());
+            pstm.setInt(2, autorizacionVO.getRol().getIdRol());
             pstm.setString(3, autorizacionVO.getModificaAutorizacion());
             pstm.setString(4, autorizacionVO.getCreaAutorizacion());
             pstm.setString(5, autorizacionVO.getConsultaAutorizacion());
@@ -137,7 +136,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
                 autorizacionVO = new AutorizacionVO();
                 autorizacionVO.setIdAutorizacion(rs.getInt(t++));
                 autorizacionVO.setCodigoOpcionAutorizacion(rs.getInt(t++));
-                autorizacionVO.setIdRolAutorizacion(rs.getInt(t++));
+                autorizacionVO.getRol().setIdRol(t++);
                 autorizacionVO.setModificaAutorizacion(rs.getString(t++));
                 autorizacionVO.setCreaAutorizacion(rs.getString(t++));
                 autorizacionVO.setConsultaAutorizacion(rs.getString(t++));
@@ -180,7 +179,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
                 autorizacionVO = new AutorizacionVO();
                 autorizacionVO.setIdAutorizacion(rs.getInt(t++));
                 autorizacionVO.setCodigoOpcionAutorizacion(rs.getInt(t++));
-                autorizacionVO.setIdRolAutorizacion(rs.getInt(t++));
+                autorizacionVO.getRol().setIdRol(t++);
                 autorizacionVO.setModificaAutorizacion(rs.getString(t++));
                 autorizacionVO.setCreaAutorizacion(rs.getString(t++));
                 autorizacionVO.setConsultaAutorizacion(rs.getString(t++));

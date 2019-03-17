@@ -9,13 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import mueblesblanca.constante.EstadoEnum;
-import mueblesblanca.vo.CategoriaVO;
 import mueblesblanca.vo.InsumoVO;
 
 /**
  *
  * @author Sergio AlfonsoG
  */
+
 public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
 
     @Override
@@ -32,11 +32,11 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
 
             pstm.setString(1, insumoVO.getNombreInsumo());
             pstm.setString(2, insumoVO.getcantidadExistente());
-            pstm.setInt(3, insumoVO.getIdMedida());
+            pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
             pstm.setString(6, insumoVO.getUsuarioCreacionInsumo());    
-            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(7, EstadoEnum.ACTIVO.getIndex());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -69,9 +69,10 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
 
             pstm.setString(1, insumoVO.getNombreInsumo());
             pstm.setString(2, insumoVO.getcantidadExistente());
-            pstm.setInt(3, insumoVO.getIdMedida());
+            pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
+            pstm.setTimestamp(6, insumoVO.getFechaModificacionInsumo());
             pstm.setString(6, insumoVO.getUsuarioModificacionInsumo());
                
             pstm.setInt(7, insumoVO.getIdInsumo());
@@ -120,7 +121,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             this.Conectar();
             String consulta = "SELECT Id_insumo, Nombre_Insumo, Cantidad_Existente, Id_Medida, Precio_Unidad_Insumo, Detalle_Insumo, "
                     + "Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
-                    + " FROM Categoria WHERE Estado = ? ";
+                    + " FROM Insumo WHERE Estado = ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -135,7 +136,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
                 insumoVO.setcantidadExistente(rs.getInt(t++));
-                insumoVO.setIdMedida(rs.getInt(t++));
+                insumoVO.getMedida().setIdMedida(t++);
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
                 insumoVO.setFechaCreacionInsumo(rs.getTimestamp(t++));
@@ -176,7 +177,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
                 insumoVO.setcantidadExistente(rs.getInt(t++));
-                insumoVO.setIdMedida(rs.getInt(t++));
+                insumoVO.getMedida().setIdMedida(t++);
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
                 insumoVO.setFechaCreacionInsumo(rs.getTimestamp(t++));

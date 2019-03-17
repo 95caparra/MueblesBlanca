@@ -15,7 +15,7 @@ public class AutorizacionVO {
     
     private Integer idAutorizacion;
     private Integer codigoOpcionAutorizacion;
-    private Integer idRolAutorizacion;
+    private RolVO rol;
     private String modificaAutorizacion;
     private String creaAutorizacion;
     private String consultaAutorizacion;
@@ -42,12 +42,12 @@ public class AutorizacionVO {
         this.codigoOpcionAutorizacion = codigoOpcionAutorizacion;
     }
 
-    public Integer getIdRolAutorizacion() {
-        return idRolAutorizacion;
+    public RolVO getRol() {
+        return rol;
     }
 
-    public void setIdRolAutorizacion(Integer idRolAutorizacion) {
-        this.idRolAutorizacion = idRolAutorizacion;
+    public void setRol(RolVO rol) {
+        this.rol = rol;
     }
 
     public String getModificaAutorizacion() {

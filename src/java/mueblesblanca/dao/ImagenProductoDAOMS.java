@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.vo.ImagenProductoVO;
-import mueblesblanca.vo.ProductoVO;
 
 /**
  *
@@ -30,7 +29,7 @@ public class ImagenProductoDAOMS extends ConexionSQL implements ImagenProductoDA
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setObject(1, imagenProductoVO.getProducto());
+            pstm.setInt(1, imagenProductoVO.getProducto().getIdProducto());
             pstm.setString(2, imagenProductoVO.getRuta());
             pstm.setString(3, imagenProductoVO.getNombreArchivo());
 
@@ -59,7 +58,7 @@ public class ImagenProductoDAOMS extends ConexionSQL implements ImagenProductoDA
             System.out.println("QUERY actualizar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setObject(1, imagenProductoVO.getProducto());
+            pstm.setInt(1, imagenProductoVO.getProducto().getIdProducto());
             pstm.setString(2, imagenProductoVO.getRuta());
             pstm.setString(3, imagenProductoVO.getNombreArchivo());
 
@@ -84,8 +83,7 @@ public class ImagenProductoDAOMS extends ConexionSQL implements ImagenProductoDA
             System.out.println("QUERY eliminar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
-            pstm.setLong(2, idImagenProducto);
+            pstm.setLong(1, idImagenProducto);
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -115,7 +113,7 @@ public class ImagenProductoDAOMS extends ConexionSQL implements ImagenProductoDA
                 int t = 1;
                 imagenProductoVO = new ImagenProductoVO();
                 imagenProductoVO.setIdImagen(rs.getInt(t++));
-                imagenProductoVO.setProducto((ProductoVO) rs.getObject(t++));
+                imagenProductoVO.getProducto().setIdProducto(t++);
                 imagenProductoVO.setRuta(rs.getString(t++));
                 imagenProductoVO.setNombreArchivo(rs.getString(t++));
 
@@ -148,7 +146,7 @@ public class ImagenProductoDAOMS extends ConexionSQL implements ImagenProductoDA
                 int t = 1;
                 imagenProductoVO = new ImagenProductoVO();
                 imagenProductoVO.setIdImagen(rs.getInt(t++));
-                imagenProductoVO.setProducto((ProductoVO) rs.getObject(t++));
+                imagenProductoVO.getProducto().setIdProducto(t++);
                 imagenProductoVO.setRuta(rs.getString(t++));
                 imagenProductoVO.setNombreArchivo(rs.getString(t++));
                 

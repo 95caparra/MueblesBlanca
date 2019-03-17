@@ -17,7 +17,7 @@ public class InsumoVO {
     private Integer idInsumo;
     private String nombreInsumo;
     private Integer cantidadExistente;
-    private Integer idMedida;
+    private MedidaVO Medida;
     private BigDecimal precioUnidadInsumo;
     private String detalleInsumo;
     private Timestamp fechaCreacionInsumo;
@@ -50,12 +50,12 @@ public class InsumoVO {
         this.cantidadExistente = cantidadExistente;
     }
 
-    public Integer getIdMedida() {
-        return idMedida;
+    public MedidaVO getMedida() {
+        return Medida;
     }
 
-    public void setIdMedida(Integer idMedida) {
-        this.idMedida = idMedida;
+    public void setMedida(MedidaVO Medida) {
+        this.Medida = Medida;
     }
 
     public BigDecimal getPrecioUnidadInsumo() {
@@ -113,7 +113,5 @@ public class InsumoVO {
     public void setEstado(Integer estado) {
         this.estado = estado;
     }
-    
-    
     
 }
