@@ -9,6 +9,7 @@ package mueblesblanca.vo;
  *
  * @author camil
  */
+
 public class InsumoProveedorVO {
     
     private ProductoVO producto;

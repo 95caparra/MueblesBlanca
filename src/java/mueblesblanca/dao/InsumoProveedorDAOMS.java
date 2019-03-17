@@ -75,7 +75,7 @@ public class InsumoProveedorDAOMS extends ConexionSQL implements InsumoProveedor
 
     @Override
     public int eliminar(long idInsumo, long idProveedor) throws Exception {
-         int resultado = -1;
+        int resultado = -1;
         try {
             this.Conectar();
             String consulta = " DELETE FORM Insumo_Proveedor WHERE Id_Producto = ? AND Id_Proveedor = ? ";
@@ -88,7 +88,7 @@ public class InsumoProveedorDAOMS extends ConexionSQL implements InsumoProveedor
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
-            System.out.println(" InsumoProveedorDAOMS: Se presento un error al eliminar un Insumo y proveedor."
+            System.out.println(" InsumoProveedorDAOMS: Se presento un error al eliminar un Insumo y Proveedor."
                     + e.getMessage());
             throw e;
         } finally {
@@ -103,12 +103,10 @@ public class InsumoProveedorDAOMS extends ConexionSQL implements InsumoProveedor
         InsumoProveedorVO insumoProveedorVO;
         try {
             this.Conectar();
-            String consulta = "SELECT Id_Producto, Id_Proveedor FROM Categoria WHERE Estado = ? ";
+            String consulta = "SELECT Id_Producto, Id_Proveedor FROM Categoria";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
-
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

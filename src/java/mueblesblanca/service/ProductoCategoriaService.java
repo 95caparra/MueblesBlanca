@@ -72,10 +72,10 @@ public class ProductoCategoriaService {
         }
     }
     
-    public int eliminarPorId(long idProductoCategoria) throws Exception {
+    public int eliminarPorId(long idProductoCategoria, long IdCategoria) throws Exception {
         int resultado = -1;
         try {
-            resultado = productoCategoriaDAO.eliminar(idProductoCategoria);
+            resultado = productoCategoriaDAO.eliminar(idProductoCategoria, IdCategoria);
         } catch (Exception e) {
             System.out.println("ProductoService: Se presento un error al "
                     + "consultar por id en la tabla: " + e.getMessage());

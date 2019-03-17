@@ -9,6 +9,7 @@ package mueblesblanca.vo;
  *
  * @author camil
  */
+
 public class Modelo3DVO {
     
     private Integer idModelo3D;

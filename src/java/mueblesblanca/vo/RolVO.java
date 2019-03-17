@@ -11,6 +11,7 @@ import java.sql.Timestamp;
  *
  * @author 
  */
+
 public class RolVO {
     private Integer idRol;
     private String descripcionRol;

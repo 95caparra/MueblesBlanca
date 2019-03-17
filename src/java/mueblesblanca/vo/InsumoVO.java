@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  *
  * @author camil
  */
+
 public class InsumoVO {
     
     private Integer idInsumo;

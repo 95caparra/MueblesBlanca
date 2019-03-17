@@ -11,6 +11,7 @@ import java.sql.Timestamp;
  *
  * @author camil
  */
+
 public class TipoProductoVO {
     
     private Integer idTipoProducto;
