@@ -13,8 +13,9 @@ import mueblesblanca.vo.ProveedorVO;
 
 /**
  *
- * @author cochoa
+ * @author Fabian García
  */
+
 public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
 
     @Override

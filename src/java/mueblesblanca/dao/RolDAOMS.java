@@ -13,8 +13,9 @@ import mueblesblanca.vo.RolVO;
 
 /**
  *
- * @author  
+ * @author Fabian García
  */
+
 public class RolDAOMS extends ConexionSQL implements RolDAO {
 
     @Override

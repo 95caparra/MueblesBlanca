@@ -8,7 +8,6 @@ package mueblesblanca.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.vo.ImagenProductoVO;
 
 /**

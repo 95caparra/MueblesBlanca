@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mueblesblanca.dao;
 
 import mueblesblanca.vo.CiudadVO;
@@ -5,6 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import mueblesblanca.constante.EstadoEnum;
+
+/**
+ *
+ * @author cochoa
+ */
 
 public class CiudadDAOMS extends ConexionSQL implements CiudadDAO {
 

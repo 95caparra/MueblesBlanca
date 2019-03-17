@@ -15,6 +15,7 @@ import mueblesblanca.vo.CategoriaVO;
  *
  * @author Sergio AlfonsoG
  */
+
 public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
 
     @Override

@@ -13,8 +13,9 @@ import mueblesblanca.vo.TipoProductoVO;
 
 /**
  *
- * @author cochoa
+ * @author Fabian García
  */
+
 public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
 
     @Override

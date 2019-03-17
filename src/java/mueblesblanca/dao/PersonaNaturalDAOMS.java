@@ -15,6 +15,7 @@ import mueblesblanca.vo.PersonaNaturalVO;
  *
  * @author Sergio AlfonsoG
  */
+
 public class PersonaNaturalDAOMS extends ConexionSQL implements PersonaNaturalDAO {
 
     @Override

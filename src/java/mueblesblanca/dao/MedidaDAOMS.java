@@ -13,8 +13,9 @@ import mueblesblanca.vo.MedidaVO;
 
 /**
  *
- * @author cochoa
+ * @author Sergio AlfonsoG
  */
+
 public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
 
     @Override

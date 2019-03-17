@@ -13,8 +13,9 @@ import mueblesblanca.vo.EstadoOrdenVO;
 
 /**
  *
- * @author cochoa
+ * @author Fabian García
  */
+
 public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
 
     @Override

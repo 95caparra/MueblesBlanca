@@ -15,6 +15,7 @@ import mueblesblanca.vo.InsumoProveedorVO;
  *
  * @author Sergio AlfonsoG
  */
+
 public class InsumoProveedorDAOMS extends ConexionSQL implements InsumoProveedorDAO {
 
     @Override
