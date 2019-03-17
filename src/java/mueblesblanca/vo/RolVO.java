@@ -5,11 +5,11 @@
  */
 package mueblesblanca.vo;
 
-import java.sql.Timestamp;
+import java.sql.Timestamp;           
 
 /**
  *
- * @author camil
+ * @author 
  */
 public class RolVO {
     private Integer idRol;

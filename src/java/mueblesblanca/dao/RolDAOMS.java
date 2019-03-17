@@ -13,7 +13,7 @@ import mueblesblanca.vo.RolVO;
 
 /**
  *
- * @author cochoa
+ * @author  
  */
 public class RolDAOMS extends ConexionSQL implements RolDAO {
 

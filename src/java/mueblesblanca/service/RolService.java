@@ -44,7 +44,7 @@ public class RolService {
         } finally {
             return resultado;
         }
-    }
+    }           
 
     public ArrayList<RolVO> listar() throws Exception {
 

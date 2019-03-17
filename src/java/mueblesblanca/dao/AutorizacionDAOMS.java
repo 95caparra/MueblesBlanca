@@ -13,7 +13,7 @@ import mueblesblanca.vo.AutorizacionVO;
 
 /**
  *
- * @author Sergio AlfonsoG
+ * @author Sergio  
  */
 
 public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
