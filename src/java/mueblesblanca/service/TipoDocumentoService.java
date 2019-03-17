@@ -71,10 +71,10 @@ public class TipoDocumentoService {
         }
     }
     
-    public int eliminarPorId(long idCiudad) throws Exception {
+    public int eliminarPorId(long id) throws Exception {
         int resultado = -1;
         try {
-            resultado = tipoDocumentoDAO.eliminar(idCiudad);
+            resultado = tipoDocumentoDAO.eliminar(id);
         } catch (Exception e) {
             System.out.println("TipoDocumentoService: Se presento un error al "
                     + "consultar por id en la tabla: " + e.getMessage());
