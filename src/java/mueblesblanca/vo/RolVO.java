@@ -12,7 +12,6 @@ import java.sql.Timestamp;
  * @author camil
  */
 public class RolVO {
-    
     private Integer idRol;
     private String descripcionRol;
     private Timestamp fechaCreacionRol;

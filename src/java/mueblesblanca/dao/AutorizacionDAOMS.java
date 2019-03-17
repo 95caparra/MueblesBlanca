@@ -121,9 +121,10 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
         AutorizacionVO autorizacionVO;
         try {
             this.Conectar();
-            String consulta = "SELECT Id_Ciudad, Descripcion, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
-                    + " FROM Ciudad WHERE Estado = ? ";
-
+            String consulta = " SELECT id_Autorizacion, codigoOpcion_Autorizacion, id_rol_Autorizacion, Modifica_Autorizacion, "
+                    + "Crea_Autorizacion, Consulta_Autorizacion, Elimina_Autorizacion, fechaCreacion_Autorizacion, usuarioCreacion_Autorizacion, "
+                    + "fechaModificacion_Autorizacion, usuarioModificacion_Autorizacion, estado_Autorizacion"
+                    + " FROM Autorizaciones WHERE estado_Autorizacion = ? ";
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
