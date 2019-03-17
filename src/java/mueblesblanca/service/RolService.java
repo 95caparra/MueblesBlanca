@@ -14,6 +14,7 @@ import mueblesblanca.vo.RolVO;
  *
  * @author Fabian Garcia
  */
+
 public class RolService {
 
     private static RolDAO rolDAO;

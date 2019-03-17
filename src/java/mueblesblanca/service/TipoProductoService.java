@@ -14,6 +14,7 @@ import mueblesblanca.vo.TipoProductoVO;
  *
  * @author cochoa
  */
+
 public class TipoProductoService {
 
     private static TipoProductoDAO tipoProductoDAO;

@@ -14,6 +14,7 @@ import mueblesblanca.vo.TipoDocumentoVO;
  *
  * @author cochoa
  */
+
 public class TipoDocumentoService {
 
     private static TipoDocumentoDAO tipoDocumentoDAO;
