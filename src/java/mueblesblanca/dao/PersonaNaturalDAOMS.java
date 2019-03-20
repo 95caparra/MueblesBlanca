@@ -192,12 +192,17 @@ public class PersonaNaturalDAOMS extends ConexionSQL implements PersonaNaturalDA
         PersonaNaturalVO personaNaturalVO = null;
         try {
             this.Conectar();
-            String consulta = "SELECT Id_PersonaNatural, Identificacion_PersonaNatural, Id_Tipo_Documento_PersonaNatural, PrimerNombre_PersonaNatural, "
-                    + "SegundoNombre_PersonaNatural, PrimerApellido_PersonaNatural, SegundoApellido_PersonaNatural, Telefono_PersonaNatural, "
-                    + "Celular_PersonaNatural, Direccion_PersonaNatural, Id_Ciudad_PersonaNatural, Fecha_Creacion_PersonaNatural, "
-                    + "Usuario_Creacion_PersonaNatural, Fecha_Modificacion_PersonaNatural, Usuario_Modificacion_PersonaNatural, Estado_PersonaNatural, "
-                    + "IdRol_PersonaNatural"
-                    + " FROM PersonaNatural WHERE Id_PersonaNatural = ? ";
+            String consulta = "SELECT pn.Id_PersonaNatural, pn.Identificacion_PersonaNatural, pn.Id_Tipo_Documento_PersonaNatural, pn.PrimerNombre_PersonaNatural, "
+                    + " pn.SegundoNombre_PersonaNatural, pn.PrimerApellido_PersonaNatural, pn.SegundoApellido_PersonaNatural, pn.Telefono_PersonaNatural, "
+                    + " pn.Celular_PersonaNatural, pn.Direccion_PersonaNatural, pn.Id_Ciudad_PersonaNatural, pn.Fecha_Creacion_PersonaNatural, "
+                    + " pn.Usuario_Creacion_PersonaNatural, pn.Fecha_Modificacion_PersonaNatural, pn.Usuario_Modificacion_PersonaNatural, pn.Estado_PersonaNatural, "
+                    + " pn.IdRol_PersonaNatural, "
+                    + " td.Descripcion as tipo_documento, ciu.Descripcion as ciudad, r.descripcion as rol "
+                    + " FROM PersonaNatural pn "
+                    + " JOIN Tipo_Documento td ON td.Id_Tipo_Documento = pn.Id_Tipo_Documento_PersonaNatural "
+                    + " JOIN Ciudad ciu ON ciu.Id_Ciudad = pn.Id_Ciudad_PersonaNatural "
+                    + " JOIN Rol r ON r.id_Rol = pn.IdRol_PersonaNatural "
+                    + " WHERE Id_PersonaNatural = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -225,6 +230,9 @@ public class PersonaNaturalDAOMS extends ConexionSQL implements PersonaNaturalDA
                 personaNaturalVO.setEstado(rs.getInt(t++));
                 personaNaturalVO.getRolPersonaNatural().setIdRol(t++);
                 
+                personaNaturalVO.getTipoDocumentoPersonaNatural().setDescripcionTipoDocumento(rs.getString(t++));
+                personaNaturalVO.getCiudadPersonaNatural().setDescripcionCiudad(rs.getString(t++));
+                personaNaturalVO.getRolPersonaNatural().setDescripcionRol(rs.getString(t++));
             }
 
         } catch (Exception e) {

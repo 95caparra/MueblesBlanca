@@ -22,6 +22,7 @@ import mueblesblanca.vo.CiudadVO;
 import mueblesblanca.vo.PersonaNaturalVO;
 import mueblesblanca.vo.RolVO;
 import mueblesblanca.vo.TipoDocumentoVO;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -123,7 +124,7 @@ public class ClienteBean implements Serializable {
             idPersonaNatural = selectedPersona.getIdPersonaNatural();
 
             personaNaturalVO = personaNaturalService.consultarPorId(idPersonaNatural);
-
+            
         } catch (Exception e) {
         }
     }

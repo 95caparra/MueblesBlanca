@@ -255,10 +255,10 @@
                                 <p:column>
                                     <p:selectOneMenu id="rol"
                                                      required="true" 
-                                                     requiredMessage="Por favor seleccione la ciudad"
+                                                     requiredMessage="Por favor seleccione el rol"
                                                      value="#{clienteBean.selectedRolPersonaNatural}"
                                                      style="width:280px">
-                                        <f:selectItem itemLabel="Selecione ciudad" itemValue=""
+                                        <f:selectItem itemLabel="Selecione rol" itemValue=""
                                                       noSelectionOption="true" />
                                         <f:selectItems var="r"
                                                        value="#{clienteBean.roles}"
@@ -283,6 +283,7 @@
                     </h:form>
                 </div>
             </div>
-        </div>
+        </div>        
+       
     </ui:define>
 </ui:composition>
