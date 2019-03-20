@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarSolicitud" rendered="true">
+            <p:panel header="Solicitudes" >
+                <p:dataTable id="tableStateDT" var="solicitud" value="#{solicitudBean.solicitudes}" widgetVar="solicitudTable" multiViewState="true"
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             selectionMode="single" selection="#{solicitudBean.selectedSolicitud}" rowKey="#{solicitud.idSolicitud}"
+                             emptyMessage="No tiene solicitudes" filteredValue="#{solicitudBean.solicitudesFiltro}">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar en todos los registros:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('solicitudTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:ajax event="rowSelect" listener="#{solicitudBean.consultarPorId}" />
+
+                    <p:column headerText="Id" sortBy="#{solicitud.idSolicitud}" filterBy="#{solicitud.idSolicitud}">
+                        <h:outputText value="#{solicitud.idSolicitud}" />
+                    </p:column>
+                    <p:column headerText="Nombre" sortBy="#{solicitud.nombreCliente}" filterBy="#{solicitud.nombreCliente}">
+                        <h:outputText value="#{solicitud.nombreCliente}" />
+                    </p:column>
+                    <p:column headerText="Cantidad de personas" sortBy="#{solicitud.cantidadPersonas}" filterBy="#{solicitud.cantidadPersonas}">
+                        <h:outputText value="#{solicitud.cantidadPersonas}" />
+                    </p:column>
+                    <p:column headerText="Telefono" sortBy="#{solicitud.telefono}" filterBy="#{solicitud.telefono}">
+                        <h:outputText value="#{solicitud.telefono}" />
+                    </p:column>
+                    <p:column headerText="Email" sortBy="#{solicitud.email}" filterBy="#{solicitud.email}">
+                        <h:outputText value="#{solicitud.email}" />
+                    </p:column>                
+                    <p:column headerText="Tipo de evento" sortBy="#{solicitud.tipoEventoVO.nombreTipoEvento}" filterBy="#{solicitud.tipoEventoVO.nombreTipoEvento}">
+                        <h:outputText value="#{solicitud.tipoEventoVO.nombreTipoEvento}" />
+                    </p:column>
+                    <p:column headerText="Paquete seleccionado" sortBy="#{solicitud.paqueteVO.nombre}" filterBy="#{solicitud.paqueteVO.nombre}">
+                        <h:outputText value="#{solicitud.paqueteVO.nombre}" />
+                    </p:column>  
+                    <p:column headerText="Hora de evento" sortBy="#{solicitud.hora}" filterBy="#{solicitud.hora}">
+                        <h:outputText value="#{solicitud.hora}" />
+                    </p:column>  
+                    <p:column headerText="Fecha de evento" sortBy="#{solicitud.fecha}" filterBy="#{solicitud.fecha}">
+                        <h:outputText value="#{solicitud.fecha}" />
+                    </p:column>
+                    <p:column headerText="Observaciones" sortBy="#{solicitud.observaciones}" filterBy="#{solicitud.observaciones}">
+                        <h:outputText value="#{solicitud.observaciones}" />
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

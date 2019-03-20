@@ -1,0 +1,58 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pp="http://primefaces.org/poseidon">
+
+    <h:form id="menuform"> 
+        <div class="layout-menu-container">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <div class="search-input">
+                    </div>
+                    <pp:menu widgetVar="me">
+                        <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-fw fa-home" outcome="/dashboard"/>
+                        <p:submenu id="om_themes" label="Themes" icon="fa fa-fw fa-paint-brush">
+                            <p:menuitem id="theme1" value="Turquoise Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('turquoise')}" ajax="false" style="color:#00acac"/>
+                            <p:menuitem id="theme2" value="Blue Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('blue')}" ajax="false" style="color:#2f8ee5"/>
+                            <p:menuitem id="theme3" value="Purple Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('purple')}" ajax="false" style="color:#6c76af"/>
+                            <p:menuitem id="theme4" value="Orange Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('orange')}" ajax="false" style="color:#efa64c"/>
+                            <p:menuitem id="theme5" value="Pink Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('pink')}" ajax="false" style="color:#f16383"/>
+                            <p:menuitem id="theme6" value="Light Blue Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('light-blue')}" ajax="false" style="color:#63c9f1"/>
+                            <p:menuitem id="theme7" value="Green Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('green')}" ajax="false" style="color:#57c279"/>
+                            <p:menuitem id="theme8" value="Deep Purple Theme" icon="fa fa-fw fa-paint-brush" actionListener="#{guestPreferences.setTheme('deep-purple')}" ajax="false" style="color:#7e57c2"/>
+                        </p:submenu>
+                        <p:submenu id="om_customization" label="Menu Modes" icon="fa fa-fw fa-bars">
+                            <p:menuitem id="custom3" value="Static Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('static')}" ajax="false"/>
+                            <p:menuitem id="custom4" value="Overlay Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('overlay')}" ajax="false"/>
+                            <p:menuitem id="custom5" value="Horizontal Menu" icon="fa fa-fw fa-bars" actionListener="#{guestPreferences.setMenuLayout('horizontal')}" ajax="false"/>
+                        </p:submenu>
+                        <p:submenu id="om_orientation" label="Orientation" icon="fa fa-fw fa-align-right">
+                            <p:menuitem id="om_rtl" value="RTL" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
+                            <p:menuitem id="om_ltr" value="LTR" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
+                        </p:submenu>              
+                        
+                        <p:menuitem value="Ciudades" icon="fa fa-fw fa-bars" outcome="/pages/ciudad/listarCiudad"  />
+                        <p:menuitem value="Tipos de Documento" icon="fa fa-fw fa-bars" outcome="/pages/tipo_documento/listarTipoDocumento"  />
+                        <p:menuitem value="Roles" icon="fa fa-fw fa-bars" outcome="/pages/rol/listarRol"  />
+                        
+                        <p:submenu label="Clientes" icon="fa fa-fw fa-bars">
+                            <p:menuitem value="Listar Clientes" icon="fa fa-fw fa-bars" outcome="/pages/cliente/listarClientes" />
+                            <p:menuitem value="Insertar Cliente" icon="fa fa-fw fa-bars" outcome="/pages/cliente/insertarCliente" />
+                        </p:submenu>     
+                        
+                        
+                                  
+                        
+                    </pp:menu>
+
+                    <div class="layout-menu-footer">                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

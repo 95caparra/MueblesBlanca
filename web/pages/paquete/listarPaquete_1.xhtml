@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarPaquete">
+            <p:panel id="pnlListarPaquete">
+                <f:facet name="header">
+                    <h:outputText value="Listar Paquete" />
+                </f:facet>
+
+                <p:carousel value="#{paqueteBean.Muebles}" headerText="Muebles" var="paquete" itemStyle="text-align:center" responsive="true">
+                    <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                        <f:facet name="header">
+                            <p:graphicImage library="imagenesProductos" name="#{paquete.foto}"
+                                            style="width:280px"/>
+                        </f:facet>
+
+                        <p:commandButton icon="fa fa-search" actionListener="#{paqueteBean.verInformacionPaquete(paquete.idPaquete)}" />
+
+                        <br/>
+
+                        <h:outputText value="Nombre: " />
+                        <h:outputText value="#{paquete.nombre}" />
+
+                        <h:outputText value="Clasificacion: " />
+                        <h:outputText value="#{paquete.clasificacionVO.nombre}" />
+
+                        <h:outputText value="Descripcion: " />
+                        <h:outputText value="#{paquete.descripcion}" />
+
+                        <h:outputText value="Lugar: " />
+                        <h:outputText value="#{paquete.lugarVO.nombre}" />
+
+                        <h:outputText value="Cantidad de personas: " />
+                        <h:outputText value="#{paquete.cantidadPersonas}" />
+
+                        <h:outputText value="Precio: " />
+                        <h:outputText value="#{paquete.precio}" />
+
+                        <h:outputText value="PDF: " />
+                        <h:outputText value="#{paquete.pdf}" />
+                    </p:panelGrid>
+                </p:carousel>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

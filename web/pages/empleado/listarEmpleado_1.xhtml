@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarEmpleado" rendered="true">
+            <p:panel header="Empleados" >
+                <p:dataTable id="tableStateDT" var="empleado" 
+                             value="#{empleadoBean.empleados}" widgetVar="empleadoTable" multiViewState="true"
+                             editable="true" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             selectionMode="single" selection="#{empleadoBean.selectedEmpleado}" rowKey="#{empleado.identificacionEmpleado}"
+                             emptyMessage="No tiene empleados" filteredValue="#{empleadoBean.empleadosFiltro}">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar en todos los registros:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('empleadoTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{empleadoBean.onRowEdit}" />
+                    <p:ajax event="rowEditCancel" listener="#{empleadoBean.onRowCancel}"  />
+
+                    <p:column headerText="Identificacion empleado" filterBy="#{empleado.identificacionEmpleado}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.identificacionEmpleado}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.identificacionEmpleado}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column filterBy="#{empleado.documentoVO.nombreDocumento}" headerText="Tipo de Documento">                    
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.documentoVO.nombreDocumento}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{empleadoBean.selectedTiposDocumento}" style="width:100%">
+                                    <f:selectItems value="#{empleadoBean.tiposDocumentos}" var="tipodocumento" itemLabel="#{tipodocumento.nombreDocumento}" itemValue="#{tipodocumento.idTipoDocumento}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Nombre Empleado" filterBy="#{empleado.nombre}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.nombre}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.nombre}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Apellido Empleado" filterBy="#{empleado.apellido}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.apellido}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.apellido}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Rol Empleado" filterBy="#{empleado.rolVO.nombreRolString}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.rolVO.nombreRolString}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{empleadoBean.selectedRol}" style="width:100%">
+                                    <f:selectItems value="#{empleadoBean.roles}" var="rol" itemLabel="#{rol.nombreRolString}" itemValue="#{rol.idRol}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>                   
+                    </p:column>
+
+                    <p:column headerText="Correo Empleado" filterBy="#{empleado.correo}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.correo}" /></f:facet>
+                            <f:facet name="input" ><p:inputText  value="#{empleado.correo}"  /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Direccion Empleado" filterBy="#{empleado.direccion}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.direccion}" /></f:facet>
+                            <f:facet name="input" ><p:inputText  value="#{empleado.direccion}"  /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Telefono Empleado" filterBy="#{empleado.telefono}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.telefono}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.telefono}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Barrio Empleado" filterBy="#{empleado.barrio}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.barrio}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.barrio}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Estado Empleado" filterBy="#{empleado.estado}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{empleado.estado}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{empleado.estado}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+
+                </p:dataTable>
+
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:commandButton value="Agregar registro" styleClass="ui-priority-primary" process="@this" 
+                                         actionListener="#{empleadoBean.onAddNew}" oncomplete="PF('empleadoTable').addRow();"/>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

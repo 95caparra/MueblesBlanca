@@ -1,0 +1,234 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Data</ui:define>
+
+    <ui:define name="viewname">Data</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Ingresar Suministro</h1>
+                    <h:form enctype="multipart/form-data" id="insertarSuministro">                         
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:growl id="msg" showDetail="true" escape="false" />
+                        <p:panel id="pnlInsertarSuministro">
+                            <f:facet name="header">
+                                <h:outputText value="Insertar Suministro" />
+                            </f:facet>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Nombre: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="nombre" value="#{suministroBean.nombre}" 
+                                                 required="true" label="nombreSuministro" size="40"
+                                                 requiredMessage="Por favor ingrese el nombre">
+                                        <p:message for="nombre" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Foto: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:fileUpload id="foto" fileUploadListener="#{archivoBean.fileUploadListenerFoto}" mode="advanced" dragDropSupport="false"
+                                                  multiple="true" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="width:100%" 
+                                                  required="true" label="foto" 
+                                                  requiredMessage="Por favor ingrese la foto">
+                                        <p:message for="foto" />              
+                                    </p:fileUpload>
+                                    <p:growl id="messages" showDetail="true" />
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Cantidad en Bodega: ">
+                                        <p:message for="cantBodega" />              
+                                    </h:outputText>
+                                </p:column>
+                                <br/>
+                                <p:column>  
+                                    <p:inputText id="cantBodega" value="#{suministroBean.cantidad}" 
+                                                 required="true" label="cantidad" size="40"
+                                                 requiredMessage="Por favor ingrese la cantidad"
+                                                 validatorMessage="Formato Invalido Cantidad Bodega">
+                                        <f:validateDoubleRange minimum="0" />
+                                        <p:message for="cantBodega" />              
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Cantidad Minima: " />
+                                </p:column>
+                                <br/>
+                                <p:column>  
+                                    <p:inputText id="cantMin" value="#{suministroBean.cantidadMinima}" 
+                                                 required="true" label="cantidad" size="40"
+                                                 requiredMessage="Por favor ingrese la cantidad minima"
+                                                 validatorMessage="Formato Invalido Cantidad Minima">
+                                        <f:validateDoubleRange minimum="0"  />
+                                        <p:message for="cantMin" />              
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Medida: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="medida"
+                                                     required="true" label="medida" 
+                                                     requiredMessage="Por favor ingrese la medida"
+                                                     value="#{suministroBean.selectedMedida}"
+                                                     style="width:150px">
+                                        <f:selectItem itemLabel="Selecione medida" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="m"
+                                                       value="#{suministroBean.medidas}"
+                                                       itemValue="#{m.medidaProducto}"
+                                                       itemLabel="#{m.nombreMedida}" />
+
+                                        <p:message for="medida" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Precio unidad:" />
+                                </p:column>
+                                <br/>
+                                <p:column>  
+                                    <p:inputNumber id="precio" value="#{suministroBean.precioUnidad}" 
+                                                   decimalPlaces="0"
+                                                   required="true" label="pecio unidad" size="40"
+                                                   requiredMessage="Por favor ingrese el precio">
+                                        <p:message for="precio" />              
+                                    </p:inputNumber>
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Observaciones: " />
+                                </p:column>
+                                <br/>
+                                <p:column>  
+                                    <p:inputTextarea id="observacion"  value="#{suministroBean.observaciones}" required="true" label="observaciones" 
+                                                     requiredMessage="Por favor ingrese la observación">
+                                        <p:message for="observacion" />              
+                                    </p:inputTextarea>
+                                </p:column>
+                            </p:row>
+                            <br/>
+                            <br/>
+
+                            <p:pickList id="PojoPickList" value="#{suministroBean.proveedoresDual}" var="proveedor" effect="bounce"
+                                        itemValue="#{proveedor}" itemLabel="#{proveedor}" showSourceControls="true" showTargetControls="true" showCheckbox="true" responsive="true"
+                                        showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >
+
+                                <f:facet name="sourceCaption">Proveedores </f:facet>
+                                <f:facet name="targetCaption">proveedor para suministros</f:facet>
+
+                                <p:ajax event="transfer" listener="#{suministroBean.onTransfer}" update="msg" />
+                                <p:ajax event="select" listener="#{suministroBean.onSelect}" update="msg" />
+                                <p:ajax event="unselect" listener="#{suministroBean.onUnselect}" update="msg" />
+                                <p:ajax event="reorder" listener="#{suministroBean.onReorder}" update="msg" />
+
+                                <p:column style="width:10%">
+                                    <h:outputText styleClass="ui-theme ui-theme-#{proveedor}" />
+                                </p:column>
+
+                                <p:column style="width:90%;">
+                                    <h:outputText value="#{proveedor}" />
+                                </p:column>
+                            </p:pickList>
+
+                            <br/>
+                            <br/>
+
+                            <p:commandButton value="Guardar" 
+                                             actionListener="#{suministroBean.insertarSuministro}"
+                                             ajax="false"
+                                             update="growl"
+                                             icon="ui-icon-disk">
+                            </p:commandButton>
+                        </p:panel>            
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

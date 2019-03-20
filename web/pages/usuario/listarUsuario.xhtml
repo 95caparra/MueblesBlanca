@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarUsuario" rendered="true">
+            <p:panel header="Usuarios" >
+                <p:dataTable id="tableStateDT" var="usuario" 
+                             value="#{usuarioBean.usuarios}" widgetVar="usuarioTable" multiViewState="true"
+                             editable="true" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             selectionMode="single" selection="#{usuarioBean.selectedUsuario}" rowKey="#{usuario.idUsuario}"
+                             emptyMessage="No tiene usuarios" filteredValue="#{usuarioBean.usuariosFiltro}">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar en todos los registros:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('usuarioTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{usuarioBean.onRowEdit}" />
+                    <p:ajax event="rowEditCancel" listener="#{usuarioBean.onRowCancel}"  />
+
+                    <p:column headerText="Id usuario" filterBy="#{usuario.idUsuario}">
+                        <h:outputText value="#{usuario.idUsuario}" />                        
+                    </p:column>
+
+                    <p:column filterBy="#{usuario.empleadoVO.identificacionEmpleado}" headerText="Documento Empleado">                    
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{usuario.empleadoVO.identificacionEmpleado}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{usuarioBean.selectedEmpleado}" style="width:100%">
+                                    <f:selectItems value="#{usuarioBean.empleados}" var="empleado" itemLabel="#{empleado.nombre}" itemValue="#{empleado.identificacionEmpleado}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Nombre Usuario" filterBy="#{usuario.usuario}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{usuario.usuario}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{usuario.usuario}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Contrasena Usuario" filterBy="#{usuario.clave}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{usuario.clave}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{usuario.clave}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Estado Usuario" filterBy="#{usuario.estado}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{usuario.estado}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{usuario.estado}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+
+                </p:dataTable>
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:commandButton value="Agregar registro" styleClass="ui-priority-primary" process="@this" 
+                                         actionListener="#{usuarioBean.onAddNew}" oncomplete="PF('usuarioTable').addRow();"/>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

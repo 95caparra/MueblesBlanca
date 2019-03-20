@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Clientes</ui:define>
+
+    <ui:define name="viewname">Clientes</ui:define>
+
+    <ui:define name="content">
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <!-- Left Side -->
+                <div class="card">
+                    <h1>Clientes</h1>
+                    <h:form id="listarSolicitud" rendered="true">
+                        <p:panel header="Clientes" >
+                            <p:dataTable id="tableStateDT" var="cliente" value="#{clienteBean.personaNaturales}" widgetVar="clienteTable" multiViewState="true"
+                                         rows="10" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selectionMode="single" selection="#{clienteBean.selectedPersona}" rowKey="#{cliente.idPersonaNatural}"
+                                         emptyMessage="No tiene clientes" filteredValue="#{clienteBean.personasFiltro}">
+
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los registros:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('clienteTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:ajax event="rowSelect" listener="#{clienteBean.consultarPorId}" />
+
+                                <p:column headerText="Identificación" sortBy="#{cliente.identificacionPersonaNatural}" filterBy="#{cliente.identificacionPersonaNatural}">
+                                    <h:outputText value="#{cliente.identificacionPersonaNatural}" />
+                                </p:column>
+                                
+                                <p:column headerText="Primer Nombre" sortBy="#{cliente.primerNombrePersonaNatural}" filterBy="#{cliente.primerNombrePersonaNatural}">
+                                    <h:outputText value="#{cliente.primerNombrePersonaNatural}" />
+                                </p:column>
+                                <p:column headerText="Segundo Nombre" sortBy="#{cliente.segundoNombrePersonaNatural}" filterBy="#{cliente.segundoNombrePersonaNatural}">
+                                    <h:outputText value="#{cliente.segundoNombrePersonaNatural}" />
+                                </p:column>
+                                
+                                <p:column headerText="Primer Apellido" sortBy="#{cliente.primerApellidoPersonaNatural}" filterBy="#{cliente.primerApellidoPersonaNatural}">
+                                    <h:outputText value="#{cliente.primerApellidoPersonaNatural}" />
+                                </p:column>
+                                <p:column headerText="Segundo Apellido" sortBy="#{cliente.segundoApellidoPersonaNatural}" filterBy="#{cliente.segundoApellidoPersonaNatural}">
+                                    <h:outputText value="#{cliente.segundoApellidoPersonaNatural}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

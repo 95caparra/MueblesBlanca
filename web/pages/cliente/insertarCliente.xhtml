@@ -1,0 +1,288 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Data</ui:define>
+
+    <ui:define name="viewname">Data</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Ingresar Cliente</h1>
+                    <h:form enctype="multipart/form-data" id="insertarCliente">                         
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:growl id="msg" showDetail="true" escape="false" />
+                        <p:panel id="pnlInsertarCliente">
+                            <f:facet name="header">
+                                <h:outputText value="Insertar Cliente" />
+                            </f:facet>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Identificación: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="identificacion" value="#{clienteBean.identificacionPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese la identificación">
+                                        <p:message for="identificacion" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Tipo de documento: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="tipoDocumento"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione el tipo de documento"
+                                                     value="#{clienteBean.selectedTipoDocumentoPersonaNatural}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione tipo de documento" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="t"
+                                                       value="#{clienteBean.tiposDocumento}"
+                                                       itemValue="#{t.idTipoDocumento}"
+                                                       itemLabel="#{t.descripcionTipoDocumento}" />
+                                        <p:message for="tipoDocumento" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Primer Nombre: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="primerNombre" value="#{clienteBean.primerNombrePersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el primer nombre">
+                                        <p:message for="primerNombre" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Segundo Nombre: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="segundoNombre" value="#{clienteBean.segundoNombrePersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el segundo nombre">
+                                        <p:message for="segundoNombre" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Primer Apellido: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="primerApellido" value="#{clienteBean.primerApellidoPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el primer apellido">
+                                        <p:message for="primerApellido" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Segundo Apellido: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="segundoApellido" value="#{clienteBean.segundoApellidoPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el segundo apellido">
+                                        <p:message for="segundoApellido" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Telefono: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="telefono" value="#{clienteBean.telefonoPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el telefono">
+                                        <p:message for="telefono" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Celular: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="celular" value="#{clienteBean.celularPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el celular">
+                                        <p:message for="celular" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Dirección: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="direccion" value="#{clienteBean.direccionPersonaNatural}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el dirección">
+                                        <p:message for="direccion" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Ciudad: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="ciudad"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione la ciudad"
+                                                     value="#{clienteBean.selectedCiudadPersonaNatural}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione ciudad" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="c"
+                                                       value="#{clienteBean.ciudades}"
+                                                       itemValue="#{c.idCiudad}"
+                                                       itemLabel="#{c.descripcionCiudad}" />
+                                        <p:message for="ciudad" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Rol: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="rol"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione la ciudad"
+                                                     value="#{clienteBean.selectedRolPersonaNatural}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione ciudad" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="r"
+                                                       value="#{clienteBean.roles}"
+                                                       itemValue="#{r.idRol}"
+                                                       itemLabel="#{r.descripcionRol}" />
+                                        <p:message for="rol" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+                            
+                            <br/>
+                            <br/>
+
+
+                            <p:commandButton value="Guardar" 
+                                             actionListener="#{clienteBean.insertar}"
+                                             ajax="false"
+                                             update="growl"
+                                             icon="ui-icon-disk">
+                            </p:commandButton>
+                        </p:panel>            
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

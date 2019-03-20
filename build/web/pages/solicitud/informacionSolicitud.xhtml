@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="informacionSolicitud">
+            <p:panel id="pnlInformacionSolicitud">
+                <f:facet name="header">
+                    <h:outputText value="Informacion Solicitud" />
+                </f:facet>
+                <p:graphicImage library="imagenesProductos" name="${solicitudBean.nombreFoto}"
+                                style="width:100%"/>
+                
+                <h:outputText value="Id Solicitud: " />
+                <h:outputText value="${solicitudBean.idSolicitud}" />
+                <br/>
+                <br/>
+                <h:outputText value="Nombre Paquete: " />
+                <h:outputText value="${solicitudBean.nombrePaquete}" />
+                <br/>
+                <br/>
+                <h:outputText value="Tipo de evento: " />
+                <h:outputText value="${solicitudBean.nombreTipoEvento}" />
+                <br/>
+                <br/>
+                <h:outputText value="Precio Paquete: " />
+                <h:outputText value="${solicitudBean.precioPaquete}" />
+                <br/>
+                <br/>
+                <h:outputText value="Cantidad personas Paquete: " />
+                <h:outputText value="${solicitudBean.cantidadPersonasPaquete}" />
+                <br/>
+                <br/>
+                <h:outputText value="Cantidad personas Solicitud: " />
+                <h:outputText value="${solicitudBean.cantidadPersonasSolicitud}" />
+                <br/>
+                <br/>
+                <h:outputText value="Nombre cliente: " />
+                <h:outputText value="${solicitudBean.nombreCliente}" />
+                <br/>
+                <br/>
+                <h:outputText value="Telefono cliente: " />
+                <h:outputText value="${solicitudBean.telefonoCliente}" />
+                <br/>
+                <br/>
+                <h:outputText value="Correo cliente: " />
+                <h:outputText value="${solicitudBean.email}" />
+                <br/>
+                <br/>
+                <h:outputText value="Fecha: " />
+                <h:outputText value="${solicitudBean.fecha}" />
+                <br/>
+                <br/>
+                <h:outputText value="Observaciones: " />
+                <h:outputText value="${solicitudBean.observaciones}" />
+                <br/>
+                <br/>
+                <!--<p:commandButton value="Generar PDF" action="#{solicitudBean.generarPDF}" />-->
+                <p:commandButton value="Crear evento" 
+                                 action="#{eventoBean.formularioDatos}"
+                                 onclick="PF('statusDialog').show(); PF('dlgEvento').show();"
+                                 oncomplete="PF('statusDialog').hide();" 
+                                 icon="fa fa-send" />
+
+            </p:panel>
+        </h:form>
+        </div> 
+        </p:panel>
+        </h:form>
+    </body>
+</html>

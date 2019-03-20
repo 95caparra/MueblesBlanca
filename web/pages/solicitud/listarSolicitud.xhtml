@@ -1,0 +1,505 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Solicitudes</ui:define>
+
+    <ui:define name="viewname">Solicitudes</ui:define>
+
+    <ui:define name="content">
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <!-- Left Side -->
+                <div class="card">
+                    <h1>Solicitudes</h1>
+                    <h:form id="listarSolicitud" rendered="true">
+                        <p:panel header="Solicitudes" >
+                            <p:dataTable id="tableStateDT" var="solicitud" value="#{solicitudBean.solicitudes}" widgetVar="solicitudTable" multiViewState="true"
+                                         rows="10" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selectionMode="single" selection="#{solicitudBean.selectedSolicitud}" rowKey="#{solicitud.idSolicitud}"
+                                         emptyMessage="No tiene solicitudes" filteredValue="#{solicitudBean.solicitudesFiltro}">
+
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los registros:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('solicitudTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:ajax event="rowSelect" update="pnlInformacionSolicitud,insertarEvento" listener="#{solicitudBean.consultarPorId}" />
+
+                                <p:column headerText="Nombre Cliente" sortBy="#{solicitud.nombreCliente}" filterBy="#{solicitud.nombreCliente}">
+                                    <h:outputText value="#{solicitud.nombreCliente}" />
+                                </p:column>
+                                <p:column headerText="Telefono" sortBy="#{solicitud.telefono}" filterBy="#{solicitud.telefono}">
+                                    <h:outputText value="#{solicitud.telefono}" />
+                                </p:column>
+                                <p:column headerText="Email" sortBy="#{solicitud.email}" filterBy="#{solicitud.email}">
+                                    <h:outputText value="#{solicitud.email}" />
+                                </p:column>     
+                                <p:column headerText="Observaciones" sortBy="#{solicitud.observaciones}" filterBy="#{solicitud.observaciones}">
+                                    <h:outputText value="#{solicitud.observaciones}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <!-- Left colum -->
+                        <div class="card">
+                            <!-- Right Side -->
+                            <h1>Detalle</h1>
+                            <p:panel id="pnlInformacionSolicitud">
+                                <c:if test="#{opcionBean.opcionInfoSolicitud == 1 }">
+                                    <h:form id="informacionSolicitud">
+                                        <f:facet name="header">
+                                            <h:outputText value="Informacion Solicitud" />
+                                        </f:facet>
+                                        <p:graphicImage library="imagenesProductos" name="${solicitudBean.nombreFoto}"
+                                                        style="width:100%"/>
+
+                                        <p:outputLabel for="id" value="Id Solicitud:" />
+                                        <h:outputText id="id" value="${solicitudBean.idSolicitud}" />
+
+                                        <p:outputLabel for="nombrePaquete" value="Nombre Paquete" />
+                                        <h:outputText id="nombrePaquete" value="${solicitudBean.nombrePaquete}" />
+
+                                        <h:outputText value="Tipo de evento: " />
+                                        <h:outputText value="${solicitudBean.nombreTipoEvento}" />
+
+
+                                        <h:outputText value="Precio Paquete: " />
+                                        <h:outputText value="${solicitudBean.precioPaquete}" />
+
+
+                                        <h:outputText value="Cantidad personas Paquete: " />
+                                        <h:outputText value="${solicitudBean.cantidadPersonasPaquete}" />
+
+
+                                        <h:outputText value="Cantidad personas Solicitud: " />
+                                        <h:outputText value="${solicitudBean.cantidadPersonasSolicitud}" />
+
+
+                                        <h:outputText value="Nombre cliente: " />
+                                        <h:outputText value="${solicitudBean.nombreCliente}" />
+
+
+                                        <h:outputText value="Telefono cliente: " />
+                                        <h:outputText value="${solicitudBean.telefonoCliente}" />
+
+
+                                        <h:outputText value="Correo cliente: " />
+                                        <h:outputText value="${solicitudBean.email}" />
+
+
+                                        <h:outputText value="Fecha: " />
+                                        <h:outputText value="${solicitudBean.fecha}" />
+
+
+                                        <h:outputText value="Observaciones: " />
+                                        <h:outputText value="${solicitudBean.observaciones}" />
+
+
+<!--<p:commandButton value="Generar PDF" action="#{solicitudBean.generarPDF}" />-->
+                                        <p:commandButton value="Crear evento" 
+                                                         action="#{eventoBean.formularioDatos}"
+                                                         onclick="PF('statusDialog').show(); PF('dlgEvento').show();"
+                                                         oncomplete="PF('statusDialog').hide();" 
+                                                         icon="fa fa-send" />
+                                    </h:form>
+                                </c:if>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <!-- Left colum -->
+                        <div class="card">
+                            <!-- Right Side -->
+                            <h1>Realizar Evento</h1>
+
+                            <p:panel id="insertarEvento">
+                                <c:if test="#{opcionBean.opcionInfoSolicitud == 1 }">
+                                    <h:form id="insertarEvento">
+                                        <p:growl id="msg" showDetail="true" escape="false" />
+
+                                        <f:facet name="header">
+                                            <h:outputText value="Realizar Evento" />                    
+                                        </f:facet>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Id Solicitud: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <h:outputText value="#{solicitudBean.idSolicitud}" />
+                                            </p:column>
+                                        </p:row>
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Clasificacion: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:selectOneMenu
+                                                    value="#{eventoBean.selectedClasificacion}"
+                                                    style="width:150px">
+                                                    <f:selectItem itemLabel="Seleccione la clasificacion"/>
+                                                    <f:selectItems var="c"
+                                                                   value="#{eventoBean.clasificaciones}"
+                                                                   itemValue="#{c.idClasificacion}"
+                                                                   itemLabel="#{c.nombre}" />
+                                                </p:selectOneMenu>     
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Lugar: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:selectOneMenu
+                                                    value="#{eventoBean.selectedLugar}"
+                                                    style="width:150px">
+                                                    <f:selectItem itemLabel="Selecione el lugar" itemValue=""
+                                                                  noSelectionOption="true" />
+                                                    <f:selectItems var="l"
+                                                                   value="#{eventoBean.lugares}"
+                                                                   itemValue="#{l.idLugar}"
+                                                                   itemLabel="#{l.nombre}" />
+                                                </p:selectOneMenu>     
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Cantidad Personas: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{solicitudBean.cantidadPersonasSolicitud}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Cantidad Meseros: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{eventoBean.cantidadMeseros}"/>
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Hora Inicio: " />
+                                            </p:column>
+                                            <br/>                    
+                                            <p:column> 
+                                                <p:calendar value="#{eventoBean.horaInicioEvento}" pattern="HH:mm" timeOnly="true"  />
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Hora Fin: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:calendar value="#{eventoBean.horaFinEvento}" pattern="HH:mm" timeOnly="true"  />
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Fecha Evento: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:calendar value="#{solicitudBean.fecha}" />
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Precio Evento: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputNumber value="#{solicitudBean.precioPaquete}" decimalPlaces="0" />
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Observaciones " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputTextarea value="#{solicitudBean.observaciones}" 
+                                                                 style="width:400px" cols="30" maxlength="800"/>
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Identificacion cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{eventoBean.idCliente}" />
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Tipo de Documento: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:selectOneMenu
+                                                    value="#{eventoBean.selectedTiposDocumento}"
+                                                    style="width:150px">
+                                                    <f:selectItem itemLabel="Selecione el tipo de documento" itemValue=""
+                                                                  noSelectionOption="true" />
+                                                    <f:selectItems var="c"
+                                                                   value="#{clienteBean.tiposDocumentos}"
+                                                                   itemValue="#{c.idTipoDocumento}"
+                                                                   itemLabel="#{c.nombreDocumento}" />
+                                                </p:selectOneMenu>     
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Nombre Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{solicitudBean.nombreCliente}" />
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Apellido Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{eventoBean.apellidoCLiente}" />
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Telefono Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{solicitudBean.telefono}" />
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Celular Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{eventoBean.celularCliente}"/>
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Direccion Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{eventoBean.direccionCliente}"/>
+                                            </p:column>              
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Ciudad: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:selectOneMenu
+                                                    value="#{eventoBean.selectedCiudad}"
+                                                    style="width:150px">
+                                                    <f:selectItem itemLabel="Selecione la ciudad" itemValue=""
+                                                                  noSelectionOption="true" />
+                                                    <f:selectItems var="c"
+                                                                   value="#{clienteBean.ciudades}"
+                                                                   itemValue="#{c.idCiudad}"
+                                                                   itemLabel="#{c.nombreCiudad}" />
+                                                </p:selectOneMenu>     
+                                            </p:column>
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:row>
+                                            <p:column>
+                                                <h:outputText value="Correo Cliente: " />
+                                            </p:column>
+                                            <br/>
+                                            <p:column>
+                                                <p:inputText value="#{solicitudBean.email}"/>
+                                            </p:column>                
+                                        </p:row>
+
+                                        <br/>
+                                        <br/>
+
+                                        <p:pickList id="PojoPickList" value="#{eventoBean.empleadosDual}" var="empleado" effect="bounce"
+                                                    itemValue="#{empleado}" itemLabel="#{empleado}" showSourceControls="true" showTargetControls="true" showCheckbox="true" responsive="true"
+                                                    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" >
+
+                                            <f:facet name="sourceCaption">Empleados </f:facet>
+                                            <f:facet name="targetCaption">Empleados para evento</f:facet>
+
+                                            <p:ajax event="transfer" listener="#{eventoBean.onTransfer}" update="msg" />
+                                            <p:ajax event="select" listener="#{eventoBean.onSelect}" update="msg" />
+                                            <p:ajax event="unselect" listener="#{eventoBean.onUnselect}" update="msg" />
+                                            <p:ajax event="reorder" listener="#{eventoBean.onReorder}" update="msg" />
+
+                                            <p:column style="width:10%">
+                                                <h:outputText styleClass="ui-theme ui-theme-#{empleado}" />
+                                            </p:column>
+
+                                            <p:column style="width:90%;">
+                                                <h:outputText value="#{empleado}" />
+                                            </p:column>
+                                        </p:pickList>
+
+                                        <br/>
+                                        <br/>
+
+
+                                        <p:commandButton value="Hacer Evento "  
+                                                         onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                                         action="#{eventoBean.insertarEvento}"
+                                                         icon="fa fa-send">
+                                        </p:commandButton>
+
+                                    </h:form>
+                                </c:if>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

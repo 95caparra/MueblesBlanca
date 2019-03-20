@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Data</ui:define>
+
+    <ui:define name="viewname">Data</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Productos</h1>
+                    <h:form id="listarEmpleado" rendered="true">
+                        <p:panel header="Productos" >
+                            <p:carousel value="#{productoBean.productos}" headerText="Responsive" var="producto" itemStyle="text-align:center" responsive="true">
+                                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                                    <f:facet name="header">
+                                        <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
+                                                        style="width:280px"/>
+                                    </f:facet>
+
+                                    <p:commandButton icon="fa fa-search" actionListener="#{productoBean.verInformacionProducto(producto.idProducto)}" />
+
+                                    <br/>
+
+                                    <h:outputText value="Nombre: " />
+                                    <h:outputText value="#{producto.nombre}" />
+
+                                    <h:outputText value="Tipo Producto: " />
+                                    <h:outputText value="#{producto.tipoProductoVO.nombre}" />
+
+                                    <h:outputText value="Cantidad: " />
+                                    <h:outputText value="#{producto.cantidad}" />
+
+                                    <h:outputText value="Medida: " />
+                                    <h:outputText value="#{producto.medidaProductoVO.nombreMedida}" />
+
+                                    <h:outputText value="Precio unidad: " />
+                                    <h:outputText value="#{producto.precioUnidad}" />
+
+                                    <h:outputText value="Observaciones: " />
+                                    <h:outputText value="#{producto.observaciones}" />
+                                </p:panelGrid>
+
+                            </p:carousel>
+
+
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

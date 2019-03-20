@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://www.dneonline.com/calculator.asmx?wsdl" uri="wsdl/www.dneonline.com/calculator.asmx.wsdl"/>
+    <system systemId="http://localhost:55687/ServiceCRUD.svc?wsdl" uri="wsdl/localhost_55687/ServiceCRUD.svc.wsdl"/>
+    <system systemId="http://localhost:55687/ServiceCRUD.svc?xsd=xsd0" uri="wsdl/localhost_55687/ServiceCRUD.svc.xsd_xsd0.xsd"/>
+    <system systemId="http://localhost:55687/ServiceCRUD.svc?xsd=xsd1" uri="wsdl/localhost_55687/ServiceCRUD.svc.xsd_xsd1.xsd"/>
+    <system systemId="http://localhost:55687/ServiceCRUD.svc?xsd=xsd2" uri="wsdl/localhost_55687/ServiceCRUD.svc.xsd_xsd2.xsd"/>
+</catalog>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarProveedor" rendered="true">
+            <p:panel header="Proveedores" >
+            <p:dataTable id="tableStateDT" var="proveedor" 
+                         value="#{proveedorBean.proveedores}" widgetVar="proveedorTable" multiViewState="true"
+                         editable="true" 
+                         rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         selectionMode="single" selection="#{proveedorBean.selectedProveedor}" rowKey="#{proveedor.idProveedor}"
+                         emptyMessage="No tiene proveedors" filteredValue="#{proveedorBean.proveedoresFiltro}">
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Buscar en todos los registros:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('proveedorTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{proveedorBean.onRowEdit}" />
+                <p:ajax event="rowEditCancel" listener="#{proveedorBean.onRowCancel}"  />
+
+                <p:column headerText="Id proveedor" filterBy="#{proveedor.idProveedor}">
+                    <h:outputText value="#{proveedor.idProveedor}" />
+                </p:column>
+
+                <p:column headerText="Razon Social Proveedor" filterBy="#{proveedor.razonSocial}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{proveedor.razonSocial}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{proveedor.razonSocial}" /></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+
+                <p:column headerText="Direccion Proveedor" filterBy="#{proveedor.direccion}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{proveedor.direccion}" /></f:facet>
+                        <f:facet name="input" ><p:inputText  value="#{proveedor.direccion}"  /></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column headerText="Telefono Proveedor" filterBy="#{proveedor.telefono}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{proveedor.telefono}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{proveedor.telefono}" /></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column headerText="Correo Proveedor" filterBy="#{proveedor.correo}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{proveedor.correo}" /></f:facet>
+                        <f:facet name="input" ><p:inputText  value="#{proveedor.correo}"  /></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column headerText="Estado Proveedor" filterBy="#{proveedor.estado}">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{proveedor.estado}" /></f:facet>
+                        <f:facet name="input" ><p:inputText  value="#{proveedor.estado}"  /></f:facet>
+                    </p:cellEditor>                    
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+
+            </p:dataTable>
+                
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <p:commandButton value="Agregar registro" styleClass="ui-priority-primary" process="@this" 
+                                     actionListener="#{proveedorBean.onAddNew}" oncomplete="PF('proveedorTable').addRow();"/>
+                </div>
+            </div>
+                </p:panel>
+        </h:form>
+    </body>
+</html>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="insertarDatosClientePaquete">
+            <p:panel id="insertarDatosClientePaquete">
+                <f:facet name="header">
+                    <h:outputText value="Enviar Solicitud" />
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Nombre Cliente: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputText value="#{solicitudBean.nombreCliente}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Cantidad personas: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputNumber value="#{solicitudBean.cantidadPersonas}"  decimalPlaces="0"/>
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Telefono: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputText value="#{solicitudBean.telefono}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Email: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                       <p:inputText value="#{solicitudBean.email}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Hora: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:calendar value="#{solicitudBean.hora}" pattern="HH:mm" timeOnly="true"  />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Fecha: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:calendar value="#{solicitudBean.fecha}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                 <p:row>
+                    <p:column>
+                        <h:outputText value="Observaciones " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputTextarea value="#{solicitudBean.observaciones}" 
+                         style="width:400px" cols="30" maxlength="800"/>
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:commandButton value="Eniviar solicitud " 
+                                 onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                 action="#{solicitudBean.insertarSolicitud}"
+                                 icon="fa fa-send">
+                </p:commandButton>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

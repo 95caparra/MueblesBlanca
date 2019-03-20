@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="informacionEvento">
+            <p:panel id="pnlInformacionEvento">
+                <f:facet name="header">
+                    <h:outputText value="Informacion Evento" />
+                </f:facet>
+
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-10 ui-g-nopad">
+                        <div class="ui-g-12 ui-g-nopad">
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-md-4">           
+                                    <h:outputText value="Foto paquete: " />
+                                    <p:graphicImage library="imagenesProductos" name="#{eventoBean.nombreFoto}"
+                                                    style="width:280px"/>
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Id Evento: " />
+                                    <h:outputText value="${eventoBean.idEvento}" /> 
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Nombre Cliente: " />
+                                    <h:outputText value="${eventoBean.nombreCliente}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Identificacion Cliente: " />
+                                    <h:outputText value="${eventoBean.identificacionCliente}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Tipo de evento: " />
+                                    <h:outputText value="${eventoBean.tipoEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Lugar de evento: " />
+                                    <h:outputText value="${eventoBean.lugarEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Cantidad personas Evento: " />
+                                    <h:outputText value="${eventoBean.cantidadPersonasEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Cantidad meseros Evento: " />
+                                    <h:outputText value="${eventoBean.cantidadMeserosEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Hora inicio de evento: " />
+                                    <h:outputText value="${eventoBean.horaInicioEventoDetalle}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Hora fin de evento: " />
+                                    <h:outputText value="${eventoBean.horaFinEventoDetalle}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Fecha de evento: " />
+                                    <h:outputText value="${eventoBean.fechaEventoDetalle}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Precio de evento: " />
+                                    <h:outputText value="${eventoBean.precioEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Observaciones de evento: " />
+                                    <h:outputText value="${eventoBean.observacionesEvento}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputText value="Estado de evento: " />
+                                    <h:outputText value="${eventoBean.estadoEvento}" />
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputText value="Nombre paquete: " />
+                                    <h:outputText value="${eventoBean.nombre}" />
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputText value="Descripcion paquete: " />
+                                    <h:outputText value="${eventoBean.descripcion}" />
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputText value="Cantidad de personas paquete: " />
+                                    <h:outputText value="${eventoBean.cantidadPersonas}" />
+                                    <br/>
+                                    <br/>
+
+                                    <h:outputText value="Precio paquete: " />
+                                    <h:outputText value="${eventoBean.precio}" />
+                                    <br/>
+                                    <br/>
+
+
+                                </div>
+                                <div class="ui-g-12 ui-md-4"> 
+                                    <p:dataScroller value="#{eventoBean.productos}" var="producto" >  
+                                        <f:facet name="header">
+                                           Productos
+                                        </f:facet>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
+                                                                style="width:100px"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:dataScroller>
+                                </div>
+                                
+                                <div class="ui-g-12 ui-md-4"> 
+                                    <p:dataScroller value="#{eventoBean.empleadosDetalle}" var="empleado" >  
+                                        <f:facet name="header">
+                                           Empleados
+                                        </f:facet>
+                                        <p:row>
+                                            <p:column colspan="3">
+                                                <h:outputText value="#{empleado.nombre}" />
+                                            </p:column>
+                                        </p:row>
+                                    </p:dataScroller>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            </p:panel>
+        </h:form>
+    </body>
+</html>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+     <h:head>
+        <link rel="stylesheet" type="text/css" href="../../resources/css/estilos.css"></link>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    
+    <body>        
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+        <h:form enctype="multipart/form-data" id="insertarPaquete">
+            <p:panel id="pnlInsertarPaquete">
+                <f:facet name="header">
+                    <h:outputText value="Insertar Paquete" />
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Nombre: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputText value="#{paqueteBean.nombre}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Clasificacion: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:selectOneMenu
+                            value="#{paqueteBean.selectedClasificacion}"
+                            style="width:150px">
+                            <f:selectItem itemLabel="Selecione clasificacion" itemValue=""
+                                          noSelectionOption="true" />
+                            <f:selectItems var="c"
+                                           value="#{paqueteBean.clasificaciones}"
+                                           itemValue="#{c.idClasificacion}"
+                                           itemLabel="#{c.nombre}" />
+                        </p:selectOneMenu>     
+                    </p:column>
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Descripcion: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputText value="#{paqueteBean.descripcion}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Lugar: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:selectOneMenu
+                            value="#{paqueteBean.selectedLugar}"
+                            style="width:150px">
+                            <f:selectItem itemLabel="Selecione el lugar" itemValue=""
+                                          noSelectionOption="true" />
+                            <f:selectItems var="l"
+                                           value="#{paqueteBean.lugares}"
+                                           itemValue="#{l.idLugar}"
+                                           itemLabel="#{l.nombre}" />
+                        </p:selectOneMenu>     
+                    </p:column>
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Cantidad personas: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputNumber value="#{paqueteBean.cantidadPersonas}" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Precio: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:inputNumber value="#{paqueteBean.precio}" 
+                                       decimalPlaces="0"/>
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="PDF: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:fileUpload value="#{paqueteBean.pdf}"
+                                      auto="true"
+                                      mode="advanced"
+                                      fileUploadListener="#{archivoBean.fileUploadListenerPdf}"
+                                      skinSimple="true" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Foto: " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:fileUpload value="#{paqueteBean.foto}"
+                                      auto="true"
+                                      mode="advanced"
+                                      fileUploadListener="#{archivoBean.fileUploadListenerFoto}"
+                                      skinSimple="true" />
+                    </p:column>                
+                </p:row>
+
+                <br/>
+                <br/>
+
+                 <div id="infoIzquierdo">
+                    <p:fieldset id="availableProductosField" legend="Productos" >
+                        <p:dataGrid paginator="true"  rows="4" id="availableProductos" var="producto" value="#{paqueteBean.productos}" columns="2">
+                            <p:panel id="pnl" header="#{producto.nombre}" style="text-align:center">
+                                <h:panelGrid columns="1" style="width:50%">
+                                    <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
+                                                    style="width:100px"/>
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+                        </p:dataGrid>
+                    </p:fieldset>
+                </div>
+
+                <div id="infoDerecho" style="overflow-y: scroll;" >
+                    <p:fieldset id="selectedProductos" legend="Selected" style="margin-top:20px">
+                        <p:outputPanel id="dropArea">
+                            <h:outputText value="!!!Arrastre aqui!!!" rendered="#{empty paqueteBean.droppedProductos}" style="font-size:24px;" />
+                            <p:dataTable id="selectedProductosTable" var="producto" value="#{paqueteBean.droppedProductos}" rendered="#{not empty paqueteBean.droppedProductos}">
+
+                                <p:column headerText="Foto">
+                                    <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
+                                                    style="width:100px"/>
+                                </p:column>                            
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{producto.idProducto}" />
+                                </p:column>
+                                <p:column headerText="Nombre Producto">
+                                    <h:outputText value="#{producto.nombre}" />
+                                </p:column>
+                                <p:column headerText="Precio Unidad">
+                                    <h:outputText value="#{producto.precioUnidad}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </p:fieldset>
+                </div>  
+
+                <p:droppable for="selectedProductos" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableProductos" onDrop="handleDrop">
+                    <p:ajax listener="#{paqueteBean.onDrop}" update="dropArea availableProductos" />
+                </p:droppable>
+
+                <br/>
+
+                <p:commandButton value="Guardar" 
+                                 action="#{paqueteBean.insertarPaquete}"
+                                 icon="ui-icon-disk">
+                </p:commandButton>
+                
+                <p:commandButton value="Cotizar paquete" 
+                                 action="#{solicitudBean.formularioDatos}"
+                                 onclick="PF('dlgCliente').show();"
+                                 icon="fa fa-send" />
+            </p:panel>
+        </h:form>
+    </body>
+</html>

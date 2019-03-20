@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarLugares" rendered="true">
+            <p:panel header="Lugares" >
+                <p:dataTable id="tableStateDT" var="lugar" 
+                             value="#{lugarBean.lugares}" widgetVar="lugarTable" multiViewState="true"
+                             editable="true" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             selectionMode="single" selection="#{lugarBean.selectedLugar}" rowKey="#{lugar.idLugar}"
+                             emptyMessage="No tiene lugars" filteredValue="#{lugarBean.lugaresFiltro}">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Buscar en todos los registros:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('lugarTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{lugarBean.onRowEdit}" />
+                    <p:ajax event="rowEditCancel" listener="#{lugarBean.onRowCancel}"  />
+
+                    <p:column headerText="Id Lugar" filterBy="#{lugar.idLugar}">
+                        <h:outputText value="#{lugar.idLugar}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre Lugar" filterBy="#{lugar.nombre}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.nombre}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.nombre}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>               
+
+                    <p:column headerText="Descripcion Lugar" filterBy="#{lugar.descripcion}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.descripcion}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.descripcion}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>   
+
+                    <p:column headerText="Cantidad Personas Max Lugar" filterBy="#{lugar.cantidadMaxPersonas}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.cantidadMaxPersonas}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.cantidadMaxPersonas}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Direccion Lugar" filterBy="#{lugar.direccion}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.direccion}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.direccion}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Ubicacion Lugar" filterBy="#{lugar.ubicacion}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.ubicacion}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.ubicacion}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Nombre Contacto Lugar" filterBy="#{lugar.contacto}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.contacto}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.contacto}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column headerText="Telefono Contacto Lugar" filterBy="#{lugar.telefonoContacto}">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.telefonoContacto}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{lugar.telefonoContacto}" /></f:facet>
+                        </p:cellEditor>                    
+                    </p:column>
+
+                    <p:column filterBy="#{lugar.ciudadVO.nombreCiudad}" headerText="Ciudad del Lugar">                    
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{lugar.ciudadVO.nombreCiudad}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{lugarBean.selectedIdCiudad}" style="width:100%">
+                                    <f:selectItems value="#{lugarBean.ciudades}" var="ciudad" itemLabel="#{ciudad.nombreCiudad}" itemValue="#{ciudad.idCiudad}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:32px">
+                        <p:rowEditor />
+                    </p:column>
+
+                </p:dataTable>
+
+
+                <div class="ui-g">
+                    <div class="ui-g-12">
+                        <p:commandButton value="Agregar registro" styleClass="ui-priority-primary" process="@this" 
+                                         actionListener="#{lugarBean.onAddNew}" oncomplete="PF('lugarTable').addRow();"/>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+    </body>
+</html>

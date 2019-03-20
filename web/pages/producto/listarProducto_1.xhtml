@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <h:form id="listarProducto">
+            <p:panel id="pnlListarProducto">
+                <f:facet name="header">
+                    <h:outputText value="Listar Producto" />
+                </f:facet>
+
+                <p:carousel value="#{productoBean.productos}" headerText="Responsive" var="producto" itemStyle="text-align:center" responsive="true">
+                    <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+                        <f:facet name="header">
+                            <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
+                                            style="width:280px"/>
+                        </f:facet>
+
+                        <p:commandButton icon="fa fa-search" actionListener="#{productoBean.verInformacionProducto(producto.idProducto)}" />
+
+                        <br/>
+
+                        <h:outputText value="Nombre: " />
+                        <h:outputText value="#{producto.nombre}" />
+
+                        <h:outputText value="Tipo Producto: " />
+                        <h:outputText value="#{producto.tipoProductoVO.nombre}" />
+
+                        <h:outputText value="Cantidad: " />
+                        <h:outputText value="#{producto.cantidad}" />
+
+                        <h:outputText value="Medida: " />
+                        <h:outputText value="#{producto.medidaProductoVO.nombreMedida}" />
+
+                        <h:outputText value="Precio unidad: " />
+                        <h:outputText value="#{producto.precioUnidad}" />
+
+                        <h:outputText value="Observaciones: " />
+                        <h:outputText value="#{producto.observaciones}" />
+                    </p:panelGrid>
+
+                </p:carousel>
+
+
+            </p:panel>
+        </h:form>
+    </body>
+</html>

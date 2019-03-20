@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <link rel="stylesheet" type="text/css"
+              href="../../resources/css/style.css"></link>
+        <title>Proyecto</title>
+    </h:head>
+    <h:body>
+        <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        template="../../resources/templates/templateGestion.xhtml">
+
+            <ui:define name="content">
+                <p:panel id="pnlContenido">
+
+                    <c:if test="#{opcionBean.opcionSolicitudes == 1 }">
+                        <ui:include src="../solicitud/listarSolicitud.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionSuministro == 1 }">
+                        <ui:include src="../suministro/insertarSuministro.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionPaquete == 1 }">
+                        <ui:include src="../paquete/insertarPaquete.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionProducto == 1 }">
+                        <ui:include src="../producto/insertarProducto.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerProducto == 1 }">
+                        <ui:include src="../producto/listarProducto.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerPaquete == 1 }">
+                        <ui:include src="../paquete/listarPaquete.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerSuministro == 1 }">
+                        <ui:include src="../suministro/listarSuministro.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerEvento == 1 }">
+                        <ui:include src="../evento/listarEvento.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionEvento == 1 }">
+                        <ui:include src="../evento/informacionEvento.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerCliente == 1 }">
+                        <ui:include src="../cliente/listarCliente.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerEmpleado == 1 }">
+                        <ui:include src="../empleado/listarEmpleado.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerProveedor == 1 }">
+                        <ui:include src="../proveedor/listarProveedor.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionVerUsuario == 1 }">
+                        <ui:include src="../usuario/listarUsuario.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionEventoPorMes == 1 }">
+                        <ui:include src="../evento/graficaEventosMeses.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionEventoPorEstado == 1 }">
+                        <ui:include src="../evento/graficaEventosEstado.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerCiudades == 1 }">
+                        <ui:include src="../parametria/listarCiudades.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerClasificaciones == 1 }">
+                        <ui:include src="../parametria/listarClasificacion.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerEstadosEventos == 1 }">
+                        <ui:include src="../parametria/listarEstadosEventos.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerLugares == 1 }">
+                        <ui:include src="../parametria/listarLugares.xhtml" />
+                    </c:if>  
+                    
+                    <c:if test="#{opcionBean.opcionVerMedidas == 1 }">
+                        <ui:include src="../parametria/listarMedidaProducto.xhtml" />
+                    </c:if>  
+                    
+                    <c:if test="#{opcionBean.opcionVerRoles == 1 }">
+                        <ui:include src="../parametria/listarRol.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerTiposDocumento == 1 }">
+                        <ui:include src="../parametria/listarTipoDocumento.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerTiposEvento == 1 }">
+                        <ui:include src="../parametria/listarTipoEvento.xhtml" />
+                    </c:if>
+                    
+                    <c:if test="#{opcionBean.opcionVerTiposProducto == 1 }">
+                        <ui:include src="../parametria/listarTipoProducto.xhtml" />
+                    </c:if>
+                    
+                    
+
+                </p:panel>
+                
+                
+                <p:panel id="pnlDetalles">
+                    <c:if test="#{opcionBean.opcionInfoSolicitud == 1 }">
+                        <ui:include src="../solicitud/informacionSolicitud.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionInfoSuministro == 1 }">
+                        <ui:include src="../suministro/informacionSuministro.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionInfoProducto == 1 }">
+                        <ui:include src="../producto/informacionProducto.xhtml" />
+                    </c:if>
+
+                    <c:if test="#{opcionBean.opcionInfoPaquete == 1 }">
+                        <ui:include src="../paquete/informacionPaquete.xhtml" />
+                    </c:if>      
+                    
+                    <c:if test="#{opcionBean.opcionDetalleEvento == 1 }">
+                        <ui:include src="../evento/detalleEvento.xhtml" />
+                    </c:if>       
+                </p:panel>
+
+                <p:dialog header="Evento" widgetVar="dlgEvento" dynamic="true" 
+                          height="550" width="758"  responsive="true" >                    
+                    <p:panel id="pnlDatosEvento">     
+                        <ui:include src="../evento/insertarEvento.xhtml" />
+                    </p:panel>
+                </p:dialog>
+
+                <p:dialog header="Adicionar Cliente" widgetVar="dlgCliente" dynamic="true" 
+                          height="550" width="758"  responsive="true" >                    
+                    <p:panel id="pnlAdicionarCliente">     
+                        <ui:include src="../cliente/insertarCliente.xhtml" />
+                    </p:panel>
+                </p:dialog>
+
+            </ui:define>
+
+            <ui:define name="left">
+                <h:form id="frmOpciones">
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    <p:menu toggleable="true">                       
+
+                        <p:submenu label="Solicitudes">
+                            <p:menuitem value="Solicitudes" actionListener="#{opcionBean.verListaSolicitud}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />   
+                        </p:submenu>
+
+                        <p:submenu label="Suministros">
+                            <p:menuitem value="Insertar Suministro" actionListener="#{opcionBean.verSuministro}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"  
+                                        update="growl"  />   
+
+                            <p:menuitem value="Listar Suministro" actionListener="#{opcionBean.verListaSuministro}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                        </p:submenu>
+
+                        <p:submenu label="Productos">
+                            <p:menuitem value="Insertar Producto" actionListener="#{opcionBean.verProducto}"     
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"  
+                                        update="growl"  />     
+                            <p:menuitem value="Listar Producto" actionListener="#{opcionBean.verListaProducto}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+
+                        </p:submenu>
+
+                        <p:submenu label="Muebles">
+                            <p:menuitem value="Insertar Paquete" actionListener="#{opcionBean.verPaquete}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();"  
+                                        update="growl"  />   
+                            <p:menuitem value="Listar Paquete" actionListener="#{opcionBean.verListaPaquete}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                        </p:submenu>
+
+                        <p:submenu label="Eventos">
+                            <p:menuitem value="Ver Eventos" actionListener="#{opcionBean.verEvento}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />   
+                            <p:menuitem value="Administrar Eventos" actionListener="#{opcionBean.verListaEvento}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            <p:menuitem value="Eventos Por Mes" actionListener="#{opcionBean.verGraficaEventoMes}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            <p:menuitem value="Eventos Por Estado" actionListener="#{opcionBean.verGraficaEventoEstado}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+
+                        </p:submenu>
+
+                        <p:submenu label="Clientes">
+                            <p:menuitem value="Administrar Clientes" actionListener="#{opcionBean.verListaCliente}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                        </p:submenu>
+                        
+                        <p:submenu label="Parametria">
+                            <p:menuitem value="Administrar Usuarios" actionListener="#{opcionBean.verListaUsuario}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Empleados" actionListener="#{opcionBean.verListaEmpleado}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Proveedores" actionListener="#{opcionBean.verListaProveedor}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Ciudades" actionListener="#{opcionBean.verListaCiudades}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Clasificacion" actionListener="#{opcionBean.verListaClasificaciones}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Estados Eventos" actionListener="#{opcionBean.verListaEstadosEventos}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Lugares" actionListener="#{opcionBean.verListaLugares}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Medida Producto" actionListener="#{opcionBean.verListaMedidas}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Roles" actionListener="#{opcionBean.verListaRoles}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Tipos Documentos" actionListener="#{opcionBean.verListaTipoDocumento}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Tipos De Evento" actionListener="#{opcionBean.verListaTipoEvento}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            <p:menuitem value="Administrar Tipos De Producto" actionListener="#{opcionBean.verListaTipoProducto}" 
+                                        onclick="PF('statusDialog').show();" oncomplete="PF('statusDialog').hide();" 
+                                        update="growl"  />
+                            
+                            
+                            
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
