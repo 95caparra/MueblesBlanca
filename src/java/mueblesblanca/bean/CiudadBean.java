@@ -62,16 +62,12 @@ public class CiudadBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         try {
-            ciudadVO = new CiudadVO();
-
-            if (selectedCiudad == null) {
+            id = ((CiudadVO) event.getObject()).getIdCiudad();
+            if (id == null) {
                 id = 0;
-            } else {
-                id = selectedCiudad.getIdCiudad();
             }
-
             nombre = ((CiudadVO) event.getObject()).getDescripcionCiudad();
-
+            ciudadVO = new CiudadVO();
             if (id != 0) {
                 ciudadVO = ciudadService.consultarPorId(id);
 

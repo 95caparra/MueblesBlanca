@@ -44,9 +44,9 @@
         </style>
     </ui:define>
 
-    <ui:define name="title">Data</ui:define>
+    <ui:define name="title">Ciudades</ui:define>
 
-    <ui:define name="viewname">Data</ui:define>
+    <ui:define name="viewname">Ciudades</ui:define>
 
     <ui:define name="content">
         <div class="ui-g">
@@ -60,7 +60,7 @@
                         <p:dataTable id="cars1" widgetVar="cars1" var="ciudad" value="#{ciudadBean.ciudades}" editable="true" style="margin-bottom:20px"
                                       rows="10"   paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      rowsPerPageTemplate="5,10,15">
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{ciudad.idCiudad}">
                             <f:facet name="header">
                                 Ciudades
                             </f:facet>
