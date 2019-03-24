@@ -156,8 +156,7 @@ public class TipoDocumentoDAOMS extends ConexionSQL implements TipoDocumentoDAO 
         TipoDocumentoVO tipoDocumentoVO = null;
         try {
             this.Conectar();
-            String consulta = " SELECT *"
-                    + " FROM [dbo].[TipoProducto] WHERE Id_Tipo_Producto = ? ";
+            String consulta = " SELECT * FROM [dbo].[Tipo_Documento] WHERE Id_Tipo_Documento = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);

@@ -57,16 +57,17 @@
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
 
-                        <p:dataTable id="cars1" widgetVar="cars1" var="ciudad" value="#{ciudadBean.ciudades}" editable="true" style="margin-bottom:20px"
-                                      rows="10"   paginator="true"
+                        <p:dataTable id="cars1" widgetVar="cars1" var="ciudad" value="#{ciudadBean.ciudades}" editable="true" style="margin-bottom:20px" 
+                                      rows="10" paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      rowsPerPageTemplate="5,10,15" rowKey="#{ciudad.idCiudad}">
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{ciudad.idCiudad}" 
+                                      emptyMessage="No tiene ciudades">
                             <f:facet name="header">
                                 Ciudades
                             </f:facet>
 
-                            <p:ajax event="rowEdit" listener="#{ciudadBean.onRowEdit}" update=":form:msgs" />
-                            <p:ajax event="rowEditCancel" listener="#{ciudadBean.onRowCancel}" update=":form:msgs" />
+                            <p:ajax event="rowEdit" listener="#{ciudadBean.onRowEdit}" update=":form:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{ciudadBean.onRowCancel}" update=":form:msgs"/>
 
                             <p:column headerText="Id ciudad" filterBy="#{ciudad.idCiudad}">
                                 <h:outputText value="#{ciudad.idCiudad}" />

@@ -60,7 +60,8 @@
                         <p:dataTable id="cars1" widgetVar="cars1" var="tipoDocumento" value="#{tipoDocumentoBean.tiposDocumento}" editable="true" style="margin-bottom:20px"
                                       rows="10"   paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      rowsPerPageTemplate="5,10,15">
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{tipoDocumento.idTipoDocumento}" 
+                                      emptyMessage="No tiene tipos de documento">
                             <f:facet name="header">
                                 Tipos de Documentos
                             </f:facet>

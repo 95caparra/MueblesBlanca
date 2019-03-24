@@ -62,16 +62,13 @@ public class RolBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         try {
-            rolVO = new RolVO();
-
-            if (selectedRol== null) {
+            id = ((RolVO) event.getObject()).getIdRol();
+            if (id == null) {
                 id = 0;
-            } else {
-                id = selectedRol.getIdRol();
             }
-
             nombre = ((RolVO) event.getObject()).getDescripcionRol();
-
+            rolVO = new RolVO();
+            
             if (id != 0) {
                 rolVO = rolService.consultarPorId(id);
 

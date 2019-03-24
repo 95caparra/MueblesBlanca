@@ -57,7 +57,7 @@ public class RolDAOMS extends ConexionSQL implements RolDAO {
         try {
             this.Conectar();
             String consulta = "UPDATE [dbo].[Rol]\n"
-                    + "   SET [descripción] = ?"
+                    + "   SET [descripcion] = ?"
                     + "      ,[fechaModificacion_Rol] = GETDATE()"
                     + "      ,[usuarioModificacion] = ?"
                     + " WHERE [id_Rol] = ?";
@@ -150,7 +150,7 @@ public class RolDAOMS extends ConexionSQL implements RolDAO {
         try {
             this.Conectar();
             String consulta = " SELECT *"
-                    + " FROM [dbo].[Rol] WHERE Id_Ciudad = ? ";
+                    + " FROM [dbo].[Rol] WHERE Id_Rol = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);

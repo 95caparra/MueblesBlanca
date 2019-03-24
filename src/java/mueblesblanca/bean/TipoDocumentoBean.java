@@ -62,15 +62,12 @@ public class TipoDocumentoBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         try {
-            tipoDocumentoVO = new TipoDocumentoVO();
-
-            if (selectedTipoDocumento== null) {
+            id = ((TipoDocumentoVO) event.getObject()).getIdTipoDocumento();
+            if (id == null) {
                 id = 0;
-            } else {
-                id = selectedTipoDocumento.getIdTipoDocumento();
             }
-
             nombre = ((TipoDocumentoVO) event.getObject()).getDescripcionTipoDocumento();
+            tipoDocumentoVO = new TipoDocumentoVO();
 
             if (id != 0) {
                 tipoDocumentoVO = tipoDocumentoService.consultarPorId(id);
