@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/WEB-INF/template.xhtml"
+                >
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Categorias</ui:define>
+
+    <ui:define name="viewname">Categorias</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Categorias</h1>
+
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true"/>
+
+                        <p:dataTable id="cars1" widgetVar="cars1" var="categoria" value="#{categoriaBean.categorias}" editable="true" style="margin-bottom:20px" 
+                                      rows="10" paginator="true"
+                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{categoria.idCategoria}" 
+                                      emptyMessage="No tiene categorias">
+                            <f:facet name="header">
+                                Categorias
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" listener="#{categoriaBean.onRowEdit}" update=":form:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{categoriaBean.onRowCancel}" update=":form:msgs"/>
+
+                            <p:column headerText="Id categoria" filterBy="#{categoria.idCategoria}">
+                                <h:outputText value="#{categoria.idCategoria}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre Categoria" filterBy="#{categoria.descripcionCategoria}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{categoria.descripcionCategoria}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{categoria.descripcionCategoria}" /></f:facet>
+                                </p:cellEditor>                    
+                            </p:column>
+
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                            </p:column>
+                        </p:dataTable>
+
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <p:commandButton value="Agregar" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+                                                 action="#{categoriaBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

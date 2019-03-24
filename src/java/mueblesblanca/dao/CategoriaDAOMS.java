@@ -53,7 +53,7 @@ public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
                     + " Descripcion_Categoria = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
-                    + " Estado = ?, "
+                    + " Estado = ? "
                     + " WHERE Id_Categoria = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
