@@ -19,10 +19,10 @@ public class ProveedorVO {
     private String direccionProveedor;
     private String telefonoProveedor;
     private String correoProveedor;
-    private Timestamp fechaCreacionProducto;
-    private String usuarioCreacionProducto;
-    private Timestamp fechaModificacionProducto;
-    private String usuarioModificacionProducto;
+    private Timestamp fechaCreacionProveedor;
+    private String usuarioCreacionProveedor;
+    private Timestamp fechaModificacionProveedor;
+    private String usuarioModificacionProveedor;
     private Integer estado;
 
     public Integer getIdProveedor() {
@@ -65,36 +65,36 @@ public class ProveedorVO {
         this.correoProveedor = correoProveedor;
     }
 
-    public Timestamp getFechaCreacionProducto() {
-        return fechaCreacionProducto;
+    public Timestamp getFechaCreacionProveedor() {
+        return fechaCreacionProveedor;
     }
 
-    public void setFechaCreacionProducto(Timestamp fechaCreacionProducto) {
-        this.fechaCreacionProducto = fechaCreacionProducto;
+    public void setFechaCreacionProveedor(Timestamp fechaCreacionProveedor) {
+        this.fechaCreacionProveedor = fechaCreacionProveedor;
     }
 
-    public String getUsuarioCreacionProducto() {
-        return usuarioCreacionProducto;
+    public String getUsuarioCreacionProveedor() {
+        return usuarioCreacionProveedor;
     }
 
-    public void setUsuarioCreacionProducto(String usuarioCreacionProducto) {
-        this.usuarioCreacionProducto = usuarioCreacionProducto;
+    public void setUsuarioCreacionProveedor(String usuarioCreacionProveedor) {
+        this.usuarioCreacionProveedor = usuarioCreacionProveedor;
     }
 
-    public Timestamp getFechaModificacionProducto() {
-        return fechaModificacionProducto;
+    public Timestamp getFechaModificacionProveedor() {
+        return fechaModificacionProveedor;
     }
 
-    public void setFechaModificacionProducto(Timestamp fechaModificacionProducto) {
-        this.fechaModificacionProducto = fechaModificacionProducto;
+    public void setFechaModificacionProveedor(Timestamp fechaModificacionProveedor) {
+        this.fechaModificacionProveedor = fechaModificacionProveedor;
     }
 
-    public String getUsuarioModificacionProducto() {
-        return usuarioModificacionProducto;
+    public String getUsuarioModificacionProveedor() {
+        return usuarioModificacionProveedor;
     }
 
-    public void setUsuarioModificacionProducto(String usuarioModificacionProducto) {
-        this.usuarioModificacionProducto = usuarioModificacionProducto;
+    public void setUsuarioModificacionProveedor(String usuarioModificacionProveedor) {
+        this.usuarioModificacionProveedor = usuarioModificacionProveedor;
     }
 
     public Integer getEstado() {

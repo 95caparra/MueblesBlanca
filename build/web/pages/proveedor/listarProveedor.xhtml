@@ -52,7 +52,7 @@
             <div class="ui-g-12">
                 <div class="card card-w-title">
                     <h1>Proveedores</h1>
-                    <h:form id="listarEmpleado" rendered="true">
+                    <h:form id="listarProveedor" rendered="true">
                         <p:panel header="Proveedores" >
                             <p:dataTable id="tableStateDT" var="proveedor" 
                                          value="#{proveedorBean.proveedores}" widgetVar="proveedorTable" multiViewState="true"
@@ -72,37 +72,37 @@
 
                                 <p:ajax event="rowEdit" listener="#{proveedorBean.onRowEdit}" />
                                 <p:ajax event="rowEditCancel" listener="#{proveedorBean.onRowCancel}"  />
-
-                                <p:column headerText="Id proveedor" filterBy="#{proveedor.idProveedor}">
-                                    <h:outputText value="#{proveedor.idProveedor}" />
-                                </p:column>
-
-                                <p:column headerText="Razon Social Proveedor" filterBy="#{proveedor.razonSocial}">
+                                <!--
+                                                                <p:column headerText="Id proveedor" filterBy="#{proveedor.idProveedor}">
+                                                                    <h:outputText value="#{proveedor.idProveedor}" />
+                                                                </p:column>
+                                -->
+                                <p:column headerText="Razon Social Proveedor" filterBy="#{proveedor.razonSocialProveedor}">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{proveedor.razonSocial}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{proveedor.razonSocial}" /></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{proveedor.razonSocialProveedor}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{proveedor.razonSocialProveedor}" /></f:facet>
                                     </p:cellEditor>                    
                                 </p:column>
 
 
-                                <p:column headerText="Direccion Proveedor" filterBy="#{proveedor.direccion}">
+                                <p:column headerText="Direccion Proveedor" filterBy="#{proveedor.direccionProveedor}">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{proveedor.direccion}" /></f:facet>
-                                        <f:facet name="input" ><p:inputText  value="#{proveedor.direccion}"  /></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{proveedor.direccionProveedor}" /></f:facet>
+                                        <f:facet name="input" ><p:inputText  value="#{proveedor.direccionProveedor}"  /></f:facet>
                                     </p:cellEditor>                    
                                 </p:column>
 
-                                <p:column headerText="Telefono Proveedor" filterBy="#{proveedor.telefono}">
+                                <p:column headerText="Telefono Proveedor" filterBy="#{proveedor.telefonoProveedor}">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{proveedor.telefono}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{proveedor.telefono}" /></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{proveedor.telefonoProveedor}" /></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{proveedor.telefonoProveedor}" /></f:facet>
                                     </p:cellEditor>                    
                                 </p:column>
 
-                                <p:column headerText="Correo Proveedor" filterBy="#{proveedor.correo}">
+                                <p:column headerText="Correo Proveedor" filterBy="#{proveedor.correoProveedor}">
                                     <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{proveedor.correo}" /></f:facet>
-                                        <f:facet name="input" ><p:inputText  value="#{proveedor.correo}"  /></f:facet>
+                                        <f:facet name="output"><h:outputText value="#{proveedor.correoProveedor}" /></f:facet>
+                                        <f:facet name="input" ><p:inputText  value="#{proveedor.correoProveedor}"  /></f:facet>
                                     </p:cellEditor>                    
                                 </p:column>
 
@@ -122,9 +122,8 @@
                             <div class="ui-g">
                                 <div class="ui-g-12">
                                     <p:commandButton value="Agregar registro" styleClass="ui-priority-primary" process="@this" 
-                                                     actionListener="#{proveedorBean.onAddNew}" oncomplete="PF('proveedorTable').addRow();"/>
+                                                     actionListener="#{proveedorBean.onAddNew()}" oncomplete="PF('proveedorTable').addRow();"/>
                                 </div>
-                            </div>
                             </div>
                         </p:panel>
                     </h:form>

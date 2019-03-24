@@ -33,19 +33,20 @@
                             <p:menuitem id="om_rtl" value="RTL" icon="fa fa-fw fa-align-right" actionListener="#{guestPreferences.setOrientationRTL(true)}" ajax="false" />
                             <p:menuitem id="om_ltr" value="LTR" icon="fa fa-fw fa-align-left" actionListener="#{guestPreferences.setOrientationRTL(false)}" ajax="false" />
                         </p:submenu>              
-                        
+
                         <p:menuitem value="Ciudades" icon="fa fa-fw fa-bars" outcome="/pages/ciudad/listarCiudad"  />
                         <p:menuitem value="Tipos de Documento" icon="fa fa-fw fa-bars" outcome="/pages/tipo_documento/listarTipoDocumento"  />
                         <p:menuitem value="Roles" icon="fa fa-fw fa-bars" outcome="/pages/rol/listarRol"  />
-                        
+
                         <p:submenu label="Clientes" icon="fa fa-fw fa-bars">
                             <p:menuitem value="Listar Clientes" icon="fa fa-fw fa-bars" outcome="/pages/cliente/listarClientes" />
                             <p:menuitem value="Insertar Cliente" icon="fa fa-fw fa-bars" outcome="/pages/cliente/insertarCliente" />
                         </p:submenu>     
-                        
-                        
-                                  
-                        
+
+                        <p:submenu label="Proveedor" icon="fa fa-fw fa-bars">
+                            <p:menuitem value="Listar Proveedor" icon="fa fa-fw fa-bars" outcome="/pages/proveedor/listarProveedor.xhtml" />
+                        </p:submenu>     
+
                     </pp:menu>
 
                     <div class="layout-menu-footer">                        
