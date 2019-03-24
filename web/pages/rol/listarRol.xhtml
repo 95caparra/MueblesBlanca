@@ -44,9 +44,9 @@
         </style>
     </ui:define>
 
-    <ui:define name="title">Data</ui:define>
+    <ui:define name="title">Roles</ui:define>
 
-    <ui:define name="viewname">Data</ui:define>
+    <ui:define name="viewname">Roles</ui:define>
 
     <ui:define name="content">
         <div class="ui-g">
@@ -86,7 +86,7 @@
 
                         <div class="ui-g">
                             <div class="ui-g-12">
-                                <p:commandButton value="Ageregar" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
+                                <p:commandButton value="Agregar" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
                                                  action="#{rolBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
                             </div>
                         </div>
