@@ -10,23 +10,23 @@ import javax.faces.context.FacesContext;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import mueblesblanca.service.CategoriaService;
-import mueblesblanca.vo.CategoriaVO;
+import mueblesblanca.service.EstadoOrdenService;
+import mueblesblanca.vo.EstadoOrdenVO;
 import org.primefaces.event.RowEditEvent;
 
 import mueblesblanca.constante.UsuarioEnum;
 
-@ManagedBean(name = "categoriaBean")
+@ManagedBean(name = "estadoOrdenBean")
 @ViewScoped
-public class CategoriaBean implements Serializable {
+public class EstadoOrdenBean implements Serializable {
 
     private static long serialVersionUID = 4545919119678482516L;
 
-    private CategoriaService categoriaService;
-    private CategoriaVO categoriaVO;
-    private List<CategoriaVO> categorias;
-    private CategoriaVO selectedCategoria;
-    private List<CategoriaVO> categoriasFiltro;
+    private EstadoOrdenService estadoOrdenService;
+    private EstadoOrdenVO estadoOrdenVO;
+    private List<EstadoOrdenVO> estadosOrden;
+    private EstadoOrdenVO selectedEstadoOrden;
+    private List<EstadoOrdenVO> estadosOrdenFiltro;
 
     private Integer id;
     private String nombre;
@@ -38,9 +38,9 @@ public class CategoriaBean implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             Application application = context.getApplication();
             try {
-                setCategoriaService(new CategoriaService());
+                setEstadoOrdenService(new EstadoOrdenService());
 
-                setCategorias(getCategoriaService().listar());
+                setEstadosOrden(getEstadoOrdenService().listar());
 
             } catch (Exception e) {
 
@@ -50,9 +50,9 @@ public class CategoriaBean implements Serializable {
 
     public void onAddNew() {
         try {
-            CategoriaVO categoriaVO = new CategoriaVO();
-            categorias = categoriaService.listar();
-            categorias.add(categoriaVO);
+            EstadoOrdenVO estadoOrdenVO = new EstadoOrdenVO();
+            estadosOrden = estadoOrdenService.listar();
+            estadosOrden.add(estadoOrdenVO);
             FacesMessage msg = new FacesMessage("Registro agregado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
@@ -62,20 +62,20 @@ public class CategoriaBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         try {
-            id = ((CategoriaVO) event.getObject()).getIdCategoria();
+            id = ((EstadoOrdenVO) event.getObject()).getIdEstadoOrden();
             if (id == null) {
                 id = 0;
             }
-            nombre = ((CategoriaVO) event.getObject()).getDescripcionCategoria();
-            categoriaVO = new CategoriaVO();
+            nombre = ((EstadoOrdenVO) event.getObject()).getDescripcionEstadoOrden();
+            estadoOrdenVO = new EstadoOrdenVO();
             if (id != 0) {
-                categoriaVO = categoriaService.consultarPorId(id);
+                estadoOrdenVO = estadoOrdenService.consultarPorId(id);
 
-                categoriaVO.setIdCategoria(id);
-                categoriaVO.setDescripcionCategoria(nombre);
-                categoriaVO.setUsuarioModificacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                estadoOrdenVO.setIdEstadoOrden(id);
+                estadoOrdenVO.setDescripcionEstadoOrden(nombre);
+                estadoOrdenVO.setUsuarioModificacionEstadoOrden(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
 
-                if (categoriaService.actualizar(categoriaVO) > 0) {
+                if (estadoOrdenService.actualizar(estadoOrdenVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 } else {
@@ -83,10 +83,10 @@ public class CategoriaBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             } else {
-                categoriaVO.setDescripcionCategoria(nombre);
-                categoriaVO.setUsuarioCreacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                estadoOrdenVO.setDescripcionEstadoOrden(nombre);
+                estadoOrdenVO.setUsuarioCreacionEstadoOrden(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
 
-                if (categoriaService.insertar(categoriaVO) > 0) {
+                if (estadoOrdenService.insertar(estadoOrdenVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 } else {
@@ -104,7 +104,7 @@ public class CategoriaBean implements Serializable {
     
     public void listar(){
         try {
-            categorias = categoriaService.listar();
+            estadosOrden = estadoOrdenService.listar();
         } catch (Exception e) {
         }        
     }
@@ -128,73 +128,73 @@ public class CategoriaBean implements Serializable {
     }
 
     /**
-     * @return the categoriaService
+     * @return the estadoOrdenService
      */
-    public CategoriaService getCategoriaService() {
-        return categoriaService;
+    public EstadoOrdenService getEstadoOrdenService() {
+        return estadoOrdenService;
     }
 
     /**
-     * @param categoriaService the categoriaService to set
+     * @param estadoOrdenService the estadoOrdenService to set
      */
-    public void setCategoriaService(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
+    public void setEstadoOrdenService(EstadoOrdenService estadoOrdenService) {
+        this.estadoOrdenService = estadoOrdenService;
     }
 
     /**
-     * @return the categoriaVO
+     * @return the estadoOrdenVO
      */
-    public CategoriaVO getCategoriaVO() {
-        return categoriaVO;
+    public EstadoOrdenVO getEstadoOrdenVO() {
+        return estadoOrdenVO;
     }
 
     /**
-     * @param categoriaVO the categoriaVO to set
+     * @param estadoOrdenVO the estadoOrdenVO to set
      */
-    public void setCategoriaVO(CategoriaVO categeriaVO) {
-        this.categoriaVO = categoriaVO;
+    public void setEstadoOrdenVO(EstadoOrdenVO estadoOrdenVO) {
+        this.estadoOrdenVO = estadoOrdenVO;
     }
 
     /**
-     * @return the categorias
+     * @return the estadosOrden
      */
-    public List<CategoriaVO> getCategorias() {
-        return categorias;
+    public List<EstadoOrdenVO> getEstadosOrden() {
+        return estadosOrden;
     }
 
     /**
-     * @param categorias the categorias to set
+     * @param estadosOrden the estadosOrden to set
      */
-    public void setCategorias(List<CategoriaVO> categorias) {
-        this.categorias = categorias;
+    public void setEstadosOrden(List<EstadoOrdenVO> estadosOrden) {
+        this.estadosOrden = estadosOrden;
     }
 
     /**
-     * @return the selectedCategoria
+     * @return the selectedEstadoOrden
      */
-    public CategoriaVO getSelectedCategoria() {
-        return selectedCategoria;
+    public EstadoOrdenVO getSelectedEstadoOrden() {
+        return selectedEstadoOrden;
     }
 
     /**
-     * @param selectedCategoria the selectedCategoria to set
+     * @param selectedEstadoOrden the selectedEstadoOrden to set
      */
-    public void setSelectedCategoria(CategoriaVO selectedCategoria) {
-        this.selectedCategoria = selectedCategoria;
+    public void setSelectedEstadoOrden(EstadoOrdenVO selectedEstadoOrden) {
+        this.selectedEstadoOrden = selectedEstadoOrden;
     }
 
     /**
-     * @return the categoriasFiltro
+     * @return the estadosOrdenFiltro
      */
-    public List<CategoriaVO> getCategoriasFiltro() {
-        return categoriasFiltro;
+    public List<EstadoOrdenVO> getEstadosOrdenFiltro() {
+        return estadosOrdenFiltro;
     }
 
     /**
-     * @param categoriasFiltro the categoriasFiltro to set
+     * @param estadosOrdenFiltro the estadosOrdenFiltro to set
      */
-    public void setCategoriasFiltro(List<CategoriaVO> categoriasFiltro) {
-        this.categoriasFiltro = categoriasFiltro;
+    public void setMedidasFiltro(List<EstadoOrdenVO> estadosOrdenFiltro) {
+        this.estadosOrdenFiltro = estadosOrdenFiltro;
     }
 
     /**

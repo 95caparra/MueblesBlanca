@@ -24,17 +24,15 @@ public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
         try {
             this.Conectar();
 
-            String consulta = "INSERT INTO [dbo].[Estado_Orden] ([Descripcion] ,[Fecha_Creacion],[Usuario_Creacion],[Fecha_Modificacion],[Usuario_Modificacion],[Estado])\n"
-                    + "VALUES(?,GETDATE(),?,?,?,?) ";
+            String consulta = "INSERT INTO [dbo].[Estado_Orden] ([Descripcion] ,[Fecha_Creacion],[Usuario_Creacion],[Estado])\n"
+                    + "VALUES(?,GETDATE(),?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, estadoOrdenVO.getDescripcionEstadoOrden());
             pstm.setString(2, estadoOrdenVO.getUsuarioCreacionEstadoOrden());
-            pstm.setTimestamp(3, estadoOrdenVO.getFechaModificacionEstadoOrden());
-            pstm.setString(4, estadoOrdenVO.getUsuarioModificacionEstadoOrden());
-            pstm.setInt(5, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -56,22 +54,19 @@ public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
             String consulta
                     = "	UPDATE [dbo].[Estado_Orden]\n"
                     + "	   SET [Descripcion] = ?\n"
-                    + "		  ,[Fecha_Creacion] = ?\n"
-                    + "		  ,[Usuario_Creacion] = ?\n"
-                    + "		  ,[Fecha_Modificacion] = GETDATE()\n"
-                    + "		  ,[Usuario_Modificacion] = ?\n"
-                    + "		  ,[Estado] = ?\n"
+                    + "       ,[Fecha_Modificacion] = GETDATE()\n"
+                    + "	      ,[Usuario_Modificacion] = ?\n"
+                    + "	      ,[Estado] = ?\n"
                     + "	 WHERE Id_Estado_Orden = ?;";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, estadoOrdenVO.getDescripcionEstadoOrden());
-            pstm.setString(2, estadoOrdenVO.getUsuarioCreacionEstadoOrden());
-            pstm.setTimestamp(3, estadoOrdenVO.getFechaModificacionEstadoOrden());
-            pstm.setString(4, estadoOrdenVO.getUsuarioModificacionEstadoOrden());
-            pstm.setInt(5, EstadoEnum.ACTIVO.getIndex());
-            pstm.setInt(6, estadoOrdenVO.getIdEstadoOrden());
+            pstm.setString(2, estadoOrdenVO.getUsuarioModificacionEstadoOrden());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            
+            pstm.setInt(4, estadoOrdenVO.getIdEstadoOrden());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -117,7 +112,7 @@ public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM Estado_Orden WHERE Id_Estado_Orden = ? ";
+                    + " FROM Estado_Orden WHERE Estado = ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);

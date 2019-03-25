@@ -43,8 +43,8 @@ public class InsumoVO {
         this.nombreInsumo = nombreInsumo;
     }
     
-    public String getcantidadExistente() {
-        return nombreInsumo;
+    public Integer getcantidadExistente() {
+        return cantidadExistente;
     }
 
     public void setcantidadExistente(Integer cantidadExistente) {

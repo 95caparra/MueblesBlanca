@@ -119,7 +119,7 @@ public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM [dbo].[TipoProducto] WHERE Id_Tipo_Producto = ? ";
+                    + " FROM [dbo].[TipoProducto] WHERE estado = ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -157,7 +157,7 @@ public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
         try {
             this.Conectar();
             String consulta = " SELECT *"
-                    + " FROM [dbo].[Rol] WHERE Id_Tipo_Producto = ? ";
+                    + " FROM [dbo].[TipoProducto] WHERE Id_Tipo_Producto = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);

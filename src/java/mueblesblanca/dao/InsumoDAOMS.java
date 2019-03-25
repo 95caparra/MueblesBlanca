@@ -31,7 +31,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, insumoVO.getNombreInsumo());
-            pstm.setString(2, insumoVO.getcantidadExistente());
+            pstm.setInt(2, insumoVO.getcantidadExistente());
             pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
@@ -69,7 +69,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, insumoVO.getNombreInsumo());
-            pstm.setString(2, insumoVO.getcantidadExistente());
+            pstm.setInt(2, insumoVO.getcantidadExistente());
             pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());

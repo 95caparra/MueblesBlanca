@@ -10,23 +10,23 @@ import javax.faces.context.FacesContext;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import mueblesblanca.service.CategoriaService;
-import mueblesblanca.vo.CategoriaVO;
+import mueblesblanca.service.MedidaService;
+import mueblesblanca.vo.MedidaVO;
 import org.primefaces.event.RowEditEvent;
 
 import mueblesblanca.constante.UsuarioEnum;
 
-@ManagedBean(name = "categoriaBean")
+@ManagedBean(name = "medidaBean")
 @ViewScoped
-public class CategoriaBean implements Serializable {
+public class MedidaBean implements Serializable {
 
     private static long serialVersionUID = 4545919119678482516L;
 
-    private CategoriaService categoriaService;
-    private CategoriaVO categoriaVO;
-    private List<CategoriaVO> categorias;
-    private CategoriaVO selectedCategoria;
-    private List<CategoriaVO> categoriasFiltro;
+    private MedidaService medidaService;
+    private MedidaVO medidaVO;
+    private List<MedidaVO> medidas;
+    private MedidaVO selectedMedida;
+    private List<MedidaVO> medidasFiltro;
 
     private Integer id;
     private String nombre;
@@ -38,9 +38,9 @@ public class CategoriaBean implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             Application application = context.getApplication();
             try {
-                setCategoriaService(new CategoriaService());
+                setMedidaService(new MedidaService());
 
-                setCategorias(getCategoriaService().listar());
+                setMedidas(getMedidaService().listar());
 
             } catch (Exception e) {
 
@@ -50,9 +50,9 @@ public class CategoriaBean implements Serializable {
 
     public void onAddNew() {
         try {
-            CategoriaVO categoriaVO = new CategoriaVO();
-            categorias = categoriaService.listar();
-            categorias.add(categoriaVO);
+            MedidaVO medidaVO = new MedidaVO();
+            medidas = medidaService.listar();
+            medidas.add(medidaVO);
             FacesMessage msg = new FacesMessage("Registro agregado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (Exception e) {
@@ -62,20 +62,20 @@ public class CategoriaBean implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
         try {
-            id = ((CategoriaVO) event.getObject()).getIdCategoria();
+            id = ((MedidaVO) event.getObject()).getIdMedida();
             if (id == null) {
                 id = 0;
             }
-            nombre = ((CategoriaVO) event.getObject()).getDescripcionCategoria();
-            categoriaVO = new CategoriaVO();
+            nombre = ((MedidaVO) event.getObject()).getDescripcionMedida();
+            medidaVO = new MedidaVO();
             if (id != 0) {
-                categoriaVO = categoriaService.consultarPorId(id);
+                medidaVO = medidaService.consultarPorId(id);
 
-                categoriaVO.setIdCategoria(id);
-                categoriaVO.setDescripcionCategoria(nombre);
-                categoriaVO.setUsuarioModificacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                medidaVO.setIdMedida(id);
+                medidaVO.setDescripcionMedida(nombre);
+                medidaVO.setUsuarioModificacionMedida(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
 
-                if (categoriaService.actualizar(categoriaVO) > 0) {
+                if (medidaService.actualizar(medidaVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 } else {
@@ -83,10 +83,10 @@ public class CategoriaBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 }
             } else {
-                categoriaVO.setDescripcionCategoria(nombre);
-                categoriaVO.setUsuarioCreacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                medidaVO.setDescripcionMedida(nombre);
+                medidaVO.setUsuarioCreacionMedida(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
 
-                if (categoriaService.insertar(categoriaVO) > 0) {
+                if (medidaService.insertar(medidaVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                 } else {
@@ -104,7 +104,7 @@ public class CategoriaBean implements Serializable {
     
     public void listar(){
         try {
-            categorias = categoriaService.listar();
+            medidas = medidaService.listar();
         } catch (Exception e) {
         }        
     }
@@ -128,73 +128,73 @@ public class CategoriaBean implements Serializable {
     }
 
     /**
-     * @return the categoriaService
+     * @return the medidaService
      */
-    public CategoriaService getCategoriaService() {
-        return categoriaService;
+    public MedidaService getMedidaService() {
+        return medidaService;
     }
 
     /**
-     * @param categoriaService the categoriaService to set
+     * @param medidaService the medidaService to set
      */
-    public void setCategoriaService(CategoriaService categoriaService) {
-        this.categoriaService = categoriaService;
+    public void setMedidaService(MedidaService medidaService) {
+        this.medidaService = medidaService;
     }
 
     /**
-     * @return the categoriaVO
+     * @return the medidaVO
      */
-    public CategoriaVO getCategoriaVO() {
-        return categoriaVO;
+    public MedidaVO getMedidaVO() {
+        return medidaVO;
     }
 
     /**
-     * @param categoriaVO the categoriaVO to set
+     * @param medidaVO the medidaVO to set
      */
-    public void setCategoriaVO(CategoriaVO categeriaVO) {
-        this.categoriaVO = categoriaVO;
+    public void setMedidaVO(MedidaVO medidaVO) {
+        this.medidaVO = medidaVO;
     }
 
     /**
-     * @return the categorias
+     * @return the medidas
      */
-    public List<CategoriaVO> getCategorias() {
-        return categorias;
+    public List<MedidaVO> getMedidas() {
+        return medidas;
     }
 
     /**
-     * @param categorias the categorias to set
+     * @param medidas the medidas to set
      */
-    public void setCategorias(List<CategoriaVO> categorias) {
-        this.categorias = categorias;
+    public void setMedidas(List<MedidaVO> medidas) {
+        this.medidas = medidas;
     }
 
     /**
-     * @return the selectedCategoria
+     * @return the selectedMedida
      */
-    public CategoriaVO getSelectedCategoria() {
-        return selectedCategoria;
+    public MedidaVO getSelectedMedida() {
+        return selectedMedida;
     }
 
     /**
-     * @param selectedCategoria the selectedCategoria to set
+     * @param selectedMedida the selectedMedida to set
      */
-    public void setSelectedCategoria(CategoriaVO selectedCategoria) {
-        this.selectedCategoria = selectedCategoria;
+    public void setSelectedMedida(MedidaVO selectedMedida) {
+        this.selectedMedida = selectedMedida;
     }
 
     /**
-     * @return the categoriasFiltro
+     * @return the medidasFiltro
      */
-    public List<CategoriaVO> getCategoriasFiltro() {
-        return categoriasFiltro;
+    public List<MedidaVO> getMedidasFiltro() {
+        return medidasFiltro;
     }
 
     /**
-     * @param categoriasFiltro the categoriasFiltro to set
+     * @param medidasFiltro the medidasFiltro to set
      */
-    public void setCategoriasFiltro(List<CategoriaVO> categoriasFiltro) {
-        this.categoriasFiltro = categoriasFiltro;
+    public void setMedidasFiltro(List<MedidaVO> medidasFiltro) {
+        this.medidasFiltro = medidasFiltro;
     }
 
     /**

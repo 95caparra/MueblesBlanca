@@ -30,9 +30,8 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, medidaVO.getDescripcionMedida());
-            pstm.setTimestamp(2, medidaVO.getFechaCreacionMedida());
-            pstm.setString(3, medidaVO.getUsuarioCreacionMedida());
-            pstm.setInt(4, EstadoEnum.ACTIVO.getIndex());
+            pstm.setString(2, medidaVO.getUsuarioCreacionMedida());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -54,18 +53,17 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
                     + " Descripcion_Medida = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
-                    + " Estado = ?, "
+                    + " Estado = ? "
                     + " WHERE Id_Medida = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, medidaVO.getDescripcionMedida());
-            pstm.setTimestamp(2, medidaVO.getFechaModificacionMedida());
-            pstm.setString(3, medidaVO.getUsuarioModificacionMedida());
-            pstm.setInt(4, EstadoEnum.ACTIVO.getIndex());
+            pstm.setString(2, medidaVO.getUsuarioModificacionMedida());
+            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
             
-            pstm.setInt(5, medidaVO.getIdMedida());
+            pstm.setInt(4, medidaVO.getIdMedida());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
