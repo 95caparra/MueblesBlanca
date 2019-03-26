@@ -15,7 +15,6 @@ import mueblesblanca.vo.ProveedorVO;
  *
  * @author Fabian García
  */
-
 public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
 
     @Override
@@ -42,14 +41,14 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
                     + "           ,?"
                     + "           ,?"
                     + "           ,?"
-                    + "           ,?";
+                    + "           ,?)";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, proveedorVO.getRazonSocialProveedor());
             pstm.setString(2, proveedorVO.getDireccionProveedor());
-            pstm.setString(3, proveedorVO.getTelefonoProveedor());
+            pstm.setInt(3, proveedorVO.getTelefonoProveedor());
             pstm.setString(4, proveedorVO.getCorreoProveedor());
             pstm.setString(5, proveedorVO.getUsuarioCreacionProveedor());
             pstm.setTimestamp(6, proveedorVO.getFechaModificacionProveedor());
@@ -79,6 +78,7 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
                     + "      ,[Correo_Proveedor] = ?"
                     + "      ,[Fecha_Modificacion] = GETDATE()"
                     + "      ,[Usuario_Modificacion] = ?"
+                    + "      ,[Estado] = ?   "
                     + " WHERE [Id_Proveedor] = ?";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -86,10 +86,11 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
 
             pstm.setString(1, proveedorVO.getRazonSocialProveedor());
             pstm.setString(2, proveedorVO.getDireccionProveedor());
-            pstm.setString(3, proveedorVO.getTelefonoProveedor());
+            pstm.setInt(3, proveedorVO.getTelefonoProveedor());
             pstm.setString(4, proveedorVO.getCorreoProveedor());
             pstm.setString(5, proveedorVO.getUsuarioModificacionProveedor());
-            pstm.setInt(6, proveedorVO.getIdProveedor());
+            pstm.setInt(6, proveedorVO.getEstado());
+            pstm.setInt(7, proveedorVO.getIdProveedor());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -134,12 +135,12 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM [dbo].[Proveedor] WHERE estado = ? ";
+                    + " FROM [dbo].[Proveedor] WHERE estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 
@@ -149,7 +150,7 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
                 proveedorVO.setIdProveedor(rs.getInt(t++));
                 proveedorVO.setRazonSocialProveedor(rs.getString(t++));
                 proveedorVO.setDireccionProveedor(rs.getString(t++));
-                proveedorVO.setTelefonoProveedor(rs.getString(t++));
+                proveedorVO.setTelefonoProveedor(rs.getInt(t++));
                 proveedorVO.setCorreoProveedor(rs.getString(t++));
                 proveedorVO.setFechaCreacionProveedor(rs.getTimestamp(t++));
                 proveedorVO.setUsuarioCreacionProveedor(rs.getString(t++));
@@ -188,7 +189,7 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
                 proveedorVO.setIdProveedor(rs.getInt(t++));
                 proveedorVO.setRazonSocialProveedor(rs.getString(t++));
                 proveedorVO.setDireccionProveedor(rs.getString(t++));
-                proveedorVO.setTelefonoProveedor(rs.getString(t++));
+                proveedorVO.setTelefonoProveedor(rs.getInt(t++));
                 proveedorVO.setCorreoProveedor(rs.getString(t++));
                 proveedorVO.setFechaCreacionProveedor(rs.getTimestamp(t++));
                 proveedorVO.setUsuarioCreacionProveedor(rs.getString(t++));
@@ -205,4 +206,3 @@ public class ProveedorDAOMS extends ConexionSQL implements ProveedorDAO {
         return proveedorVO;
     }
 }
-

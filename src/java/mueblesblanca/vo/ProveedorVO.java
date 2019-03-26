@@ -17,7 +17,7 @@ public class ProveedorVO {
     private Integer idProveedor;
     private String razonSocialProveedor;
     private String direccionProveedor;
-    private String telefonoProveedor;
+    private Integer telefonoProveedor;
     private String correoProveedor;
     private Timestamp fechaCreacionProveedor;
     private String usuarioCreacionProveedor;
@@ -49,11 +49,11 @@ public class ProveedorVO {
         this.direccionProveedor = direccionProveedor;
     }
 
-    public String getTelefonoProveedor() {
+    public Integer getTelefonoProveedor() {
         return telefonoProveedor;
     }
 
-    public void setTelefonoProveedor(String telefonoProveedor) {
+    public void setTelefonoProveedor(Integer telefonoProveedor) {
         this.telefonoProveedor = telefonoProveedor;
     }
 

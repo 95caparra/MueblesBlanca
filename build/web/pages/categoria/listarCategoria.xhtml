@@ -44,39 +44,39 @@
         </style>
     </ui:define>
 
-    <ui:define name="title">Ciudades</ui:define>
+    <ui:define name="title">Categorias</ui:define>
 
-    <ui:define name="viewname">Ciudades</ui:define>
+    <ui:define name="viewname">Categorias</ui:define>
 
     <ui:define name="content">
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card card-w-title">
-                    <h1>Ciudades</h1>
+                    <h1>Categorias</h1>
 
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
 
-                        <p:dataTable id="cars1" widgetVar="cars1" var="ciudad" value="#{ciudadBean.ciudades}" editable="true" style="margin-bottom:20px" 
+                        <p:dataTable id="cars1" widgetVar="cars1" var="categoria" value="#{categoriaBean.categorias}" editable="true" style="margin-bottom:20px" 
                                       rows="10" paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      rowsPerPageTemplate="5,10,15" rowKey="#{ciudad.idCiudad}" 
-                                      emptyMessage="No tiene ciudades">
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{categoria.idCategoria}" 
+                                      emptyMessage="No tiene categorias">
                             <f:facet name="header">
-                                Ciudades
+                                Categorias
                             </f:facet>
 
-                            <p:ajax event="rowEdit" listener="#{ciudadBean.onRowEdit}" update=":form:msgs"/>
-                            <p:ajax event="rowEditCancel" listener="#{ciudadBean.onRowCancel}" update=":form:msgs"/>
+                            <p:ajax event="rowEdit" listener="#{categoriaBean.onRowEdit}" update=":form:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{categoriaBean.onRowCancel}" update=":form:msgs"/>
 
-                            <p:column headerText="Id ciudad" filterBy="#{ciudad.idCiudad}">
-                                <h:outputText value="#{ciudad.idCiudad}" />
+                            <p:column headerText="Id categoria" filterBy="#{categoria.idCategoria}">
+                                <h:outputText value="#{categoria.idCategoria}" />
                             </p:column>
 
-                            <p:column headerText="Nombre Ciudad" filterBy="#{ciudad.descripcionCiudad}">
+                            <p:column headerText="Nombre Categoria" filterBy="#{categoria.descripcionCategoria}">
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{ciudad.descripcionCiudad}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{ciudad.descripcionCiudad}" /></f:facet>
+                                    <f:facet name="output"><h:outputText value="#{categoria.descripcionCategoria}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{categoria.descripcionCategoria}" /></f:facet>
                                 </p:cellEditor>                    
                             </p:column>
 
@@ -88,7 +88,7 @@
                         <div class="ui-g">
                             <div class="ui-g-12">
                                 <p:commandButton value="Agregar" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
-                                                 action="#{ciudadBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
+                                                 action="#{categoriaBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
                             </div>
                         </div>
                     </h:form>

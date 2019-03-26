@@ -44,39 +44,39 @@
         </style>
     </ui:define>
 
-    <ui:define name="title">Ciudades</ui:define>
+    <ui:define name="title">Tipos Producto</ui:define>
 
-    <ui:define name="viewname">Ciudades</ui:define>
+    <ui:define name="viewname">Tipos Producto</ui:define>
 
     <ui:define name="content">
         <div class="ui-g">
             <div class="ui-g-12">
                 <div class="card card-w-title">
-                    <h1>Ciudades</h1>
+                    <h1>Tipos Producto</h1>
 
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true"/>
 
-                        <p:dataTable id="cars1" widgetVar="cars1" var="ciudad" value="#{ciudadBean.ciudades}" editable="true" style="margin-bottom:20px" 
+                        <p:dataTable id="cars1" widgetVar="cars1" var="tipoProducto" value="#{tipoProductoBean.tiposProducto}" editable="true" style="margin-bottom:20px" 
                                       rows="10" paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                      rowsPerPageTemplate="5,10,15" rowKey="#{ciudad.idCiudad}" 
-                                      emptyMessage="No tiene ciudades">
+                                      rowsPerPageTemplate="5,10,15" rowKey="#{tipoProducto.idTipoProducto}" 
+                                      emptyMessage="No tiene tipos de producto">
                             <f:facet name="header">
-                                Ciudades
+                                Tipos Producto
                             </f:facet>
 
-                            <p:ajax event="rowEdit" listener="#{ciudadBean.onRowEdit}" update=":form:msgs"/>
-                            <p:ajax event="rowEditCancel" listener="#{ciudadBean.onRowCancel}" update=":form:msgs"/>
+                            <p:ajax event="rowEdit" listener="#{tipoProductoBean.onRowEdit}" update=":form:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{tipoProductoBean.onRowCancel}" update=":form:msgs"/>
 
-                            <p:column headerText="Id ciudad" filterBy="#{ciudad.idCiudad}">
-                                <h:outputText value="#{ciudad.idCiudad}" />
+                            <p:column headerText="Id tipo" filterBy="#{tipoProducto.idTipoProducto}">
+                                <h:outputText value="#{tipoProducto.idTipoProducto}" />
                             </p:column>
 
-                            <p:column headerText="Nombre Ciudad" filterBy="#{ciudad.descripcionCiudad}">
+                            <p:column headerText="Nombre Tipo" filterBy="#{tipoProducto.descripcionTipoProducto}">
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{ciudad.descripcionCiudad}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{ciudad.descripcionCiudad}" /></f:facet>
+                                    <f:facet name="output"><h:outputText value="#{tipoProducto.descripcionTipoProducto}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{tipoProducto.descripcionTipoProducto}" /></f:facet>
                                 </p:cellEditor>                    
                             </p:column>
 
@@ -88,7 +88,7 @@
                         <div class="ui-g">
                             <div class="ui-g-12">
                                 <p:commandButton value="Agregar" styleClass="ui-priority-primary" process="@this" update=":form:msgs"
-                                                 action="#{ciudadBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
+                                                 action="#{tipoProductoBean.onAddNew()}" oncomplete="PF('cars1').addRow();"/>
                             </div>
                         </div>
                     </h:form>
