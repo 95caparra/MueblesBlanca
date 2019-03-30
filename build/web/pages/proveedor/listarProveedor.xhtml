@@ -104,31 +104,35 @@
 
                             <p:column headerText="Estado" filterBy="#{proveedor.estado}">
                                 <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{proveedorBean.ValorEstado(proveedor.estado)}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{proveedor.estado}" /></f:facet>
+                                    <f:facet name="output"><h:outputText value="#{proveedorBean.ValorEstado(proveedor.estado)}"  /></f:facet>
+                                    <f:facet name="input">      
+
+                                        <h:selectOneMenu value="#{proveedorBean.selectedEstado}" style="width:100%">
+                                            <f:selectItems value="#{proveedorBean.estadosEnum}"  />
+                                        </h:selectOneMenu>
+                                    </f:facet>
                                 </p:cellEditor>                    
                             </p:column>
 
-
-
-                            <p:column headerText="Estado">
-                                <p:selectOneMenu id="estados"
-                                                 required="true" 
-                                                 requiredMessage="seleccione"
-                                                 value="#{proveedorBean.selectedEstado}"
-                                                 style="width:100px">
-                                    <f:selectItem itemLabel="seleccione" itemValue=""
-                                                  noSelectionOption="true" />
-                                    <f:selectItems var="t"
-                                                   value="#{proveedorBean.enumEstados}"
-                                                   itemValue="#{t.index}"
-                                                   itemLabel="#{t.indexString}" />
-                                    <p:message for="estados" />              
-                                </p:selectOneMenu>     
-                            </p:column>
-
-
-
+                            <!--
+                                                        <p:column headerText="Estado">
+                                                            <p:selectOneMenu id="estados"
+                                                                             required="true" 
+                                                                             requiredMessage="seleccione"
+                                                                             value="#{proveedorBean.selectedEstado}"
+                                                                             style="width:100px">
+                                                                <f:selectItem itemLabel="seleccione" itemValue=""
+                                                                              noSelectionOption="true" />
+                                                                <f:selectItems var="t"
+                                                                               value="#{proveedorBean.enumEstados}"
+                                                                               itemValue="#{t.index}"
+                                                                               itemLabel="#{t.indexString}" />
+                                                                <p:message for="estados" />              
+                                                            </p:selectOneMenu>     
+                                                        </p:column>
+                            
+                            
+                            -->
 
 
 
