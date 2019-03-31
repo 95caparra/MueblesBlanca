@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.constante.UsuarioEnum;
 import mueblesblanca.service.ProveedorService;
 import mueblesblanca.vo.ProveedorVO;
@@ -70,8 +71,8 @@ public class ProveedorBean implements Serializable {
 
                 estadosEnum = new HashMap<Integer, String>();
                 
-                for (int i = 0; i < EstadoEnum.values().length; i++) {
-                    estadosEnum.put(EstadoEnum.get(i).getIndex(), EstadoEnum.get(i).getDeclaringClass().getName());
+                for (EstadoEnumLista enl: EstadoEnumLista.values() ) {
+                    estadosEnum.put(enl.getIndex(), enl.getNombre());
                 }
                 
             } catch (Exception e) {
