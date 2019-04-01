@@ -5,8 +5,13 @@
  */
 package mueblesblanca.bean;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +21,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.constante.UsuarioEnum;
@@ -27,6 +33,9 @@ import mueblesblanca.vo.MedidaVO;
 import mueblesblanca.vo.Modelo3DVO;
 import mueblesblanca.vo.ProductoVO;
 import mueblesblanca.vo.TipoProductoVO;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -59,6 +68,10 @@ public class ProductoBean implements Serializable {
     private List<MedidaVO> medidas;
     private List<Modelo3DVO> modelos;
     private Map<String, Integer> estadosEnum;
+
+    private String imageString;
+    private UploadedFile file;
+    private byte[] contents;
 
     /// Services////////////
     private TipoProductoService tipoProductoService;
@@ -122,10 +135,34 @@ public class ProductoBean implements Serializable {
 
     public void consultarPorId() {
         try {
-            setProductoVO(new ProductoVO());
+            productoVO = new ProductoVO();
             idProducto = getSelectedProducto().getIdProducto();
 
-            setProductoVO(productoService.consultarPorId(idProducto));
+            productoVO = productoService.consultarPorId(idProducto);
+            
+            //Código para traer bytes de bd y convertir la imagen a base 64
+            InputStream in = new ByteArrayInputStream(productoVO.getFoto());
+            if (in != null) {
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(productoVO.getFoto());
+
+                InputStream inputStream = blob.getBinaryStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                byte[] imageBytes = outputStream.toByteArray();
+
+                String base64Image = new BASE64Encoder().encode(imageBytes);
+
+                inputStream.close();
+                outputStream.close();
+                
+                imageString = base64Image;
+            }
 
         } catch (Exception e) {
         }
@@ -133,15 +170,21 @@ public class ProductoBean implements Serializable {
 
     public void insertar() {
         try {
-            setProductoVO(new ProductoVO());
+            productoVO = new ProductoVO();
 
-            getProductoVO().setNombreProducto(nombreProducto);
-            getProductoVO().getTipoProducto().setIdTipoProducto(selectedIdTipoProducto);
-            getProductoVO().setCantidadExistente(cantidadExistente);
-            getProductoVO().setPrecioUnidadProducto(precioUnidadProducto);
-            getProductoVO().getMedida().setIdMedida(selectedMedida);
-            getProductoVO().setUsuarioCreacionProducto(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
-            getProductoVO().setEstado(selectedEstado);
+            productoVO.setNombreProducto(nombreProducto);
+            productoVO.getTipoProducto().setIdTipoProducto(selectedIdTipoProducto);
+            productoVO.setCantidadExistente(cantidadExistente);
+            productoVO.setPrecioUnidadProducto(precioUnidadProducto);
+            productoVO.getMedida().setIdMedida(selectedMedida);
+            productoVO.setUsuarioCreacionProducto(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+            productoVO.setEstado(selectedEstado);
+
+            //Código para obtener los bytes de la imagen y setearlo
+            /*InputStream is2 = file.getInputstream();
+            int k2 = is2.available();
+            byte[] b2 = new byte[k2];*/
+            productoVO.setFoto(contents);
 
             if (productoService.insertar(getProductoVO()) > 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -154,6 +197,17 @@ public class ProductoBean implements Serializable {
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
         }
+    }
+
+    public void upload(FileUploadEvent event) {
+        UploadedFile uploadedFile = event.getFile();
+        String fileName = uploadedFile.getFileName();
+        String contentType = uploadedFile.getContentType();
+        contents = uploadedFile.getContents(); // Or getInputStream()
+        if (contents.length > 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se subio la imagen "));
+        }
+        // ... Save it, now!
     }
 
     public Integer getIdProducto() {
@@ -307,4 +361,29 @@ public class ProductoBean implements Serializable {
     public void setTipoProductoVO(TipoProductoVO tipoProductoVO) {
         this.tipoProductoVO = tipoProductoVO;
     }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public byte[] getContents() {
+        return contents;
+    }
+
+    public void setContents(byte[] contents) {
+        this.contents = contents;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+    }
+
 }

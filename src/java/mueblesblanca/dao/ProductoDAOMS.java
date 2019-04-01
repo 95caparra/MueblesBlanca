@@ -23,8 +23,8 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         try {
             this.Conectar();
             String consulta = " INSERT INTO Producto ( NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, "
-                    + "Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Estado)"
-                    + " VALUES(?,?,?,?,?,GETDATE(),?,?) ";
+                    + "Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Estado, foto)"
+                    + " VALUES(?,?,?,?,?,GETDATE(),?,?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -36,6 +36,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
             pstm.setInt(5, productoVO.getMedida().getIdMedida());
             pstm.setString(6, productoVO.getUsuarioCreacionProducto());
             pstm.setInt(7, productoVO.getEstado());
+            pstm.setBytes(8, productoVO.getFoto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -157,8 +158,10 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         ProductoVO productoVO = null;
         try {
             this.Conectar();
-            String consulta = " SELECT *"
-                    + " FROM [dbo].[Producto] WHERE [Id_Producto] = ? ";
+            String consulta = " SELECT Id_Producto, NombreProducto,Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto,"
+                    +" Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, " 
+                    +" Fecha_Modificacion, Usuario_Modificacion, Estado, foto "
+                    +" FROM [dbo].[Producto] WHERE [Id_Producto] = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -179,6 +182,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioModificacionProducto(rs.getString(t++));
                 productoVO.setEstado(rs.getInt(t++));
+                productoVO.setFoto(rs.getBytes(t++));
             }
 
         } catch (Exception e) {

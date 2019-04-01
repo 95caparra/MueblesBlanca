@@ -26,6 +26,7 @@ public class ProductoVO {
     private Timestamp fechaModificacionProducto;
     private String usuarioModificacionProducto;
     private Integer estado;
+    private byte[] foto;
 
     //se instancian clases u objetos de llaves foraneas para evitar null 
     public ProductoVO(){
@@ -120,5 +121,15 @@ public class ProductoVO {
     public void setMedida(MedidaVO medida) {
         this.medida = medida;
     }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+    
+    
 
 }
