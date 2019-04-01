@@ -31,13 +31,13 @@
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Identificación: " />
+                        <h:outputText value="Identificaciï¿½n: " />
                     </p:column>
                     <br/>
                     <p:column>
                         <p:inputText id="identificacion" value="#{clienteBean.personaNaturalVO.identificacionPersonaNatural}" 
                                      required="true" size="40"
-                                     requiredMessage="Por favor ingrese la identificación">
+                                     requiredMessage="Por favor ingrese la identificaciï¿½n">
                             <p:message for="identificacion" />
                         </p:inputText>
                     </p:column>                
@@ -175,13 +175,13 @@
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Dirección: " />
+                        <h:outputText value="Direcciï¿½n: " />
                     </p:column>
                     <br/>
                     <p:column>
                         <p:inputText id="direccion" value="#{clienteBean.personaNaturalVO.direccionPersonaNatural}" 
                                      required="true" size="40"
-                                     requiredMessage="Por favor ingrese el dirección">
+                                     requiredMessage="Por favor ingrese el direcciï¿½n">
                             <p:message for="direccion" />
                         </p:inputText>
                     </p:column>                
@@ -201,7 +201,7 @@
                                          requiredMessage="Por favor seleccione la ciudad"
                                          value="#{clienteBean.selectedCiudadPersonaNatural}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{clienteBean.personaNaturalVO.ciudadPersonaNatural.descripcionCiudad}" itemValue="#{clienteBean.personaNaturalVO.ciudadPersonaNatural.idCiudad}" />
+                            <f:selectItem itemLabel="#{clienteBean.personaNaturalVO.ciudadPersonaNatural.descripcionCiudad}" itemValue="#{clienteBean.personaNaturalVO.ciudadPersonaNatural.descripcionCiudad}" />
                             <f:selectItems var="c" value="#{clienteBean.ciudades}"
                                            itemDisabled="#{clienteBean.personaNaturalVO.ciudadPersonaNatural.descripcionCiudad eq c.descripcionCiudad}" 
                                            itemValue="#{c.idCiudad}"

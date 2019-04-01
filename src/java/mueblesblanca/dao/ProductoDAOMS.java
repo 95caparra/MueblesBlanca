@@ -23,8 +23,8 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         try {
             this.Conectar();
             String consulta = " INSERT INTO Producto ( NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, "
-                    + "Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Estado, Id_Modelo_3D)"
-                    + " VALUES(?,?,?,?,?,GETDATE(),?,?,?) ";
+                    + "Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Estado)"
+                    + " VALUES(?,?,?,?,?,GETDATE(),?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -35,8 +35,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
             pstm.setBigDecimal(4, productoVO.getPrecioUnidadProducto());
             pstm.setInt(5, productoVO.getMedida().getIdMedida());
             pstm.setString(6, productoVO.getUsuarioCreacionProducto());
-            pstm.setInt(7, EstadoEnum.ACTIVO.getIndex());
-            pstm.setInt(8, productoVO.getModelo3D().getIdModelo3D());
+            pstm.setInt(7, productoVO.getEstado());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -62,8 +61,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                     + " Id_Medida_Producto = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
-                    + " Estado = ?, "
-                    + " Id_Modelo_3D = ?"
+                    + " Estado = ? "
                     + " WHERE Id_Producto = ? ";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -76,9 +74,8 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
             pstm.setInt(5, productoVO.getMedida().getIdMedida());
             pstm.setString(6, productoVO.getUsuarioModificacionProducto());
             pstm.setInt(7, EstadoEnum.ACTIVO.getIndex());
-            pstm.setInt(8, productoVO.getModelo3D().getIdModelo3D());
 
-            pstm.setInt(9, productoVO.getIdProducto());
+            pstm.setInt(8, productoVO.getIdProducto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -122,11 +119,11 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         ProductoVO productoVO;
         try {
             this.Conectar();
-            String consulta = "SELECT * FROM Producto WHERE estado = ? ";
+            String consulta = "SELECT * FROM Producto WHERE estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
-
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
             ResultSet rs = pstm.executeQuery();
 
             while (rs.next()) {
@@ -143,7 +140,6 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioModificacionProducto(rs.getString(t++));
                 productoVO.setEstado(rs.getInt(t++));
-                productoVO.getModelo3D().setIdModelo3D(rs.getInt(t++));
                 lista.add(productoVO);
             }
         } catch (Exception e) {
@@ -183,7 +179,6 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioModificacionProducto(rs.getString(t++));
                 productoVO.setEstado(rs.getInt(t++));
-                productoVO.getModelo3D().setIdModelo3D(rs.getInt(t++));
             }
 
         } catch (Exception e) {

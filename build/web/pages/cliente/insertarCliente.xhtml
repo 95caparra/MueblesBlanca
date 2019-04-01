@@ -66,11 +66,11 @@
                                 </p:column>
                                 <br/>
                                 <p:column>
-                                    <p:inputText id="identificacion" value="#{clienteBean.identificacionPersonaNatural}" 
+                                    <p:inputNumber id="identificacion" value="#{clienteBean.identificacionPersonaNatural}" 
                                                  required="true" size="40"
                                                  requiredMessage="Por favor ingrese la identificación">
                                         <p:message for="identificacion" />
-                                    </p:inputText>
+                                    </p:inputNumber>
                                 </p:column>                
                             </p:row>
 
@@ -126,7 +126,7 @@
                                 <br/>
                                 <p:column>
                                     <p:inputText id="segundoNombre" value="#{clienteBean.segundoNombrePersonaNatural}" 
-                                                 required="true" size="40"
+                                                 required="false" size="40"
                                                  requiredMessage="Por favor ingrese el segundo nombre">
                                         <p:message for="segundoNombre" />
                                     </p:inputText>
@@ -160,7 +160,7 @@
                                 <br/>
                                 <p:column>
                                     <p:inputText id="segundoApellido" value="#{clienteBean.segundoApellidoPersonaNatural}" 
-                                                 required="true" size="40"
+                                                 required="false" size="40"
                                                  requiredMessage="Por favor ingrese el segundo apellido">
                                         <p:message for="segundoApellido" />
                                     </p:inputText>
@@ -176,11 +176,11 @@
                                 </p:column>
                                 <br/>
                                 <p:column>
-                                    <p:inputText id="telefono" value="#{clienteBean.telefonoPersonaNatural}" 
+                                    <p:inputMask id="telefono" value="#{clienteBean.telefonoPersonaNatural}" 
                                                  required="true" size="40"
-                                                 requiredMessage="Por favor ingrese el telefono">
+                                                 requiredMessage="Por favor ingrese el telefono" mask="(999)-9999">
                                         <p:message for="telefono" />
-                                    </p:inputText>
+                                    </p:inputMask>
                                 </p:column>                
                             </p:row>
 
@@ -194,11 +194,11 @@
                                 </p:column>
                                 <br/>
                                 <p:column>
-                                    <p:inputText id="celular" value="#{clienteBean.celularPersonaNatural}" 
+                                    <p:inputMask id="celular" value="#{clienteBean.celularPersonaNatural}" 
                                                  required="true" size="40"
-                                                 requiredMessage="Por favor ingrese el celular">
+                                                 requiredMessage="Por favor ingrese el celular" mask="(999) 999-9999">
                                         <p:message for="celular" />
-                                    </p:inputText>
+                                    </p:inputMask>
                                 </p:column>                
                             </p:row>
 

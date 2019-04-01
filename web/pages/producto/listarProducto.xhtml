@@ -3,9 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
+                template="/WEB-INF/template.xhtml">
     <ui:define name="head">
         <style type="text/css">
             .cars-datalist .text-column p:last-child{
@@ -43,54 +41,60 @@
         </style>
     </ui:define>
 
-    <ui:define name="title">Data</ui:define>
+    <ui:define name="title">Productos</ui:define>
 
-    <ui:define name="viewname">Data</ui:define>
+    <ui:define name="viewname">Productos</ui:define>
 
     <ui:define name="content">
+
         <div class="ui-g">
             <div class="ui-g-12">
-                <div class="card card-w-title">
+                <!-- Left Side -->
+                <div class="card">
                     <h1>Productos</h1>
-                    <h:form id="listarEmpleado" rendered="true">
+                    <h:form id="listarSolicitud" rendered="true">
                         <p:panel header="Productos" >
-                            <p:carousel value="#{productoBean.productos}" headerText="Responsive" var="producto" itemStyle="text-align:center" responsive="true">
-                                <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
-                                    <f:facet name="header">
-                                        <p:graphicImage library="imagenesProductos" name="#{producto.foto}"
-                                                        style="width:280px"/>
-                                    </f:facet>
+                            <p:dataTable id="tableStateDT" var="productos" value="#{productoBean.productos}" widgetVar="productosTable" multiViewState="true"
+                                         rows="10" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selectionMode="single" selection="#{productoBean.selectedProducto}" rowKey="#{productos.idProducto}"
+                                         emptyMessage="No tiene productos" filteredValue="#{productoBean.productosFiltro}">
 
-                                    <p:commandButton icon="fa fa-search" actionListener="#{productoBean.verInformacionProducto(producto.idProducto)}" />
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los registros: " />
+                                        <p:inputText id="globalFilter" onkeyup="PF('productosTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                                    </p:outputPanel>
+                                </f:facet>
 
-                                    <br/>
+                                <p:ajax event="rowSelect" listener="#{productoBean.consultarPorId}" oncomplete="PF('dlgProducto').show();" update="frminformacionProducto:pnlInformacionProducto" />
 
-                                    <h:outputText value="Nombre: " />
-                                    <h:outputText value="#{producto.nombre}" />
+                                <p:column headerText="Nombre" sortBy="#{productos.nombreProducto}" filterBy="#{productos.nombreProducto}">
+                                    <h:outputText value="#{productos.nombreProducto}" />
+                                </p:column>
 
-                                    <h:outputText value="Tipo Producto: " />
-                                    <h:outputText value="#{producto.tipoProductoVO.nombre}" />
+                                <p:column headerText="Cantidad Existente" sortBy="#{productos.cantidadExistente}" filterBy="#{productos.cantidadExistente}">
+                                    <h:outputText value="#{productos.cantidadExistente}" />
+                                </p:column>
+                                <p:column headerText="Precio Unidad" sortBy="#{productos.precioUnidadProducto}" filterBy="#{productos.precioUnidadProducto}">
+                                    <h:outputText value="#{productos.precioUnidadProducto}" />
+                                </p:column>
 
-                                    <h:outputText value="Cantidad: " />
-                                    <h:outputText value="#{producto.cantidad}" />
-
-                                    <h:outputText value="Medida: " />
-                                    <h:outputText value="#{producto.medidaProductoVO.nombreMedida}" />
-
-                                    <h:outputText value="Precio unidad: " />
-                                    <h:outputText value="#{producto.precioUnidad}" />
-
-                                    <h:outputText value="Observaciones: " />
-                                    <h:outputText value="#{producto.observaciones}" />
-                                </p:panelGrid>
-
-                            </p:carousel>
-
-
+                            </p:dataTable>
                         </p:panel>
                     </h:form>
                 </div>
             </div>
         </div>
+
+
+        <!-- 	aqui estaba el popup de detalle producto  -->
+        <p:dialog header="Detalle" widgetVar="dlgProducto"
+                  modal="true" height="550" width="400" 
+                  responsive="true" closable="true" resizable="false">
+            <ui:include src="/pages/producto/informacionProducto.xhtml"></ui:include>
+        </p:dialog> 
     </ui:define>
+
 </ui:composition>

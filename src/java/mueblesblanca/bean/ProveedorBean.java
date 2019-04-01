@@ -7,7 +7,6 @@ package mueblesblanca.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +21,7 @@ import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.constante.UsuarioEnum;
 import mueblesblanca.service.ProveedorService;
 import mueblesblanca.vo.ProveedorVO;
-import org.apache.commons.lang3.ArrayUtils;
-import org.primefaces.context.RequestContext;
+
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -53,7 +51,7 @@ public class ProveedorBean implements Serializable {
     private List<ProveedorVO> proveedoresVO;
     private ProveedorVO selectedProveedor;
     private List<ProveedorVO> proveedorFiltro;
-     private Map<Integer,String> estadosEnum;
+    private Map<String, Integer> estadosEnum;
 
     //Services ///////////
     private ProveedorService proveedorService;
@@ -69,12 +67,12 @@ public class ProveedorBean implements Serializable {
 
                 proveedoresVO = proveedorService.listar();
 
-                estadosEnum = new HashMap<Integer, String>();
-                
-                for (EstadoEnumLista enl: EstadoEnumLista.values() ) {
-                    estadosEnum.put(enl.getIndex(), enl.getNombre());
+                estadosEnum = new HashMap< String, Integer>();
+
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
                 }
-                
+
             } catch (Exception e) {
 
             }
@@ -96,14 +94,16 @@ public class ProveedorBean implements Serializable {
     public void onRowEdit(RowEditEvent event) {
         try {
             proveedorVO = new ProveedorVO();
-
-            if (selectedProveedor == null) {
+            id = ((ProveedorVO) event.getObject()).getIdProveedor();
+            if (id == null) {
                 id = 0;
-            } else {
-                id = selectedProveedor.getIdProveedor();
             }
 
             nombre = ((ProveedorVO) event.getObject()).getRazonSocialProveedor();
+            direccionProveedor = ((ProveedorVO) event.getObject()).getDireccionProveedor();
+            telefonoProveedor = ((ProveedorVO) event.getObject()).getTelefonoProveedor();
+            correoProveedor = ((ProveedorVO) event.getObject()).getCorreoProveedor();
+            estado = selectedEstado;
 
             if (id != 0) {
                 proveedorVO = proveedorService.consultarPorId(id);
@@ -128,7 +128,8 @@ public class ProveedorBean implements Serializable {
                 proveedorVO.setDireccionProveedor(direccionProveedor);
                 proveedorVO.setTelefonoProveedor(telefonoProveedor);
                 proveedorVO.setCorreoProveedor(correoProveedor);
-                proveedorVO.setUsuarioModificacionProveedor(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                proveedorVO.setUsuarioCreacionProveedor(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                proveedorVO.setEstado(estado);
 
                 if (proveedorService.insertar(proveedorVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
@@ -253,15 +254,12 @@ public class ProveedorBean implements Serializable {
         this.data = data;
     }
 
-    public Map<Integer, String> getEstadosEnum() {
+    public Map< String, Integer> getEstadosEnum() {
         return estadosEnum;
     }
 
-    public void setEstadosEnum(Map<Integer, String> estadosEnum) {
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
         this.estadosEnum = estadosEnum;
     }
 
-    
-    
-    
 }

@@ -26,8 +26,13 @@ public class ProductoVO {
     private Timestamp fechaModificacionProducto;
     private String usuarioModificacionProducto;
     private Integer estado;
-    private Modelo3DVO modelo3D;
 
+    //se instancian clases u objetos de llaves foraneas para evitar null 
+    public ProductoVO(){
+        this.tipoProducto = new TipoProductoVO();
+        this.medida = new MedidaVO();
+    }
+    
     public Integer getIdProducto() {
         return idProducto;
     }
@@ -116,16 +121,4 @@ public class ProductoVO {
         this.medida = medida;
     }
 
-    public Modelo3DVO getModelo3D() {
-        return modelo3D;
-    }
-
-    public void setModelo3D(Modelo3DVO modelo3D) {
-        this.modelo3D = modelo3D;
-    }
-    
-    
-    
-    
-    
 }
