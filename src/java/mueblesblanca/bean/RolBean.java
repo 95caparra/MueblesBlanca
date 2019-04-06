@@ -1,6 +1,7 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
@@ -8,8 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.service.RolService;
 import mueblesblanca.vo.RolVO;
 import org.primefaces.event.RowEditEvent;
@@ -27,10 +31,14 @@ public class RolBean implements Serializable {
     private List<RolVO> roles;
     private RolVO selectedRol;
     private List<RolVO> rolFiltro;
-
+    private List<String> estados;
+    
     private Integer id;
     private String nombre;
-
+    private Integer estado;
+    private Integer selectedEstado;
+    private Map<String, Integer> estadosEnum;
+    
     @PostConstruct
     public void init() {
 
@@ -41,7 +49,13 @@ public class RolBean implements Serializable {
                 rolService = new RolService();
                 
                 roles = rolService.listar();
-
+                
+                estadosEnum = new HashMap< String, Integer>();
+                
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
+                }
+                
             } catch (Exception e) {
 
             }
@@ -67,6 +81,7 @@ public class RolBean implements Serializable {
                 id = 0;
             }
             nombre = ((RolVO) event.getObject()).getDescripcionRol();
+            estado = selectedEstado;             
             rolVO = new RolVO();
             
             if (id != 0) {
@@ -75,6 +90,7 @@ public class RolBean implements Serializable {
                 rolVO.setIdRol(id);
                 rolVO.setDescripcionRol(nombre);
                 rolVO.setUsuarioModificacionRol(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                rolVO.setEstado(selectedEstado);  
 
                 if (rolService.actualizar(rolVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
@@ -86,6 +102,7 @@ public class RolBean implements Serializable {
             } else {
                 rolVO.setDescripcionRol(nombre);
                 rolVO.setUsuarioCreacionRol(String.valueOf(UsuarioEnum.USUARIO_DEFAULT.getIndex()));
+                rolVO.setEstado(estado);  
 
                 if (rolService.insertar(rolVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
@@ -108,6 +125,14 @@ public class RolBean implements Serializable {
             roles = rolService.listar();
         } catch (Exception e) {
         }        
+    }
+    
+    public String ValorEstado(Integer idestado) {
+        if (idestado != null) {
+            return EstadoEnum.get(idestado).toString();
+        } else {
+            return "";
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -178,11 +203,36 @@ public class RolBean implements Serializable {
         this.nombre = nombre;
     }
 
-    
+    /**
+     * @return the selectedEstado
+     */
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
 
-    
-    
+    /**
+     * @param selectedEstado the selectedEstado to set
+     */
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
 
-    
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Map< String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
+    }  
 
 }

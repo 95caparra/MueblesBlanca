@@ -22,8 +22,8 @@ public class ConexionSQL extends Conexion {
             //Colocamos el servidor sql, nombre de nuestra base de datos, usuario y password
             //String conectionURL = "jdbc:sqlserver://SERGIO:1433;databasename=Bd_MueblesBlanca";
             //this.usuario = "root"; this.password = "";
-            //String conectionURL = "jdbc:sqlserver://SERGIO:1433;databasename=Bd_MueblesBlanca";
-            String conectionURL = "jdbc:sqlserver://172.16.1.64:1433;databasename=Bd_MueblesBlanca";
+            String conectionURL = "jdbc:sqlserver://SERGIO:1433;databasename=Bd_MueblesBlanca";
+            //String conectionURL = "jdbc:sqlserver://172.16.1.64:1433;databasename=Bd_MueblesBlanca";
             this.usuario = "blanca"; this.password = "123456";
             
             this.conection = DriverManager.getConnection(conectionURL,usuario,password);       

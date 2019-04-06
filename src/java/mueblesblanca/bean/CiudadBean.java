@@ -1,6 +1,7 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
@@ -8,13 +9,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import mueblesblanca.service.CiudadService;
 import mueblesblanca.vo.CiudadVO;
 import org.primefaces.event.RowEditEvent;
-
+import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.constante.UsuarioEnum;
+import mueblesblanca.constante.EstadoEnumLista;
+
 
 @ManagedBean(name = "ciudadBean")
 @ViewScoped
@@ -27,10 +31,14 @@ public class CiudadBean implements Serializable {
     private List<CiudadVO> ciudades;
     private CiudadVO selectedCiudad;
     private List<CiudadVO> ciudadesFiltro;
-
+    private List<String> estados;
+    
     private Integer id;
     private String nombre;
-
+    private Integer estado;
+    private Integer selectedEstado;
+    private Map<String, Integer> estadosEnum;
+    
     @PostConstruct
     public void init() {
 
@@ -41,6 +49,12 @@ public class CiudadBean implements Serializable {
                 setCiudadService(new CiudadService());
 
                 setCiudades(getCiudadService().listar());
+                
+                estadosEnum = new HashMap< String, Integer>();
+                
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
+                } 
 
             } catch (Exception e) {
 
@@ -67,13 +81,16 @@ public class CiudadBean implements Serializable {
                 id = 0;
             }
             nombre = ((CiudadVO) event.getObject()).getDescripcionCiudad();
+            estado = selectedEstado;            
             ciudadVO = new CiudadVO();
+            
             if (id != 0) {
                 ciudadVO = ciudadService.consultarPorId(id);
 
                 ciudadVO.setIdCiudad(id);
                 ciudadVO.setDescripcionCiudad(nombre);
                 ciudadVO.setUsuarioModificacionCiudad(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                ciudadVO.setEstado(selectedEstado);
 
                 if (ciudadService.actualizar(ciudadVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
@@ -85,6 +102,7 @@ public class CiudadBean implements Serializable {
             } else {
                 ciudadVO.setDescripcionCiudad(nombre);
                 ciudadVO.setUsuarioCreacionCiudad(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                ciudadVO.setEstado(estado);                
 
                 if (ciudadService.insertar(ciudadVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
@@ -109,6 +127,14 @@ public class CiudadBean implements Serializable {
         }        
     }
 
+        public String ValorEstado(Integer idestado) {
+        if (idestado != null) {
+            return EstadoEnum.get(idestado).toString();
+        } else {
+            return "";
+        }
+    }
+        
     public void onRowCancel(RowEditEvent event) {
 
     }
@@ -223,6 +249,38 @@ public class CiudadBean implements Serializable {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    /**
+     * @return the selectedEstado
+     */
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
+
+    /**
+     * @param selectedEstado the selectedEstado to set
+     */
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
+
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Map< String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
     }
 
 }

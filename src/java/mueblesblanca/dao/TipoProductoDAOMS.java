@@ -67,6 +67,7 @@ public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
                     + "   SET [Descripcion_Tipo_Producto] = ?\n"
                     + "      ,[Fecha_Modificacion] = GETDATE()"
                     + "      ,[Usuario_Modificacion] = ?"
+                    + "      ,[estado] = ?"
                     + " WHERE [Id_Tipo_Producto] = ?";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -74,7 +75,9 @@ public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
 
             pstm.setString(1, tipoProductoVO.getDescripcionTipoProducto());
             pstm.setString(2, tipoProductoVO.getUsuarioModificacionTipoProducto());
-            pstm.setInt(3, tipoProductoVO.getIdTipoProducto());
+            pstm.setInt(3, tipoProductoVO.getEstado());
+            
+            pstm.setInt(4, tipoProductoVO.getIdTipoProducto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -119,12 +122,12 @@ public class TipoProductoDAOMS extends ConexionSQL implements TipoProductoDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM [dbo].[TipoProducto] WHERE estado = ? ";
+                    + " FROM [dbo].[TipoProducto] WHERE estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

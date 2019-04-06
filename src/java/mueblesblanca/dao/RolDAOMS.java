@@ -60,6 +60,7 @@ public class RolDAOMS extends ConexionSQL implements RolDAO {
                     + "   SET [descripcion] = ?"
                     + "      ,[fechaModificacion_Rol] = GETDATE()"
                     + "      ,[usuarioModificacion] = ?"
+                    + "      ,[estado_Rol] = ?"
                     + " WHERE [id_Rol] = ?";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -67,7 +68,9 @@ public class RolDAOMS extends ConexionSQL implements RolDAO {
 
             pstm.setString(1, rolVO.getDescripcionRol());
             pstm.setString(2, rolVO.getUsuarioModificacionRol());
-            pstm.setInt(3, rolVO.getIdRol());
+            pstm.setInt(3, rolVO.getEstado());
+            
+            pstm.setInt(4, rolVO.getIdRol());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -112,12 +115,12 @@ public class RolDAOMS extends ConexionSQL implements RolDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM [dbo].[Rol] WHERE estado_Rol = ? ";
+                    + " FROM [dbo].[Rol] WHERE estado_Rol <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

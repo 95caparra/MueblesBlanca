@@ -79,6 +79,18 @@
                                     <f:facet name="input"><p:inputText value="#{rol.descripcionRol}" /></f:facet>
                                 </p:cellEditor>                    
                             </p:column>
+                            
+                            <p:column headerText="Estado" filterBy="#{rol.estado}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{rolBean.ValorEstado(rol.estado)}"  /></f:facet>
+                                    <f:facet name="input">      
+
+                                        <h:selectOneMenu value="#{rolBean.selectedEstado}" style="width:100%">
+                                            <f:selectItems value="#{rolBean.estadosEnum}"  />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>                    
+                            </p:column>
 
                             <p:column style="width:32px">
                                 <p:rowEditor />

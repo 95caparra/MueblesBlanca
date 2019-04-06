@@ -67,6 +67,7 @@ public class TipoDocumentoDAOMS extends ConexionSQL implements TipoDocumentoDAO 
                     + "   SET [Descripcion] = ?"
                     + "      ,[Fecha_Modificacion] = GETDATE()"
                     + "      ,[Usuario_Modificacion] = ?"
+                    + "      ,[Estado] = ?"
                     + " WHERE [Id_Tipo_Documento] = ?";
 
             System.out.println("QUERY actualizar " + consulta);
@@ -74,7 +75,9 @@ public class TipoDocumentoDAOMS extends ConexionSQL implements TipoDocumentoDAO 
 
             pstm.setString(1, tipoDocumentoVO.getDescripcionTipoDocumento());
             pstm.setString(2, tipoDocumentoVO.getUsuarioModificacionTipoDocumento());
-            pstm.setInt(3, tipoDocumentoVO.getIdTipoDocumento());
+            pstm.setInt(3, tipoDocumentoVO.getEstado());
+
+            pstm.setInt(4, tipoDocumentoVO.getIdTipoDocumento());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -119,12 +122,12 @@ public class TipoDocumentoDAOMS extends ConexionSQL implements TipoDocumentoDAO 
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM [dbo].[Tipo_Documento] WHERE Estado = ? ";
+                    + " FROM [dbo].[Tipo_Documento] WHERE Estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

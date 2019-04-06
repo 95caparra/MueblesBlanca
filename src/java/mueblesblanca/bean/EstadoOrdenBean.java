@@ -1,6 +1,7 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
@@ -8,8 +9,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.service.EstadoOrdenService;
 import mueblesblanca.vo.EstadoOrdenVO;
 import org.primefaces.event.RowEditEvent;
@@ -27,9 +31,13 @@ public class EstadoOrdenBean implements Serializable {
     private List<EstadoOrdenVO> estadosOrden;
     private EstadoOrdenVO selectedEstadoOrden;
     private List<EstadoOrdenVO> estadosOrdenFiltro;
-
+    private List<String> estados;
+    
     private Integer id;
     private String nombre;
+    private Integer estado;
+    private Integer selectedEstado;
+    private Map<String, Integer> estadosEnum;
 
     @PostConstruct
     public void init() {
@@ -41,6 +49,12 @@ public class EstadoOrdenBean implements Serializable {
                 setEstadoOrdenService(new EstadoOrdenService());
 
                 setEstadosOrden(getEstadoOrdenService().listar());
+                
+                estadosEnum = new HashMap< String, Integer>();
+                
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
+                } 
 
             } catch (Exception e) {
 
@@ -67,13 +81,16 @@ public class EstadoOrdenBean implements Serializable {
                 id = 0;
             }
             nombre = ((EstadoOrdenVO) event.getObject()).getDescripcionEstadoOrden();
+            estado = selectedEstado;               
             estadoOrdenVO = new EstadoOrdenVO();
+            
             if (id != 0) {
                 estadoOrdenVO = estadoOrdenService.consultarPorId(id);
 
                 estadoOrdenVO.setIdEstadoOrden(id);
                 estadoOrdenVO.setDescripcionEstadoOrden(nombre);
                 estadoOrdenVO.setUsuarioModificacionEstadoOrden(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                estadoOrdenVO.setEstado(selectedEstado);
 
                 if (estadoOrdenService.actualizar(estadoOrdenVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
@@ -85,7 +102,8 @@ public class EstadoOrdenBean implements Serializable {
             } else {
                 estadoOrdenVO.setDescripcionEstadoOrden(nombre);
                 estadoOrdenVO.setUsuarioCreacionEstadoOrden(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
-
+                estadoOrdenVO.setEstado(estado);    
+                
                 if (estadoOrdenService.insertar(estadoOrdenVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -107,6 +125,14 @@ public class EstadoOrdenBean implements Serializable {
             estadosOrden = estadoOrdenService.listar();
         } catch (Exception e) {
         }        
+    }
+    
+    public String ValorEstado(Integer idestado) {
+        if (idestado != null) {
+            return EstadoEnum.get(idestado).toString();
+        } else {
+            return "";
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -225,4 +251,36 @@ public class EstadoOrdenBean implements Serializable {
         this.nombre = nombre;
     }
 
+    /**
+     * @return the selectedEstado
+     */
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
+
+    /**
+     * @param selectedEstado the selectedEstado to set
+     */
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
+
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Map< String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
+    }
+    
 }

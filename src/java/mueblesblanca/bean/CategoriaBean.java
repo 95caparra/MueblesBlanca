@@ -1,6 +1,7 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
@@ -8,13 +9,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
+import mueblesblanca.constante.UsuarioEnum;
 import mueblesblanca.service.CategoriaService;
 import mueblesblanca.vo.CategoriaVO;
 import org.primefaces.event.RowEditEvent;
-
-import mueblesblanca.constante.UsuarioEnum;
 
 @ManagedBean(name = "categoriaBean")
 @ViewScoped
@@ -27,10 +30,14 @@ public class CategoriaBean implements Serializable {
     private List<CategoriaVO> categorias;
     private CategoriaVO selectedCategoria;
     private List<CategoriaVO> categoriasFiltro;
+    private List<String> estados;
 
     private Integer id;
     private String nombre;
-
+    private Integer estado;
+    private Integer selectedEstado;
+    private Map<String, Integer> estadosEnum;
+    
     @PostConstruct
     public void init() {
 
@@ -41,6 +48,12 @@ public class CategoriaBean implements Serializable {
                 setCategoriaService(new CategoriaService());
 
                 setCategorias(getCategoriaService().listar());
+                
+                estadosEnum = new HashMap< String, Integer>();
+                
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
+                }                
 
             } catch (Exception e) {
 
@@ -67,13 +80,16 @@ public class CategoriaBean implements Serializable {
                 id = 0;
             }
             nombre = ((CategoriaVO) event.getObject()).getDescripcionCategoria();
+            estado = selectedEstado;
             categoriaVO = new CategoriaVO();
+            
             if (id != 0) {
                 categoriaVO = categoriaService.consultarPorId(id);
 
                 categoriaVO.setIdCategoria(id);
                 categoriaVO.setDescripcionCategoria(nombre);
                 categoriaVO.setUsuarioModificacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                categoriaVO.setEstado(selectedEstado);
 
                 if (categoriaService.actualizar(categoriaVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
@@ -85,6 +101,7 @@ public class CategoriaBean implements Serializable {
             } else {
                 categoriaVO.setDescripcionCategoria(nombre);
                 categoriaVO.setUsuarioCreacionCategoria(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                categoriaVO.setEstado(estado);
 
                 if (categoriaService.insertar(categoriaVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
@@ -107,6 +124,14 @@ public class CategoriaBean implements Serializable {
             categorias = categoriaService.listar();
         } catch (Exception e) {
         }        
+    }
+    
+    public String ValorEstado(Integer idestado) {
+        if (idestado != null) {
+            return EstadoEnum.get(idestado).toString();
+        } else {
+            return "";
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -223,6 +248,38 @@ public class CategoriaBean implements Serializable {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    /**
+     * @return the selectedEstado
+     */
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
+
+    /**
+     * @param selectedEstado the selectedEstado to set
+     */
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
+
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Map< String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
     }
 
 }

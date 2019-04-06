@@ -61,7 +61,7 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
 
             pstm.setString(1, medidaVO.getDescripcionMedida());
             pstm.setString(2, medidaVO.getUsuarioModificacionMedida());
-            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(3, medidaVO.getEstado());
             
             pstm.setInt(4, medidaVO.getIdMedida());
 
@@ -109,12 +109,12 @@ public class MedidaDAOMS extends ConexionSQL implements MedidaDAO {
             this.Conectar();
             String consulta = "SELECT Id_Medida, Descripcion_Medida, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, "
                     + "Usuario_Modificacion, Estado"
-                    + " FROM Medida WHERE Estado = ? ";
+                    + " FROM Medida WHERE Estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

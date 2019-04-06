@@ -64,7 +64,7 @@ public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
 
             pstm.setString(1, estadoOrdenVO.getDescripcionEstadoOrden());
             pstm.setString(2, estadoOrdenVO.getUsuarioModificacionEstadoOrden());
-            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(3, estadoOrdenVO.getEstado());
             
             pstm.setInt(4, estadoOrdenVO.getIdEstadoOrden());
 
@@ -112,12 +112,12 @@ public class EstadoOrdenDAOMS extends ConexionSQL implements EstadoOrdenDAO {
         try {
             this.Conectar();
             String consulta = "SELECT * "
-                    + " FROM Estado_Orden WHERE Estado = ? ";
+                    + " FROM Estado_Orden WHERE Estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

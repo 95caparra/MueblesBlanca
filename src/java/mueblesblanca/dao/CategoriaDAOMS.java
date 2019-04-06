@@ -61,7 +61,7 @@ public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
 
             pstm.setString(1, categoriaVO.getDescripcionCategoria());
             pstm.setString(2, categoriaVO.getUsuarioModificacionCategoria());
-            pstm.setInt(3, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(3, categoriaVO.getEstado());
 
             pstm.setInt(4, categoriaVO.getIdCategoria());
 
@@ -108,12 +108,12 @@ public class CategoriaDAOMS extends ConexionSQL implements CategoriaDAO {
         try {
             this.Conectar();
             String consulta = "SELECT Id_Categoria, Descripcion_Categoria, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
-                    + " FROM Categoria WHERE Estado = ? ";
+                    + " FROM Categoria WHERE Estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

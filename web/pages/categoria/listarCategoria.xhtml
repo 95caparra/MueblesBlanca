@@ -79,7 +79,19 @@
                                     <f:facet name="input"><p:inputText value="#{categoria.descripcionCategoria}" /></f:facet>
                                 </p:cellEditor>                    
                             </p:column>
+                            
+                            <p:column headerText="Estado" filterBy="#{categoria.estado}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{categoriaBean.ValorEstado(categoria.estado)}"  /></f:facet>
+                                    <f:facet name="input">      
 
+                                        <h:selectOneMenu value="#{categoriaBean.selectedEstado}" style="width:100%">
+                                            <f:selectItems value="#{categoriaBean.estadosEnum}"  />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>                    
+                            </p:column>
+                            
                             <p:column style="width:32px">
                                 <p:rowEditor />
                             </p:column>

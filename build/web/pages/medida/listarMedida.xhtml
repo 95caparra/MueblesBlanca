@@ -79,6 +79,18 @@
                                     <f:facet name="input"><p:inputText value="#{medida.descripcionMedida}" /></f:facet>
                                 </p:cellEditor>                    
                             </p:column>
+                            
+                            <p:column headerText="Estado" filterBy="#{medida.estado}">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{medidaBean.ValorEstado(medida.estado)}"  /></f:facet>
+                                    <f:facet name="input">      
+
+                                        <h:selectOneMenu value="#{medidaBean.selectedEstado}" style="width:100%">
+                                            <f:selectItems value="#{medidaBean.estadosEnum}"  />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>                    
+                            </p:column>
 
                             <p:column style="width:32px">
                                 <p:rowEditor />

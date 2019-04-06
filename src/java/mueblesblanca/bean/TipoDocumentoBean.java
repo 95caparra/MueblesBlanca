@@ -1,6 +1,7 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
@@ -8,12 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import java.util.List;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.service.TipoDocumentoService;
 import mueblesblanca.vo.TipoDocumentoVO;
 import org.primefaces.event.RowEditEvent;
-
 import mueblesblanca.constante.UsuarioEnum;
 
 @ManagedBean(name = "tipoDocumentoBean")
@@ -27,10 +30,14 @@ public class TipoDocumentoBean implements Serializable {
     private List<TipoDocumentoVO> tiposDocumento;
     private TipoDocumentoVO selectedTipoDocumento;
     private List<TipoDocumentoVO> tiposDocumentoFiltro;
-
+    private List<String> estados;
+    
     private Integer id;
     private String nombre;
-
+    private Integer estado;
+    private Integer selectedEstado;
+    private Map<String, Integer> estadosEnum;
+    
     @PostConstruct
     public void init() {
 
@@ -41,6 +48,12 @@ public class TipoDocumentoBean implements Serializable {
                 tipoDocumentoService = new TipoDocumentoService();
                 
                 tiposDocumento = tipoDocumentoService.listar();
+                
+                estadosEnum = new HashMap< String, Integer>();
+                
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    estadosEnum.put(enl.getNombre(), enl.getIndex());
+                }
 
             } catch (Exception e) {
 
@@ -66,7 +79,8 @@ public class TipoDocumentoBean implements Serializable {
             if (id == null) {
                 id = 0;
             }
-            nombre = ((TipoDocumentoVO) event.getObject()).getDescripcionTipoDocumento();
+            nombre = ((TipoDocumentoVO) event.getObject()).getDescripcionTipoDocumento();           
+            estado = selectedEstado;  
             tipoDocumentoVO = new TipoDocumentoVO();
 
             if (id != 0) {
@@ -75,6 +89,7 @@ public class TipoDocumentoBean implements Serializable {
                 tipoDocumentoVO.setIdTipoDocumento(id);
                 tipoDocumentoVO.setDescripcionTipoDocumento(nombre);
                 tipoDocumentoVO.setUsuarioModificacionTipoDocumento(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                tipoDocumentoVO.setEstado(selectedEstado);   
 
                 if (tipoDocumentoService.actualizar(tipoDocumentoVO) > 0) {
                     FacesMessage msg = new FacesMessage("actualizado");
@@ -86,6 +101,7 @@ public class TipoDocumentoBean implements Serializable {
             } else {
                 tipoDocumentoVO.setDescripcionTipoDocumento(nombre);
                 tipoDocumentoVO.setUsuarioCreacionTipoDocumento(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+                tipoDocumentoVO.setEstado(estado);  
 
                 if (tipoDocumentoService.insertar(tipoDocumentoVO) > 0) {
                     FacesMessage msg = new FacesMessage("insertado");
@@ -108,6 +124,14 @@ public class TipoDocumentoBean implements Serializable {
             tiposDocumento = tipoDocumentoService.listar();
         } catch (Exception e) {
         }        
+    }
+    
+    public String ValorEstado(Integer idestado) {
+        if (idestado != null) {
+            return EstadoEnum.get(idestado).toString();
+        } else {
+            return "";
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -178,6 +202,36 @@ public class TipoDocumentoBean implements Serializable {
         this.nombre = nombre;
     }
 
-    
+    /**
+     * @return the selectedEstado
+     */
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
+
+    /**
+     * @param selectedEstado the selectedEstado to set
+     */
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
+
+    public String data = "1";
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Map< String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map< String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
+    }
 
 }
