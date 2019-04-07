@@ -77,7 +77,7 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             pstm.setString(5, autorizacionVO.getConsultaAutorizacion());
             pstm.setString(6, autorizacionVO.getEliminaAutorizacion());
             pstm.setString(7, autorizacionVO.getUsuarioModificacion()); 
-            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(8, autorizacionVO.getEstadoAutorizacion());
             
             pstm.setInt(9, autorizacionVO.getIdAutorizacion());
 
@@ -126,11 +126,11 @@ public class AutorizacionDAOMS extends ConexionSQL implements AutorizacionDAO  {
             String consulta = " SELECT id_Autorizacion, codigoOpcion_Autorizacion, id_rol_Autorizacion, Modifica_Autorizacion, "
                     + "Crea_Autorizacion, Consulta_Autorizacion, Elimina_Autorizacion, fechaCreacion_Autorizacion, usuarioCreacion_Autorizacion, "
                     + "fechaModificacion_Autorizacion, usuarioModificacion_Autorizacion, estado_Autorizacion"
-                    + " FROM Autorizaciones WHERE estado_Autorizacion = ? ";
+                    + " FROM Autorizaciones WHERE estado_Autorizacion <> ? ";
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 

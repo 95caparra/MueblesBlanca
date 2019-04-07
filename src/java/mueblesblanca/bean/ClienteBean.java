@@ -32,7 +32,7 @@ import org.primefaces.context.RequestContext;
 @ViewScoped
 public class ClienteBean implements Serializable {
 
-    private static long serialVersionUID = 4545919119678482516L;
+    static long serialVersionUID = 4545919119678482516L;
 
     private Integer idPersonaNatural;
     private Long identificacionPersonaNatural;

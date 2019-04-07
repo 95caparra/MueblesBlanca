@@ -75,7 +75,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             pstm.setString(5, insumoVO.getDetalleInsumo());
             pstm.setTimestamp(6, insumoVO.getFechaModificacionInsumo());
             pstm.setString(7, insumoVO.getUsuarioModificacionInsumo());
-            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(8, insumoVO.getEstado());
                
             pstm.setInt(9, insumoVO.getIdInsumo());
 
@@ -123,12 +123,12 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             this.Conectar();
             String consulta = "SELECT Id_insumo, Nombre_Insumo, Cantidad_Existente, Id_Medida, Precio_Unidad_Insumo, Detalle_Insumo, "
                     + "Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
-                    + " FROM Insumo WHERE Estado = ? ";
+                    + " FROM Insumo WHERE Estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
-            pstm.setInt(1, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(1, EstadoEnum.ELIMINADO.getIndex());
 
             ResultSet rs = pstm.executeQuery();
 
