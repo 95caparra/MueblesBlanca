@@ -26,6 +26,12 @@ public class InsumoVO {
     private Timestamp fechaModificacionInsumo;
     private String usuarioModificacionInsumo;
     private Integer estado;
+    private byte[] foto;
+    
+        //se instancian clases u objetos de llaves foraneas para evitar null 
+    public InsumoVO(){
+        this.Medida = new MedidaVO();
+    }
 
     public Integer getIdInsumo() {
         return idInsumo;
@@ -43,11 +49,11 @@ public class InsumoVO {
         this.nombreInsumo = nombreInsumo;
     }
     
-    public Integer getcantidadExistente() {
+    public Integer getCantidadExistente() {
         return cantidadExistente;
     }
 
-    public void setcantidadExistente(Integer cantidadExistente) {
+    public void setCantidadExistente(Integer cantidadExistente) {
         this.cantidadExistente = cantidadExistente;
     }
 
@@ -115,4 +121,11 @@ public class InsumoVO {
         this.estado = estado;
     }
     
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
 }

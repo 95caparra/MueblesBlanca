@@ -15,10 +15,10 @@
                 droppedCar.fadeOut('fast');
             }
         </script>
-        <h:form id="frminformacionProducto" enctype="multipart/form-data">
-            <p:panel id="pnlInformacionProducto">
+        <h:form id="frmInformacionInsumo" enctype="multipart/form-data">
+            <p:panel id="pnlInformacionInsumo">
                 <f:facet name="header">
-                    <h:outputText value="Informacion Producto" />
+                    <h:outputText value="Informacion Insumo" />
                 </f:facet>
 
                 <p:row>
@@ -27,43 +27,20 @@
                     </p:column>
                     <br/>
                     <p:column>
-                        <p:inputText value="#{productoBean.productoVO.nombreProducto}" />
+                        <p:inputText value="#{insumoBean.insumoVO.nombreInsumo}" />
                     </p:column>                
                 </p:row>
 
                 <br/>
                 <br/>
-                <p:row>
-                    <p:column>
-                        <h:outputText value="Tipo producto " />
-                    </p:column>
-                    <br/>
-                    <p:column>
-                        <p:selectOneMenu id="tipoProducto"
-                                         required="true" 
-                                         requiredMessage="Por favor seleccione el tipo de producto"
-                                         value="#{productoBean.selectedIdTipoProducto}"
-                                         style="width:280px">
-                            <f:selectItem itemLabel="#{productoBean.productoVO.tipoProducto.descripcionTipoProducto}" itemValue="#{productoBean.productoVO.tipoProducto.idTipoProducto}" />
-                            <f:selectItems var="t" value="#{productoBean.tipoProductos}"
-                                           itemDisabled="#{productoBean.productoVO.tipoProducto.descripcionTipoProducto eq t.descripcionTipoProducto}"
-                                           itemValue="#{t.idTipoProducto}"                                           
-                                           itemLabel="#{t.descripcionTipoProducto}" />
-                            <p:message for="tipoDocumento" />              
-                        </p:selectOneMenu>     
-                    </p:column>
-                </p:row>
-
-                <br/>
-                <br/>
-
+                
                 <p:row>
                     <p:column>
                         <h:outputText value="Cantidad: " />
                     </p:column>
                     <br/>
                     <p:column>  
-                        <p:inputNumber value="#{productoBean.productoVO.cantidadExistente}" 
+                        <p:inputNumber value="#{insumoBean.insumoVO.cantidadExistente}" 
                                        decimalPlaces="0"/>
                     </p:column>
                 </p:row>
@@ -80,11 +57,11 @@
                         <p:selectOneMenu id="medida"
                                          required="true" 
                                          requiredMessage="Por favor seleccione la medida"
-                                         value="#{productoBean.selectedMedida}"
+                                         value="#{insumoBean.selectedMedida}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{productoBean.productoVO.medida.descripcionMedida}" itemValue="#{productoBean.productoVO.medida.idMedida}" />
-                            <f:selectItems var="c" value="#{productoBean.medidas}"
-                                           itemDisabled="#{productoBean.productoVO.medida.descripcionMedida eq c.descripcionMedida}" 
+                            <f:selectItem itemLabel="#{insumoBean.insumoVO.medida.descripcionMedida}" itemValue="#{insumoBean.insumoVO.medida.idMedida}" />
+                            <f:selectItems var="c" value="#{insumoBean.medidas}"
+                                           itemDisabled="#{insumoBean.insumoVO.medida.descripcionMedida eq c.descripcionMedida}" 
                                            itemValue="#{c.idMedida}"
                                            itemLabel="#{c.descripcionMedida}" />
                             <p:message for="ciudad" />              
@@ -101,20 +78,34 @@
                     </p:column>
                     <br/>
                     <p:column>  
-                        <p:inputNumber value="#{productoBean.productoVO.precioUnidadProducto}" 
+                        <p:inputNumber value="#{insumoBean.insumoVO.precioUnidadInsumo}" 
                                        decimalPlaces="0"/>
                     </p:column>
                 </p:row>
+                
                 <br/>
                 <br/>
                 
-                <img width="160" height="160" src="data:image/png;base64,${productoBean.imageString}"></img>
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Detalle insumo: " />
+                    </p:column>
+                    <br/>
+                    <p:column>  
+                        <p:inputTextarea value="#{insumoBean.insumoVO.detalleInsumo}"/>
+                    </p:column>
+                </p:row>
+                
+                <br/>
+                <br/>
+                
+                <img width="160" height="160" src="data:image/png;base64,${insumoBean.imageString}"></img>
                 
                 <br/>
                 <br/>
                 
                 <p:commandButton value="Actualizar" 
-                                 actionListener="#{productoBean.actualizar(id)}"
+                                 actionListener="#{insumoBean.actualizar(id)}"
                                  ajax="false" 
                                  update="growl" icon="ui-icon-disk" />
             </p:panel>

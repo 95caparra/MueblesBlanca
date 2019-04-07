@@ -24,19 +24,20 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
         try {
             this.Conectar();
             String consulta = " INSERT INTO Insumo ( Nombre_Insumo, Cantidad_Existente, Id_Medida, Precio_Unidad_Insumo, "
-                    + "Detalle_Insumo, Fecha_Creacion, Usuario_Creacion, Estado)"
-                    + " VALUES(?,?,?,?,?,GETDATE(),?,?) ";
+                    + "Detalle_Insumo, Fecha_Creacion, Usuario_Creacion, Estado, foto)"
+                    + " VALUES(?,?,?,?,?,GETDATE(),?,?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, insumoVO.getNombreInsumo());
-            pstm.setInt(2, insumoVO.getcantidadExistente());
+            pstm.setInt(2, insumoVO.getCantidadExistente());
             pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
             pstm.setString(6, insumoVO.getUsuarioCreacionInsumo());    
-            pstm.setInt(7, EstadoEnum.ACTIVO.getIndex());
+            pstm.setInt(7, insumoVO.getEstado());
+            pstm.setBytes(8, insumoVO.getFoto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -69,13 +70,13 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
 
             pstm.setString(1, insumoVO.getNombreInsumo());
-            pstm.setInt(2, insumoVO.getcantidadExistente());
+            pstm.setInt(2, insumoVO.getCantidadExistente());
             pstm.setInt(3, insumoVO.getMedida().getIdMedida());
             pstm.setBigDecimal(4, insumoVO.getPrecioUnidadInsumo());
             pstm.setString(5, insumoVO.getDetalleInsumo());
             pstm.setTimestamp(6, insumoVO.getFechaModificacionInsumo());
             pstm.setString(7, insumoVO.getUsuarioModificacionInsumo());
-            pstm.setInt(8, insumoVO.getEstado());
+            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
                
             pstm.setInt(9, insumoVO.getIdInsumo());
 
@@ -137,7 +138,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO = new InsumoVO();
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
-                insumoVO.setcantidadExistente(rs.getInt(t++));
+                insumoVO.setCantidadExistente(rs.getInt(t++));
                 insumoVO.getMedida().setIdMedida(t++);
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
@@ -165,7 +166,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
         try {
             this.Conectar();
             String consulta = " SELECT Id_insumo, Nombre_Insumo, Cantidad_Existente, Id_Medida, Precio_Unidad_Insumo, Detalle_Insumo, "
-                    + "Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado "
+                    + "Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado, foto "
                     + " FROM Insumo WHERE Id_insumo = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
@@ -178,7 +179,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO = new InsumoVO();
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
-                insumoVO.setcantidadExistente(rs.getInt(t++));
+                insumoVO.setCantidadExistente(rs.getInt(t++));
                 insumoVO.getMedida().setIdMedida(t++);
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
@@ -187,6 +188,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO.setFechaModificacionInsumo(rs.getTimestamp(t++));
                 insumoVO.setUsuarioModificacionInsumo(rs.getString(t++));
                 insumoVO.setEstado(rs.getInt(t++));
+                insumoVO.setFoto(rs.getBytes(t++));
             }
 
         } catch (Exception e) {

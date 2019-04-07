@@ -1,0 +1,210 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Insertar Insumo</ui:define>
+
+    <ui:define name="viewname">Insertar Insumo</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Ingresar Insumo</h1>
+                    <h:form enctype="multipart/form-data" id="insertarInsumo">                         
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:growl id="msg" showDetail="true" escape="false" />
+                        <p:panel id="pnlInsertarInsumo">
+                            <f:facet name="header">
+                                <h:outputText value="Insertar Insumo" />
+                            </f:facet>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Nombre Insumo: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="nombreInsumo" value="#{insumoBean.nombreInsumo}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese el nombre del insumo">
+                                        <p:message for="nombreInsumo" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Foto: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:fileUpload id="foto" fileUploadListener="#{insumoBean.upload}" mode="advanced" dragDropSupport="false"
+                                                  multiple="true" update="messages" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="width:100%" 
+                                                  required="true" label="foto" 
+                                                  requiredMessage="Por favor ingrese la foto">
+                                        <p:message for="foto" />              
+                                    </p:fileUpload>
+                                    <p:growl id="messages" showDetail="true" />
+                                </p:column>                
+                            </p:row>
+                            
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Cantidad Existente: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputNumber id="cantidadExistente" value="#{insumoBean.cantidadExistente}" 
+                                                 required="true" size="40"
+                                                 requiredMessage="Por favor ingrese la cantidad del insumo">
+                                        <p:message for="cantidadExistente" />
+                                    </p:inputNumber>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Medida: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="medida"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione una medida"
+                                                     value="#{insumoBean.selectedMedida}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione una medida" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="t"
+                                                       value="#{insumoBean.medidas}"
+                                                       itemValue="#{t.idMedida}"
+                                                       itemLabel="#{t.descripcionMedida}" />
+                                        <p:message for="medida" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Precio Unidad: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputNumber id="precioUnidad" value="#{insumoBean.precioUnidadInsumo}" 
+                                                   required="true" 
+                                                   requiredMessage="Por favor ingrese el precio por unidad" >
+                                        <p:message for="precioUnidad" />
+                                    </p:inputNumber>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Detalle Insumo: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputTextarea id="detalleInsumo" value="#{insumoBean.detalleInsumo}" 
+                                                 required="true" 
+                                                 requiredMessage="Por favor ingrese el detalle del insumo">
+                                        <p:message for="detalleInsumo" />
+                                    </p:inputTextarea>
+                                </p:column>                
+                            </p:row>  
+                            
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Estado" />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="estado"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione el estado"
+                                                     value="#{insumoBean.selectedEstado}" 
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Seleccione estado" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems value="#{insumoBean.estadosEnum}"  />
+                                        <p:message for="estado" />  
+                                    </p:selectOneMenu>                  
+                                </p:column>               
+                            </p:row>
+                            
+                            <br/>
+                            <br/>
+                            
+                            <p:commandButton value="Guardar" 
+                                             actionListener="#{insumoBean.insertar}"
+                                             ajax="false"
+                                             update="growl"
+                                             icon="ui-icon-disk">
+                            </p:commandButton>
+                        </p:panel>            
+                    </h:form>
+                </div>
+            </div>
+        </div>        
+       
+    </ui:define>
+</ui:composition>

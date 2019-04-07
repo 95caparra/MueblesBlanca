@@ -55,13 +55,13 @@
                 <div class="card">
                     <h1>Insumos</h1>
                     <h:form id="listarSolicitud" rendered="true">
-                        <p:panel header="Clientes" >
+                        <p:panel header="Insumos" >
                             <p:dataTable id="tableStateDT" var="insumo" value="#{insumoBean.insumos}" widgetVar="insumoTable" multiViewState="true"
                                          rows="10" paginator="true"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                          rowsPerPageTemplate="5,10,15"
                                          selectionMode="single" selection="#{insumoBean.selectedInsumo}" rowKey="#{insumo.idInsumo}"
-                                         emptyMessage="No tiene insumo" filteredValue="#{insumoBean.insumoFiltro}">
+                                         emptyMessage="No tiene insumo" filteredValue="#{insumoBean.insumosFiltro}">
 
                                 <f:facet name="header">
                                     <p:outputPanel>
@@ -70,7 +70,7 @@
                                     </p:outputPanel>
                                 </f:facet>
 
-                                <!--<p:ajax event="rowSelect" listener="#{insumoBean.consultarPorId}" oncomplete="PF('dlgInsumo').show();" update="frmInformacionInsumo:pnlInformacionInsumo" />-->
+                                <p:ajax event="rowSelect" listener="#{insumoBean.consultarPorId}" oncomplete="PF('dlgInsumo').show();" update="frmInformacionInsumo:pnlInformacionInsumo" />
 
                                 <p:column headerText="Id Insumo" sortBy="#{insumo.idInsumo}" filterBy="#{insumo.idInsumo}">
                                     <h:outputText value="#{insumo.idInsumo}" />
@@ -79,11 +79,12 @@
                                 <p:column headerText="Nombre Insumo" sortBy="#{insumo.nombreInsumo}" filterBy="#{insumo.nombreInsumo}">
                                     <h:outputText value="#{insumo.nombreInsumo}" />
                                 </p:column>
-                                <p:column headerText="Cantidad Existente" sortBy="#{insumo.getcantidadExistente}" filterBy="#{insumo.getcantidadExistente}">
-                                    <h:outputText value="#{insumo.getcantidadExistente}" />
+                                
+                                <p:column headerText="Cantidad Existente" sortBy="#{insumo.cantidadExistente}" filterBy="#{insumo.cantidadExistente}">
+                                    <h:outputText value="#{insumo.cantidadExistente}" />
                                 </p:column>
                                 
-                                <p:column headerText="Precio Unidad" sortBy="#{insumo.precioUnidadInsumo}" filterBy="#{insumo.precioUnidadInsumo}">
+                               <p:column headerText="Precio Unidad" sortBy="#{insumo.precioUnidadInsumo}" filterBy="#{insumo.precioUnidadInsumo}">
                                     <h:outputText value="#{insumo.precioUnidadInsumo}" />
                                 </p:column>
 
@@ -94,12 +95,12 @@
             </div>
         </div>
         
-         <!-- 	aqui estaba el popup de detalle cliente 
+         <!--	aqui estaba el popup de detalle cliente -->
 	<p:dialog header="Detalle" widgetVar="dlgInsumo"
 		modal="true" height="550" width="400" 
                 responsive="true" closable="true" resizable="false">
             <ui:include src="/pages/insumo/informacionInsumo.xhtml"></ui:include>
-	</p:dialog>-->
+	</p:dialog>
     </ui:define>
 
 </ui:composition>

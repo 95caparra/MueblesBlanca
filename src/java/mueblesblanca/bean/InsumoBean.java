@@ -1,28 +1,43 @@
 /*
- * To change this license header;choose License Headers in Project Properties.
- * To change this template file;choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package mueblesblanca.bean;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Blob;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
+import mueblesblanca.constante.EstadoEnum;
+import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.constante.UsuarioEnum;
-import mueblesblanca.service.InsumoService;
 import mueblesblanca.service.MedidaService;
-import mueblesblanca.vo.InsumoVO;
+import mueblesblanca.service.Modelo3DService;
+import mueblesblanca.service.InsumoService;
 import mueblesblanca.vo.MedidaVO;
+import mueblesblanca.vo.Modelo3DVO;
+import mueblesblanca.vo.InsumoVO;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+import sun.misc.BASE64Encoder;
 
 /**
  *
- * @author Sergio Alfonso G
+ * @author Sergio AlfonsoG
  */
 @ManagedBean(name = "insumoBean")
 @ViewScoped
@@ -32,22 +47,32 @@ public class InsumoBean implements Serializable {
 
     private Integer idInsumo;
     private String nombreInsumo;
+    private Integer selectedMedida;
     private Integer cantidadExistente;
-    private Integer selectedMedidaInsumo;   
     private BigDecimal precioUnidadInsumo;
+    private String usuarioCreacion;
+    private String usuarioModificacion;
+    private Integer estadoInsumo;
+    private Integer selectedEstado;
     private String detalleInsumo;
-    private Integer estado;
-
+    
     //objetos y listas/////////
     private InsumoVO insumoVO;
     private InsumoVO selectedInsumo;
-    private List<InsumoVO> insumoFiltro;
-    private List<InsumoVO> Insumos;
+    private List<InsumoVO> insumosFiltro;
+    private List<InsumoVO> insumos;
     private List<MedidaVO> medidas;
+    private List<Modelo3DVO> modelos;
+    private Map<String, Integer> estadosEnum;
+
+    private String imageString;
+    private UploadedFile file;
+    private byte[] contents;
 
     /// Services////////////
-    private InsumoService insumoService;
+    private InsumoService InsumoService;
     private MedidaService medidaService;
+    private Modelo3DService modelo3DService;
 
     @PostConstruct
     public void init() {
@@ -56,11 +81,19 @@ public class InsumoBean implements Serializable {
             Application application = context.getApplication();
             try {
                 //se inicializan los services y  objetos
-                insumoService = new InsumoService();
+                InsumoService = new InsumoService();
                 medidaService = new MedidaService();
+                modelo3DService = new Modelo3DService();
 
+                setInsumos(InsumoService.listar());
                 setMedidas(medidaService.listar());
-                setInsumos(insumoService.listar());
+                setModelos(modelo3DService.listar());
+
+                setEstadosEnum(new HashMap< String, Integer>());
+
+                for (EstadoEnumLista enl : EstadoEnumLista.values()) {
+                    getEstadosEnum().put(enl.getNombre(), enl.getIndex());
+                }
 
             } catch (Exception e) {
 
@@ -71,17 +104,18 @@ public class InsumoBean implements Serializable {
     public void actualizar(Integer id) {
         try {
             setInsumoVO(new InsumoVO());
-            
+
             getInsumoVO().setIdInsumo(id);
 
-            getInsumoVO().setNombreInsumo(getNombreInsumo());
-            getInsumoVO().setcantidadExistente(getCantidadExistente());
-            getInsumoVO().getMedida().setIdMedida(getSelectedMedidaInsumo());
-            getInsumoVO().setPrecioUnidadInsumo(getPrecioUnidadInsumo());
-            getInsumoVO().setDetalleInsumo(getDetalleInsumo());
+            getInsumoVO().setNombreInsumo(nombreInsumo);
+            getInsumoVO().setCantidadExistente(cantidadExistente);
+            getInsumoVO().getMedida().setIdMedida(selectedMedida);
+            getInsumoVO().setPrecioUnidadInsumo(precioUnidadInsumo);
+            getInsumoVO().setDetalleInsumo(detalleInsumo);
             getInsumoVO().setUsuarioModificacionInsumo(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+            getInsumoVO().setEstado(estadoInsumo);
 
-            if (insumoService.actualizar(getInsumoVO()) > 0) {
+            if (InsumoService.actualizar(getInsumoVO()) > 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se actualizo "));
             } else {
@@ -94,27 +128,58 @@ public class InsumoBean implements Serializable {
 
     public void consultarPorId() {
         try {
-            setInsumoVO(new InsumoVO());
-            setIdInsumo(getSelectedInsumo().getIdInsumo());
+            insumoVO = new InsumoVO();
+            idInsumo = getSelectedInsumo().getIdInsumo();
 
-            setInsumoVO(insumoService.consultarPorId(getIdInsumo()));
+            insumoVO = InsumoService.consultarPorId(idInsumo);
             
+            //Código para traer bytes de bd y convertir la imagen a base 64
+            InputStream in = new ByteArrayInputStream(insumoVO.getFoto());
+            if (in != null) {
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(insumoVO.getFoto());
+
+                InputStream inputStream = blob.getBinaryStream();
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                byte[] imageBytes = outputStream.toByteArray();
+
+                String base64Image = new BASE64Encoder().encode(imageBytes);
+
+                inputStream.close();
+                outputStream.close();
+                
+                imageString = base64Image;
+            }
+
         } catch (Exception e) {
         }
     }
 
     public void insertar() {
         try {
-            setInsumoVO(new InsumoVO());
+            insumoVO = new InsumoVO();
 
-            getInsumoVO().setNombreInsumo(getNombreInsumo());
-            getInsumoVO().setcantidadExistente(getCantidadExistente());
-            getInsumoVO().getMedida().setIdMedida(getSelectedMedidaInsumo());
-            getInsumoVO().setPrecioUnidadInsumo(getPrecioUnidadInsumo());
-            getInsumoVO().setDetalleInsumo(getDetalleInsumo());
-            getInsumoVO().setUsuarioCreacionInsumo(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+            insumoVO.setNombreInsumo(nombreInsumo);
+            insumoVO.setCantidadExistente(cantidadExistente);
+            insumoVO.getMedida().setIdMedida(selectedMedida);
+            insumoVO.setPrecioUnidadInsumo(precioUnidadInsumo);
+            insumoVO.setDetalleInsumo(detalleInsumo);
+            insumoVO.setUsuarioCreacionInsumo(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
+            insumoVO.setEstado(selectedEstado);
 
-            if (insumoService.insertar(getInsumoVO()) > 0) {
+            //Código para obtener los bytes de la imagen y setearlo
+            /*InputStream is2 = file.getInputstream();
+            int k2 = is2.available();
+            byte[] b2 = new byte[k2];*/
+            insumoVO.setFoto(contents);
+
+            if (InsumoService.insertar(getInsumoVO()) > 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se guardó "));
             } else {
@@ -123,16 +188,19 @@ public class InsumoBean implements Serializable {
             }
 
         } catch (Exception e) {
-            System.out.println("error: "+ e.getMessage());
+            System.out.println("error: " + e.getMessage());
         }
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public static void setSerialVersionUID(long serialVersionUID) {
-        InsumoBean.serialVersionUID = serialVersionUID;
+    public void upload(FileUploadEvent event) {
+        UploadedFile uploadedFile = event.getFile();
+        String fileName = uploadedFile.getFileName();
+        String contentType = uploadedFile.getContentType();
+        contents = uploadedFile.getContents(); // Or getInputStream()
+        if (contents.length > 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se subio la imagen "));
+        }
+        // ... Save it, now!
     }
 
     public Integer getIdInsumo() {
@@ -142,159 +210,157 @@ public class InsumoBean implements Serializable {
     public void setIdInsumo(Integer idInsumo) {
         this.idInsumo = idInsumo;
     }
-    
-    /**
-     * @return the nombreInsumo
-     */
+
     public String getNombreInsumo() {
         return nombreInsumo;
     }
 
-    /**
-     * @param nombreInsumo the nombreInsumo to set
-     */
     public void setNombreInsumo(String nombreInsumo) {
         this.nombreInsumo = nombreInsumo;
     }
 
-    /**
-     * @return the cantidadExistente
-     */
     public Integer getCantidadExistente() {
         return cantidadExistente;
     }
 
-    /**
-     * @param cantidadExistente the cantidadExistente to set
-     */
     public void setCantidadExistente(Integer cantidadExistente) {
         this.cantidadExistente = cantidadExistente;
     }
 
-    /**
-     * @return the selectedMedidaInsumo
-     */
-    public Integer getSelectedMedidaInsumo() {
-        return selectedMedidaInsumo;
-    }
-
-    /**
-     * @param selectedMedidaInsumo the selectedMedidaInsumo to set
-     */
-    public void setSelectedMedidaInsumo(Integer selectedMedidaInsumo) {
-        this.selectedMedidaInsumo = selectedMedidaInsumo;
-    }
-
-    /**
-     * @return the precioUnidadInsumo
-     */
     public BigDecimal getPrecioUnidadInsumo() {
         return precioUnidadInsumo;
     }
 
-    /**
-     * @param precioUnidadInsumo the precioUnidadInsumo to set
-     */
     public void setPrecioUnidadInsumo(BigDecimal precioUnidadInsumo) {
         this.precioUnidadInsumo = precioUnidadInsumo;
     }
-
-    /**
-     * @return the detalleInsumo
-     */
+    
     public String getDetalleInsumo() {
         return detalleInsumo;
     }
 
-    /**
-     * @param detalleInsumo the detalleInsumo to set
-     */
     public void setDetalleInsumo(String detalleInsumo) {
         this.detalleInsumo = detalleInsumo;
     }
 
-    /**
-     * @return the estado
-     */
-    public Integer getEstado() {
-        return estado;
+    public Integer getSelectedMedida() {
+        return selectedMedida;
     }
 
-    /**
-     * @param estado the estado to set
-     */
-    public void setEstado(Integer estado) {
-        this.estado = estado;
+    public void setSelectedMedida(Integer selectedMedida) {
+        this.selectedMedida = selectedMedida;
     }
 
-    /**
-     * @return the insumoVO
-     */
-    public InsumoVO getInsumoVO() {
-        return insumoVO;
+    public String getUsuarioCreacion() {
+        return usuarioCreacion;
     }
 
-    /**
-     * @param insumoVO the insumoVO to set
-     */
-    public void setInsumoVO(InsumoVO insumoVO) {
-        this.insumoVO = insumoVO;
+    public void setUsuarioCreacion(String usuarioCreacion) {
+        this.usuarioCreacion = usuarioCreacion;
     }
 
-    /**
-     * @return the selectedInsumo
-     */
-    public InsumoVO getSelectedInsumo() {
-        return selectedInsumo;
+    public String getUsuarioModificacion() {
+        return usuarioModificacion;
     }
 
-    /**
-     * @param selectedInsumo the selectedInsumo to set
-     */
-    public void setSelectedInsumo(InsumoVO selectedInsumo) {
-        this.selectedInsumo = selectedInsumo;
+    public void setUsuarioModificacion(String usuarioModificacion) {
+        this.usuarioModificacion = usuarioModificacion;
     }
 
-    /**
-     * @return the insumoFiltro
-     */
-    public List<InsumoVO> getInsumoFiltro() {
-        return insumoFiltro;
+    public Integer getEstadoInsumo() {
+        return estadoInsumo;
     }
 
-    /**
-     * @param insumoFiltro the insumoFiltro to set
-     */
-    public void setInsumoFiltro(List<InsumoVO> insumoFiltro) {
-        this.insumoFiltro = insumoFiltro;
+    public void setEstadoInsumo(Integer estadoInsumo) {
+        this.estadoInsumo = estadoInsumo;
     }
 
-    /**
-     * @return the Insumos
-     */
     public List<InsumoVO> getInsumos() {
-        return Insumos;
+        return insumos;
     }
 
-    /**
-     * @param Insumos the Insumos to set
-     */
-    public void setInsumos(List<InsumoVO> Insumos) {
-        this.Insumos = Insumos;
+    public void setInsumos(List<InsumoVO> insumos) {
+        this.insumos = insumos;
     }
 
-    /**
-     * @return the medidas
-     */
     public List<MedidaVO> getMedidas() {
         return medidas;
     }
 
-    /**
-     * @param medidas the medidas to set
-     */
     public void setMedidas(List<MedidaVO> medidas) {
         this.medidas = medidas;
+    }
+
+    public List<Modelo3DVO> getModelos() {
+        return modelos;
+    }
+
+    public void setModelos(List<Modelo3DVO> modelos) {
+        this.modelos = modelos;
+    }
+
+    public Integer getSelectedEstado() {
+        return selectedEstado;
+    }
+
+    public void setSelectedEstado(Integer selectedEstado) {
+        this.selectedEstado = selectedEstado;
+    }
+
+    public Map<String, Integer> getEstadosEnum() {
+        return estadosEnum;
+    }
+
+    public void setEstadosEnum(Map<String, Integer> estadosEnum) {
+        this.estadosEnum = estadosEnum;
+    }
+
+    public InsumoVO getSelectedInsumo() {
+        return selectedInsumo;
+    }
+
+    public void setSelectedInsumo(InsumoVO selectedInsumo) {
+        this.selectedInsumo = selectedInsumo;
+    }
+
+    public InsumoVO getInsumoVO() {
+        return insumoVO;
+    }
+
+    public void setInsumoVO(InsumoVO insumoVO) {
+        this.insumoVO = insumoVO;
+    }
+
+    public List<InsumoVO> getInsumosFiltro() {
+        return insumosFiltro;
+    }
+
+    public void setInsumosFiltro(List<InsumoVO> insumosFiltro) {
+        this.insumosFiltro = insumosFiltro;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public byte[] getContents() {
+        return contents;
+    }
+
+    public void setContents(byte[] contents) {
+        this.contents = contents;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 
 }
