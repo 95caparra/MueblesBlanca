@@ -64,7 +64,7 @@
                                            itemDisabled="#{insumoBean.insumoVO.medida.descripcionMedida eq c.descripcionMedida}" 
                                            itemValue="#{c.idMedida}"
                                            itemLabel="#{c.descripcionMedida}" />
-                            <p:message for="ciudad" />              
+                            <p:message for="medida" />              
                         </p:selectOneMenu>     
                     </p:column>
                 </p:row>
@@ -105,7 +105,7 @@
                 <br/>
                 
                 <p:commandButton value="Actualizar" 
-                                 actionListener="#{insumoBean.actualizar(id)}"
+                                 actionListener="#{insumoBean.actualizar(insumoBean.insumoVO.idInsumo)}"
                                  ajax="false" 
                                  update="growl" icon="ui-icon-disk" />
             </p:panel>
