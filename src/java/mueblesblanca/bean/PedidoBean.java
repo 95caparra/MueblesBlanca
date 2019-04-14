@@ -7,6 +7,7 @@ package mueblesblanca.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,7 +191,7 @@ public class PedidoBean implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Integer getSelectedproveedor() {
+    public Integer getSelectedProveedor() {
         return selectedIdProveedor;
     }
 
