@@ -119,7 +119,7 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
             this.Conectar();
             String consulta = "SELECT Id_Pedido, Id_Insumo, Id_Proveedor, Fecha_Sugerida, Observacion, Fecha_Creacion, Usuario_Creacion, "
                     + "Fecha_Modificacion, Usuario_Modificacion, Estado"
-                    + " FROM Insumo WHERE Estado = ? ";
+                    + " FROM Pedido WHERE Estado = ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -161,7 +161,7 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
             this.Conectar();
             String consulta = "SELECT Id_Pedido, Id_Insumo, Id_Proveedor, Fecha_Sugerida, Observacion, Fecha_Creacion, Usuario_Creacion, "
                     + "Fecha_Modificacion, Usuario_Modificacion, Estado"
-                    + " FROM Insumo WHERE Id_Pedido = ? ";
+                    + " FROM Pedido WHERE Id_Pedido = ? ";
 
             System.out.println("QUERY consultarPorId " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
