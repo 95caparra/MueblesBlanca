@@ -31,15 +31,15 @@
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Identificaci�n: " />
+                        <h:outputText value="Identificacion: " />
                     </p:column>
                     <br/>
                     <p:column>
-                        <p:inputText id="identificacion" value="#{clienteBean.personaNaturalVO.identificacionPersonaNatural}" 
-                                     required="true" size="40"
-                                     requiredMessage="Por favor ingrese la identificaci�n">
+                        <p:inputNumber id="identificacion" value="#{clienteBean.personaNaturalVO.identificacionPersonaNatural}" 
+                                     required="true" size="40" thousandSeparator="" decimalPlaces="0"
+                                     requiredMessage="Por favor ingrese la identificacion">
                             <p:message for="identificacion" />
-                        </p:inputText>
+                        </p:inputNumber>
                     </p:column>                
                 </p:row>
 
@@ -144,14 +144,13 @@
                     </p:column>
                     <br/>
                     <p:column>
-                        <p:inputText id="telefono" value="#{clienteBean.personaNaturalVO.telefonoPersonaNatural}" 
-                                     required="true" size="40"
+                        <p:inputNumber id="telefono" value="#{clienteBean.personaNaturalVO.telefonoPersonaNatural}" 
+                                       required="true" size="40" thousandSeparator="" decimalPlaces="0" maxlength="7"
                                      requiredMessage="Por favor ingrese el telefono">
                             <p:message for="telefono" />
-                        </p:inputText>
+                        </p:inputNumber>
                     </p:column>                
                 </p:row>
-
 
                 <br/>
                 <br/>
@@ -162,11 +161,11 @@
                     </p:column>
                     <br/>
                     <p:column>
-                        <p:inputText id="celular" value="#{clienteBean.personaNaturalVO.celularPersonaNatural}" 
-                                     required="true" size="40"
+                        <p:inputNumber id="celular" value="#{clienteBean.personaNaturalVO.celularPersonaNatural}" 
+                                     required="true" size="40" thousandSeparator="" decimalPlaces="0" maxlength="10"
                                      requiredMessage="Por favor ingrese el celular">
                             <p:message for="celular" />
-                        </p:inputText>
+                        </p:inputNumber>
                     </p:column>                
                 </p:row>
 
@@ -175,7 +174,7 @@
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Direcci�n: " />
+                        <h:outputText value="Direccion: " />
                     </p:column>
                     <br/>
                     <p:column>

@@ -127,8 +127,8 @@
                                 </p:column>
                                 <br/>
                                 <p:column>
-                                    <p:spinner id="cantidadExistente" value="#{productoBean.cantidadExistente}"  min="0" max="100" 
-                                               required="true" 
+                                    <p:inputNumber id="cantidadExistente" value="#{productoBean.cantidadExistente}" 
+                                                   required="true" decimalPlaces="0" thousandSeparator=""
                                                requiredMessage="Por favor ingrese la cantidad existente" />
                                     <p:message for="cantidadExistente" />
                                 </p:column>                

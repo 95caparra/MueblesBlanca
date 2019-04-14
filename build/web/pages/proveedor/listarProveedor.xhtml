@@ -91,7 +91,10 @@
                             <p:column headerText="Telefono" filterBy="#{proveedor.telefonoProveedor}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{proveedor.telefonoProveedor}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{proveedor.telefonoProveedor}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputNumber value="#{proveedor.telefonoProveedor}" thousandSeparator="" 
+                                                       decimalPlaces="0" maxlength="7" />
+                                    </f:facet>
                                 </p:cellEditor>                    
                             </p:column>
 
