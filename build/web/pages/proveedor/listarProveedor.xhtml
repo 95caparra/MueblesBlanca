@@ -93,7 +93,7 @@
                                     <f:facet name="output"><h:outputText value="#{proveedor.telefonoProveedor}" /></f:facet>
                                     <f:facet name="input">
                                         <p:inputNumber value="#{proveedor.telefonoProveedor}" thousandSeparator="" 
-                                                       decimalPlaces="0" maxlength="7" />
+                                                       decimalPlaces="0" maxValue="9999999999" />
                                     </f:facet>
                                 </p:cellEditor>                    
                             </p:column>
@@ -101,7 +101,11 @@
                             <p:column headerText="Correo" filterBy="#{proveedor.correoProveedor}">
                                 <p:cellEditor>
                                     <f:facet name="output"><h:outputText value="#{proveedor.correoProveedor}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{proveedor.correoProveedor}" /></f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="email" value="#{proveedor.correoProveedor}" validatorMessage="Formato de email invalido">
+                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                        </p:inputText>
+                                    </f:facet>
                                 </p:cellEditor>                    
                             </p:column>
 
