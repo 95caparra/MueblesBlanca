@@ -17,13 +17,19 @@ public class PedidoVO {
     private Integer idPedido;
     private InsumoVO Insumo;
     private ProveedorVO Proveedor;
-    private Timestamp fechaSugeridaPedido;
+    private String fechaSugeridaPedido;
     private String observacionPedido;
     private Timestamp fechaCreacionPedido;
     private String usuarioCreacionPedido;
     private Timestamp fechaModificacionPedido;
     private String usuarioModificacionPedido;
     private Integer estado;
+    
+    //se instancian clases u objetos de llaves foraneas para evitar null 
+    public PedidoVO(){
+        this.Insumo = new InsumoVO();
+        this.Proveedor = new ProveedorVO();
+    }
 
     public Integer getIdPedido() {
         return idPedido;
@@ -49,11 +55,11 @@ public class PedidoVO {
         this.Proveedor = Proveedor;
     }
 
-    public Timestamp getFechaSugeridaPedido() {
+    public String getFechaSugeridaPedido() {
         return fechaSugeridaPedido;
     }
 
-    public void setFechaSugeridaPedido(Timestamp fechaSugeridaPedido) {
+    public void setFechaSugeridaPedido(String fechaSugeridaPedido) {
         this.fechaSugeridaPedido = fechaSugeridaPedido;
     }
 

@@ -6,8 +6,6 @@
 package mueblesblanca.bean;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 import mueblesblanca.constante.EstadoEnum;
 import mueblesblanca.constante.EstadoEnumLista;
 import mueblesblanca.constante.UsuarioEnum;
@@ -27,7 +24,6 @@ import mueblesblanca.service.InsumoService;
 import mueblesblanca.vo.InsumoVO;
 import mueblesblanca.vo.PedidoVO;
 import mueblesblanca.vo.ProveedorVO;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -42,7 +38,7 @@ public class PedidoBean implements Serializable {
     private Integer idPedido;
     private Integer selectedIdInsumo;
     private Integer selectedIdProveedor;
-    private Timestamp fechaSugerida;
+    private String fechaSugerida;
     private String observaciones;
     private String usuarioCreacion;
     private String usuarioModificacion;
@@ -130,7 +126,7 @@ public class PedidoBean implements Serializable {
     public void insertar() {
         try {
             pedidoVO = new PedidoVO();
-
+            
             pedidoVO.getInsumo().setIdInsumo(selectedIdInsumo);
             pedidoVO.getProveedor().setIdProveedor(selectedIdProveedor);
             pedidoVO.setFechaSugeridaPedido(fechaSugerida);
@@ -150,10 +146,6 @@ public class PedidoBean implements Serializable {
             System.out.println("error: " + e.getMessage());
         }
     }
-
-    public Integer getIdPedido() {
-        return idPedido;
-    }
     
     public String ValorEstado(Integer idestado) {
         if (idestado != null) {
@@ -163,15 +155,19 @@ public class PedidoBean implements Serializable {
         }
     }
 
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
 
-    public Timestamp getFechaSugerida() {
+    public String getFechaSugerida() {
         return fechaSugerida;
     }
 
-    public void getFechaSugerida(Timestamp fechaSugerida) {
+    public void setFechaSugerida(String fechaSugerida) {
         this.fechaSugerida = fechaSugerida;
     }
 
@@ -295,12 +291,30 @@ public class PedidoBean implements Serializable {
         this.insumoVO = insumoVO;
     }
     
-    public ProveedorVO getproveedorVO() {
+    public ProveedorVO getProveedorVO() {
         return proveedorVO;
     }
 
     public void setProveedorVO(ProveedorVO proveedorVO) {
         this.proveedorVO = proveedorVO;
+    }
+    
+    public String ValorInsumo(Integer idInsumo) throws Exception {
+        if (idInsumo != null) {
+            InsumoVO insumo = insumoService.consultarPorId(idInsumo);
+            return insumo.getNombreInsumo();
+        } else {
+            return "";
+        }
+    }
+    
+    public String ValorProveedor(Integer idProveedor) throws Exception {
+        if (idProveedor != null) {
+            ProveedorVO proveedor = proveedorService.consultarPorId(idProveedor);
+            return proveedor.getRazonSocialProveedor();
+        } else {
+            return "";
+        }
     }
 
 }

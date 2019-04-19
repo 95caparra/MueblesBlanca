@@ -32,7 +32,7 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
 
             pstm.setInt(1, pedidoVO.getInsumo().getIdInsumo());
             pstm.setInt(2, pedidoVO.getProveedor().getIdProveedor());
-            pstm.setTimestamp(3, pedidoVO.getFechaSugeridaPedido());
+            pstm.setString(3, pedidoVO.getFechaSugeridaPedido());
             pstm.setString(4, pedidoVO.getObservacionPedido());
             pstm.setString(5, pedidoVO.getUsuarioCreacionPedido());   
             pstm.setInt(6, EstadoEnum.ACTIVO.getIndex());
@@ -68,7 +68,7 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
 
             pstm.setInt(1, pedidoVO.getInsumo().getIdInsumo());
             pstm.setInt(2, pedidoVO.getProveedor().getIdProveedor());
-            pstm.setTimestamp(3, pedidoVO.getFechaSugeridaPedido());
+            pstm.setString(3, pedidoVO.getFechaSugeridaPedido());
             pstm.setString(4, pedidoVO.getObservacionPedido());
             pstm.setString(5, pedidoVO.getUsuarioModificacionPedido());
             pstm.setInt(6, EstadoEnum.ACTIVO.getIndex());
@@ -132,9 +132,9 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
                 int t = 1;
                 pedidoVO = new PedidoVO();
                 pedidoVO.setIdPedido(rs.getInt(t++));
-                pedidoVO.getInsumo().setIdInsumo(t++);
-                pedidoVO.getProveedor().setIdProveedor(t);
-                pedidoVO.setFechaSugeridaPedido(rs.getTimestamp(t++));
+                pedidoVO.getInsumo().setIdInsumo(rs.getInt(t++));
+                pedidoVO.getProveedor().setIdProveedor(rs.getInt(t++));
+                pedidoVO.setFechaSugeridaPedido(rs.getString(t++));
                 pedidoVO.setObservacionPedido(rs.getString(t++));
                 pedidoVO.setFechaCreacionPedido(rs.getTimestamp(t++));
                 pedidoVO.setUsuarioCreacionPedido(rs.getString(t++));
@@ -172,9 +172,9 @@ public class PedidoDAOMS extends ConexionSQL implements PedidoDAO {
                 int t = 1;
                 pedidoVO = new PedidoVO();
                 pedidoVO.setIdPedido(rs.getInt(t++));
-                pedidoVO.getInsumo().setIdInsumo(t++);
-                pedidoVO.getProveedor().setIdProveedor(t);
-                pedidoVO.setFechaSugeridaPedido(rs.getTimestamp(t++));
+                pedidoVO.getInsumo().setIdInsumo(rs.getInt(t++));
+                pedidoVO.getProveedor().setIdProveedor(rs.getInt(t++));
+                pedidoVO.setFechaSugeridaPedido(rs.getString(t++));
                 pedidoVO.setObservacionPedido(rs.getString(t++));
                 pedidoVO.setFechaCreacionPedido(rs.getTimestamp(t++));
                 pedidoVO.setUsuarioCreacionPedido(rs.getString(t++));
