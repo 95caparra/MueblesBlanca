@@ -116,9 +116,9 @@
                                 </p:column>
                                 <br/>
                                 <p:column>
-                                    <p:calendar id="fechaSugerida" value="#{pedidoBean.fechaSugerida}">
+                                    <p:inputText id="fechaSugerida" type="Date" value="#{pedidoBean.fechaSugerida}">
                                         <p:message for="fechaSugerida" />
-                                    </p:calendar>
+                                    </p:inputText>
                                 </p:column>                
                             </p:row>
 
@@ -137,6 +137,28 @@
                                 </p:column>                
                             </p:row>
 
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Estado" />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="estado"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione el estado"
+                                                     value="#{pedidoBean.selectedEstado}" 
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Seleccione estado" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems value="#{pedidoBean.estadosEnum}"  />
+                                        <p:message for="estado" />  
+                                    </p:selectOneMenu>                  
+                                </p:column>               
+                            </p:row>
+                            
                             <br/>
                             <br/>
                             

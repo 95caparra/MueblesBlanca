@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>        
+        <script type="text/javascript">
+            function handleDrop(event, ui) {
+                var droppedCar = ui.draggable;
+
+                droppedCar.fadeOut('fast');
+            }
+        </script>
+        <h:form id="frmInformacionPedido" enctype="multipart/form-data">
+            <p:panel id="pnlInformacionPedido">
+                <f:facet name="header">
+                    <h:outputText value="Informacion Pedido" />
+                </f:facet>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Insumo " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:selectOneMenu id="insumo"
+                                         required="true" 
+                                         requiredMessage="Por favor seleccione el insumo"
+                                         value="#{pedidoBean.selectedIdInsumo}"
+                                         style="width:280px">
+                            <f:selectItem itemLabel="#{pedidoBean.pedidoVO.insumo.nombreInsumo}" itemValue="#{pedidoBean.pedidoVO.insumo.idInsumo}" />
+                            <f:selectItems var="t" value="#{pedidoBean.insumos}"
+                                           itemDisabled="#{pedidoBean.pedidoVO.insumo.nombreInsumo eq t.nombreInsumo}"
+                                           itemValue="#{t.idInsumo}"                                           
+                                           itemLabel="#{t.nombreInsumo}" />
+                            <p:message for="insumo" />              
+                        </p:selectOneMenu>     
+                    </p:column>
+                </p:row>
+
+                <br/>
+                <br/>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Proveedor " />
+                    </p:column>
+                    <br/>
+                    <p:column>
+                        <p:selectOneMenu id="proveedor"
+                                         required="true" 
+                                         requiredMessage="Por favor seleccione un proveedor"
+                                         value="#{pedidoBean.selectedProveedor}"
+                                         style="width:280px">
+                            <f:selectItem itemLabel="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor}" itemValue="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor}" />
+                            <f:selectItems var="t" value="#{pedidoBean.proveedores}"
+                                           itemDisabled="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor eq t.razonSocialProveedor}"
+                                           itemValue="#{t.idProveedor}"                                           
+                                           itemLabel="#{t.razonSocialProveedor}" />
+                            <p:message for="proveedor" />              
+                        </p:selectOneMenu>     
+                    </p:column>
+                </p:row>
+                
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Fecha " />
+                    </p:column>
+                    <br/>
+                    <p:column>  
+                        <p:inputText value="#{pedidoBean.pedidoVO.fechaSugeridaPedido}" 
+                                     type="Date"/>
+                    </p:column>
+                </p:row>
+
+                <br/>
+                <br/>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Observaciones " />
+                    </p:column>
+                    <br/>
+                    <p:column>  
+                        <p:inputTextarea value="#{pedidoBean.pedidoVO.observacionPedido}" />
+                    </p:column>
+                </p:row>
+                
+                <br/>
+                <br/>
+                
+                <p:commandButton value="Actualizar" 
+                                 actionListener="#{productoBean.actualizar(id)}"
+                                 ajax="false" 
+                                 update="growl" icon="ui-icon-disk" />
+            </p:panel>
+        </h:form>
+    </body>
+</html>

@@ -71,10 +71,6 @@
                                 </f:facet>
 
                                 <p:ajax event="rowSelect" listener="#{insumoBean.consultarPorId}" oncomplete="PF('dlgInsumo').show();" update="frmInformacionInsumo:pnlInformacionInsumo" />
-
-                                <p:column headerText="Id Insumo" sortBy="#{insumo.idInsumo}" filterBy="#{insumo.idInsumo}">
-                                    <h:outputText value="#{insumo.idInsumo}" />
-                                </p:column>
                                 
                                 <p:column headerText="Nombre Insumo" sortBy="#{insumo.nombreInsumo}" filterBy="#{insumo.nombreInsumo}">
                                     <h:outputText value="#{insumo.nombreInsumo}" />
