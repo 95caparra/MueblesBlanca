@@ -17,10 +17,24 @@
         </script>
         <h:form id="frmInformacionInsumo" enctype="multipart/form-data">
             <p:panel id="pnlInformacionInsumo">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <p:growl id="msg" showDetail="true" escape="false" />
                 <f:facet name="header">
                     <h:outputText value="Informacion Insumo" />
                 </f:facet>
-
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Id: " />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{insumoBean.idInsumo}" />
+                    </p:column>                
+                </p:row>
+                
+                <br/>
+                <br/>
+                
                 <p:row>
                     <p:column>
                         <h:outputText value="Nombre: " />
@@ -59,9 +73,9 @@
                                          requiredMessage="Por favor seleccione la medida"
                                          value="#{insumoBean.selectedMedida}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{insumoBean.insumoVO.medida.descripcionMedida}" itemValue="#{insumoBean.insumoVO.medida.idMedida}" />
+                            <f:selectItem itemLabel="#{insumoBean.ValorMedida(insumoBean.insumoVO.medida.idMedida)}" itemValue="#{insumoBean.insumoVO.medida.idMedida}" />
                             <f:selectItems var="c" value="#{insumoBean.medidas}"
-                                           itemDisabled="#{insumoBean.insumoVO.medida.descripcionMedida eq c.descripcionMedida}" 
+                                           itemDisabled="#{insumoBean.ValorMedida(insumoBean.insumoVO.medida.idMedida) eq c.descripcionMedida}" 
                                            itemValue="#{c.idMedida}"
                                            itemLabel="#{c.descripcionMedida}" />
                             <p:message for="medida" />              

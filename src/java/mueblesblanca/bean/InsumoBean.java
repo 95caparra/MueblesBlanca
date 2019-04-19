@@ -362,5 +362,13 @@ public class InsumoBean implements Serializable {
     public void setImageString(String imageString) {
         this.imageString = imageString;
     }
-
+    
+    public String ValorMedida(Integer idMedida) throws Exception {
+        if (idMedida != null) {
+            MedidaVO medida = medidaService.consultarPorId(idMedida);
+            return medida.getDescripcionMedida();
+        } else {
+            return "";
+        }
+    } 
 }

@@ -17,9 +17,23 @@
         </script>
         <h:form id="frminformacionProducto" enctype="multipart/form-data">
             <p:panel id="pnlInformacionProducto">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <p:growl id="msg" showDetail="true" escape="false" />
                 <f:facet name="header">
                     <h:outputText value="Informacion Producto" />
                 </f:facet>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Id: " />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{productoBean.idProducto}" />
+                    </p:column>                
+                </p:row>
+                
+                <br/>
+                <br/>
 
                 <p:row>
                     <p:column>
@@ -44,9 +58,9 @@
                                          requiredMessage="Por favor seleccione el tipo de producto"
                                          value="#{productoBean.selectedIdTipoProducto}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{productoBean.productoVO.tipoProducto.descripcionTipoProducto}" itemValue="#{productoBean.productoVO.tipoProducto.idTipoProducto}" />
+                            <f:selectItem itemLabel="#{productoBean.ValorTipoProducto(productoBean.productoVO.tipoProducto.idTipoProducto)}" itemValue="#{productoBean.productoVO.tipoProducto.idTipoProducto}" />
                             <f:selectItems var="t" value="#{productoBean.tipoProductos}"
-                                           itemDisabled="#{productoBean.productoVO.tipoProducto.descripcionTipoProducto eq t.descripcionTipoProducto}"
+                                           itemDisabled="#{productoBean.ValorTipoProducto(productoBean.productoVO.tipoProducto.idTipoProducto) eq t.descripcionTipoProducto}"
                                            itemValue="#{t.idTipoProducto}"                                           
                                            itemLabel="#{t.descripcionTipoProducto}" />
                             <p:message for="tipoDocumento" />              
@@ -82,9 +96,9 @@
                                          requiredMessage="Por favor seleccione la medida"
                                          value="#{productoBean.selectedMedida}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{productoBean.productoVO.medida.descripcionMedida}" itemValue="#{productoBean.productoVO.medida.idMedida}" />
+                            <f:selectItem itemLabel="#{productoBean.ValorMedida(productoBean.productoVO.medida.idMedida)}" itemValue="#{productoBean.productoVO.medida.idMedida}" />
                             <f:selectItems var="c" value="#{productoBean.medidas}"
-                                           itemDisabled="#{productoBean.productoVO.medida.descripcionMedida eq c.descripcionMedida}" 
+                                           itemDisabled="#{productoBean.ValorMedida(productoBean.productoVO.medida.idMedida) eq c.descripcionMedida}" 
                                            itemValue="#{c.idMedida}"
                                            itemLabel="#{c.descripcionMedida}" />
                             <p:message for="ciudad" />              

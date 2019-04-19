@@ -17,9 +17,23 @@
         </script>
         <h:form id="frmInformacionPedido" enctype="multipart/form-data">
             <p:panel id="pnlInformacionPedido">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <p:growl id="msg" showDetail="true" escape="false" />
                 <f:facet name="header">
                     <h:outputText value="Informacion Pedido" />
                 </f:facet>
+                
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Id: " />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{pedidoBean.idPedido}" />
+                    </p:column>                
+                </p:row>
+                
+                <br/>
+                <br/>
 
                 <p:row>
                     <p:column>
@@ -32,9 +46,9 @@
                                          requiredMessage="Por favor seleccione el insumo"
                                          value="#{pedidoBean.selectedIdInsumo}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{pedidoBean.pedidoVO.insumo.nombreInsumo}" itemValue="#{pedidoBean.pedidoVO.insumo.idInsumo}" />
+                            <f:selectItem itemLabel="#{pedidoBean.ValorInsumo(pedidoBean.pedidoVO.insumo.idInsumo)}" itemValue="#{pedidoBean.pedidoVO.insumo.idInsumo}" />
                             <f:selectItems var="t" value="#{pedidoBean.insumos}"
-                                           itemDisabled="#{pedidoBean.pedidoVO.insumo.nombreInsumo eq t.nombreInsumo}"
+                                           itemDisabled="#{pedidoBean.ValorInsumo(pedidoBean.pedidoVO.insumo.idInsumo) eq t.nombreInsumo}"
                                            itemValue="#{t.idInsumo}"                                           
                                            itemLabel="#{t.nombreInsumo}" />
                             <p:message for="insumo" />              
@@ -56,9 +70,9 @@
                                          requiredMessage="Por favor seleccione un proveedor"
                                          value="#{pedidoBean.selectedProveedor}"
                                          style="width:280px">
-                            <f:selectItem itemLabel="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor}" itemValue="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor}" />
+                            <f:selectItem itemLabel="#{pedidoBean.ValorProveedor(pedidoBean.pedidoVO.proveedor.idProveedor)}" itemValue="#{pedidoBean.pedidoVO.proveedor.idProveedor}" />
                             <f:selectItems var="t" value="#{pedidoBean.proveedores}"
-                                           itemDisabled="#{pedidoBean.pedidoVO.proveedor.razonSocialProveedor eq t.razonSocialProveedor}"
+                                           itemDisabled="#{pedidoBean.ValorProveedor(pedidoBean.pedidoVO.proveedor.idProveedor) eq t.razonSocialProveedor}"
                                            itemValue="#{t.idProveedor}"                                           
                                            itemLabel="#{t.razonSocialProveedor}" />
                             <p:message for="proveedor" />              

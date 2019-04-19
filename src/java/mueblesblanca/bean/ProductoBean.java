@@ -385,5 +385,23 @@ public class ProductoBean implements Serializable {
     public void setImageString(String imageString) {
         this.imageString = imageString;
     }
+    
+    public String ValorTipoProducto(Integer idTipoProducto) throws Exception {
+        if (idTipoProducto != null) {
+            TipoProductoVO tipoProducto = tipoProductoService.consultarPorId(idTipoProducto);
+            return tipoProducto.getDescripcionTipoProducto();
+        } else {
+            return "";
+        }
+    }
+    
+    public String ValorMedida(Integer idMedida) throws Exception {
+        if (idMedida != null) {
+            MedidaVO medida = medidaService.consultarPorId(idMedida);
+            return medida.getDescripcionMedida();
+        } else {
+            return "";
+        }
+    }   
 
 }

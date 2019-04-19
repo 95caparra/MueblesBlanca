@@ -139,7 +139,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
                 insumoVO.setCantidadExistente(rs.getInt(t++));
-                insumoVO.getMedida().setIdMedida(t++);
+                insumoVO.getMedida().setIdMedida(rs.getInt(t++));
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
                 insumoVO.setFechaCreacionInsumo(rs.getTimestamp(t++));
@@ -180,7 +180,7 @@ public class InsumoDAOMS extends ConexionSQL implements InsumoDAO {
                 insumoVO.setIdInsumo(rs.getInt(t++));
                 insumoVO.setNombreInsumo(rs.getString(t++));
                 insumoVO.setCantidadExistente(rs.getInt(t++));
-                insumoVO.getMedida().setIdMedida(t++);
+                insumoVO.getMedida().setIdMedida(rs.getInt(t++));
                 insumoVO.setPrecioUnidadInsumo(rs.getBigDecimal(t++));
                 insumoVO.setDetalleInsumo(rs.getString(t++));
                 insumoVO.setFechaCreacionInsumo(rs.getTimestamp(t++));
