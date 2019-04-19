@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Insertar Pedido</ui:define>
+
+    <ui:define name="viewname">Insertar Pedido</ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1>Ingresar Pedido</h1>
+                    <h:form enctype="multipart/form-data" id="insertarPedido">                         
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <p:growl id="msg" showDetail="true" escape="false" />
+                        <p:panel id="pnlInsertarPedido">
+                            <f:facet name="header">
+                                <h:outputText value="Insertar Pedido" />
+                            </f:facet>
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Insumo:  " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="insumo"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione un insumo"
+                                                     value="#{pedidoBean.selectedIdInsumo}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione un insumo" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="t"
+                                                       value="#{pedidoBean.insumos}"
+                                                       itemValue="#{t.idInsumo}"
+                                                       itemLabel="#{t.nombreInsumo}" />
+                                        <p:message for="insumo" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Proveedor:  " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="proveedor"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione un proveedor"
+                                                     value="#{pedidoBean.selectedProveedor}"
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Selecione un proveedor" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems var="t"
+                                                       value="#{pedidoBean.proveedores}"
+                                                       itemValue="#{t.idProveedor}"
+                                                       itemLabel="#{t.razonSocialProveedor}" />
+                                        <p:message for="proveedor" />              
+                                    </p:selectOneMenu>     
+                                </p:column>
+                            </p:row>
+                            
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Fecha sugerida: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputText id="fechaSugerida" type="Date" value="#{pedidoBean.fechaSugerida}">
+                                        <p:message for="fechaSugerida" />
+                                    </p:inputText>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>   
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Observaciones: " />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:inputTextarea id="observaciones" value="#{pedidoBean.observaciones}">
+                                        <p:message for="observaciones" />
+                                    </p:inputTextarea>
+                                </p:column>                
+                            </p:row>
+
+                            <br/>
+                            <br/>
+                            
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Estado" />
+                                </p:column>
+                                <br/>
+                                <p:column>
+                                    <p:selectOneMenu id="estado"
+                                                     required="true" 
+                                                     requiredMessage="Por favor seleccione el estado"
+                                                     value="#{pedidoBean.selectedEstado}" 
+                                                     style="width:280px">
+                                        <f:selectItem itemLabel="Seleccione estado" itemValue=""
+                                                      noSelectionOption="true" />
+                                        <f:selectItems value="#{pedidoBean.estadosEnum}"  />
+                                        <p:message for="estado" />  
+                                    </p:selectOneMenu>                  
+                                </p:column>               
+                            </p:row>
+                            
+                            <br/>
+                            <br/>
+                            
+                            <p:commandButton value="Guardar" 
+                                             actionListener="#{pedidoBean.insertar}"
+                                             ajax="false"
+                                             update="growl"
+                                             icon="ui-icon-disk">
+                            </p:commandButton>
+                        </p:panel>            
+                    </h:form>
+                </div>
+            </div>
+        </div>        
+       
+    </ui:define>
+</ui:composition>

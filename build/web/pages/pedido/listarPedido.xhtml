@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="head">
+        <style type="text/css">
+            .cars-datalist .text-column p:last-child{
+                color:#757575;
+            }
+
+            .cars-datalist .car-item {
+                padding: 8px 14px;
+            }
+
+            .cars-datalist .car-item img, .cars-datalist .car-item .car-details {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 14px;
+            }
+
+            .cars-datalist .car-item button {
+                float: right;
+            }
+
+            .cars-datalist ul {
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-car-display td:last-child {
+                font-weight: 700;
+            }
+
+            @media (max-width:640px) {
+                .cars-datalist .text-column {
+                    text-align: center;
+                }
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">Pedidos</ui:define>
+
+    <ui:define name="viewname">Pedidos</ui:define>
+
+    <ui:define name="content">
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+                <!-- Left Side -->
+                <div class="card">
+                    <h1>Pedidos</h1>
+                    <h:form id="listarSolicitud" rendered="true">
+                            <p:panel header="Pedidos" >
+                            <p:dataTable id="tableStateDT" var="pedido" value="#{pedidoBean.pedidos}" widgetVar="pedidoTable" multiViewState="true"
+                                         rows="10" paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"
+                                         selectionMode="single" selection="#{pedidoBean.selectedPedido}" rowKey="#{pedido.idPedido}"
+                                         emptyMessage="No tiene pedidos" filteredValue="#{pedidoBean.pedidosFiltro}">
+
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar en todos los registros:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('pedidoTable').filter()" style="width:150px" placeholder="Buscar.."/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:ajax event="rowSelect" listener="#{pedidoBean.consultarPorId}" oncomplete="PF('dlgPedido').show();" update="frmInformacionPedido:pnlInformacionPedido" />
+
+                                <p:column headerText="Insumo" sortBy="#{pedidoBean.ValorInsumo(pedido.insumo.idInsumo)}" filterBy="#{pedidoBean.ValorInsumo(pedido.insumo.idInsumo)}">
+                                    <h:outputText value="#{pedidoBean.ValorInsumo(pedido.insumo.idInsumo)}" />
+                                </p:column>
+                                
+                                <p:column headerText="Proveedor" sortBy="#{pedidoBean.ValorProveedor(pedido.proveedor.idProveedor)}" filterBy="#{pedidoBean.ValorProveedor(pedido.proveedor.idProveedor)}">
+                                    <h:outputText value="#{pedidoBean.ValorProveedor(pedido.proveedor.idProveedor)}" />
+                                </p:column>
+                                
+                                <p:column headerText="Fecha" sortBy="#{pedido.fechaSugeridaPedido}" filterBy="#{pedido.fechaSugeridaPedido}">
+                                    <h:outputText value="#{pedido.fechaSugeridaPedido}" />
+                                </p:column>
+                               
+                                <p:column headerText="Estado" filterBy="#{pedido.estado}">
+                                    <h:outputText value="#{pedidoBean.ValorEstado(pedido.estado)}"  />                   
+                                </p:column>                               
+
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+         <!--	aqui estaba el popup de detalle cliente--> 
+	<p:dialog header="Detalle" widgetVar="dlgPedido"
+		modal="true" height="420" width="400" 
+                responsive="true" closable="true" resizable="false">
+            <ui:include src="/pages/pedido/informacionPedido.xhtml"></ui:include>
+	</p:dialog>
+         
+    </ui:define>
+
+</ui:composition>

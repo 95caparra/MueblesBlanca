@@ -10,83 +10,65 @@
     <ui:define name="viewname">Index</ui:define>
 
     <ui:define name="head">
-           <script type="text/javascript">
-               //<![CDATA[
-               function skinChart() {
-                   this.cfg.shadow = false;
-                   this.cfg.title = '';
-                   this.cfg.seriesColors = ['#00acac', '#3e96e7'];
-                   this.cfg.grid = {
-                       background: '#ffffff',
-                       borderColor: '#ffffff',
-                       gridLineColor: '#EEEEEE',
-                       shadow: false
-                   };
-                   this.cfg.axesDefaults = {
-                       rendererOptions: {
-                           textColor: '#212121'
-                       }
-                   };
-                   this.cfg.seriesDefaults = {
-                       shadow: false,
-                       lineWidth: 1,
-                       markerOptions: {
-                           shadow: false,
-                           size: 7,
-                           style: 'circle'
-                       }
-                   }
-               }
-               //]]>  
-           </script>
-           <style type="text/css">
-               .main-content {
-                   padding: 0;
-               }
-           </style>
-       </ui:define>
+        <script type="text/javascript">
+            //<![CDATA[
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#00acac', '#3e96e7'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#EEEEEE',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#212121'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            //]]>  
+        </script>
+        <link rel="stylesheet" href="resources/css/my-slider.css"/>
+        <script src="resources/js/ism-2.2.min.js"></script>
+        <style type="text/css">
+            .main-content {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
 
     <ui:define name="content">
-        <div class="ui-g dashboard">            
-            <div class="ui-g-12 ui-md-6 ui-lg-3">                
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">               
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-3">                
-            </div>
-            
-            <div class="ui-g-12 ui-md-6 ui-lg-4 task-list">
-                
-            </div>
-            <div class="ui-g-12 ui-md-6 ui-lg-4 ui-fluid contact-form">
-                
-            </div>
-            <div class="ui-g-12 ui-lg-4 contacts">
-            </div>
-            
-            <div class="ui-g-12 ui-md-4">
-                <div class="card timeline ui-fluid">
-                    
-                </div>
-            </div>
-            
-            <div class="ui-g-12 ui-md-8">
-                <div class="card">
-                    <h:form>                                                
-                        
-                    </h:form>
-                </div>
-            </div>
-            
-            <div class="ui-g-12 ui-md-8">
-                
-            </div>
-            <div class="ui-g-12 ui-md-4">
-                
+        <div class='container'>
+
+            <div class="ism-slider" data-transition_type="fade" data-play_type="loop" id="my-slider">
+                <ol>
+                    <li>
+                        <img src="resources/image/slides/_u/1554608862252_616755.jpg"/>
+                    </li>
+                    <li>
+                        <img src="resources/image/slides/_u/1554608862248_310293.jpg"/>
+                    </li>
+                    <li>
+                        <img src="resources/image/slides/_u/1554608862055_406943.jpg"/>
+                    </li>
+                    <li>
+                        <img src="resources/image/slides/_u/1554608856375_934171.jpg"/>
+                    </li>
+                </ol>
             </div>
         </div>
+
     </ui:define>
 
 </ui:composition>
