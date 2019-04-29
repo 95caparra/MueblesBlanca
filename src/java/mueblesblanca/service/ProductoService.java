@@ -57,22 +57,25 @@ public class ProductoService {
     public ArrayList<ProductoVO> listar() throws Exception {
 
         ArrayList<ProductoVO> lista = new ArrayList<ProductoVO>();
+        ArrayList<ProductoVO> listaNueva = new ArrayList<ProductoVO>();
         try {
             lista = productoDAO.listar();
              
             for(ProductoVO p: lista){
-                lista.remove(p);
                 InputStream in = new ByteArrayInputStream(p.getFoto());
                 Blob blob = new javax.sql.rowset.serial.SerialBlob(p.getFoto());
                 String imagenBase64 = convertir.convertirABase64(in, blob);
                 p.setImagenProducto(imagenBase64);
-                lista.add(p);
+                listaNueva.add(p);
+                if(p.getImagenProducto() == null){
+                    listaNueva.remove(p);
+                }
             }
         } catch (Exception e) {
             System.out.println("ProductoService: Se presento un error al "
                     + "listar la tabla: " + e.getMessage());
         } finally {
-            return lista;
+            return listaNueva;
         }
     }
 
