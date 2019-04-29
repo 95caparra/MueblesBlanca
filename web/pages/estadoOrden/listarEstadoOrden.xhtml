@@ -60,6 +60,7 @@
                         <p:dataTable id="cars1" widgetVar="cars1" var="estadoOrden" value="#{estadoOrdenBean.estadosOrden}" editable="true" style="margin-bottom:20px" 
                                       rows="10" paginator="true"
                                       paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                      currentPageReportTemplate="{startRecord} de {totalRecords}"
                                       rowsPerPageTemplate="5,10,15" rowKey="#{estadoOrden.idEstadoOrden}" 
                                       emptyMessage="No tiene estados de orden">
                             <f:facet name="header">
