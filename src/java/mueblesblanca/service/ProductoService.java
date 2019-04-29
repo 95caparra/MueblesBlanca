@@ -5,9 +5,13 @@
  */
 package mueblesblanca.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import mueblesblanca.dao.ProductoDAO;
 import mueblesblanca.dao.ProductoDAOMS;
+import mueblesblanca.util.ConvertirBytesABase64;
 import mueblesblanca.vo.ProductoVO;
 
 /**
@@ -18,9 +22,12 @@ import mueblesblanca.vo.ProductoVO;
 public class ProductoService {
 
     private static ProductoDAO productoDAO;
-
+    private ConvertirBytesABase64 convertir;
+    
     public ProductoService() {
         productoDAO = new ProductoDAOMS();
+        //se instancia objeto para convertir bytes a base 64
+        convertir = new ConvertirBytesABase64();
     }
 
     public int insertar(ProductoVO productoVO) throws Exception {
@@ -52,6 +59,15 @@ public class ProductoService {
         ArrayList<ProductoVO> lista = new ArrayList<ProductoVO>();
         try {
             lista = productoDAO.listar();
+             
+            for(ProductoVO p: lista){
+                lista.remove(p);
+                InputStream in = new ByteArrayInputStream(p.getFoto());
+                Blob blob = new javax.sql.rowset.serial.SerialBlob(p.getFoto());
+                String imagenBase64 = convertir.convertirABase64(in, blob);
+                p.setImagenProducto(imagenBase64);
+                lista.add(p);
+            }
         } catch (Exception e) {
             System.out.println("ProductoService: Se presento un error al "
                     + "listar la tabla: " + e.getMessage());

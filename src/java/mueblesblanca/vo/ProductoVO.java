@@ -27,6 +27,7 @@ public class ProductoVO {
     private String usuarioModificacionProducto;
     private Integer estado;
     private byte[] foto;
+    private String imagenProducto;
 
     //se instancian clases u objetos de llaves foraneas para evitar null 
     public ProductoVO(){
@@ -129,6 +130,16 @@ public class ProductoVO {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
+
+    public String getImagenProducto() {
+        return imagenProducto;
+    }
+
+    public void setImagenProducto(String imagenProducto) {
+        this.imagenProducto = imagenProducto;
+    }
+    
+    
     
     
 

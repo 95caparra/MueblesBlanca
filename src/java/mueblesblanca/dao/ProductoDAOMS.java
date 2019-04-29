@@ -120,7 +120,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         ProductoVO productoVO;
         try {
             this.Conectar();
-            String consulta = "SELECT * FROM Producto WHERE estado <> ? ";
+            String consulta = "SELECT Id_Producto, NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado, foto FROM Producto WHERE estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -141,6 +141,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioModificacionProducto(rs.getString(t++));
                 productoVO.setEstado(rs.getInt(t++));
+                productoVO.setFoto(rs.getBytes(t++));
                 lista.add(productoVO);
             }
         } catch (Exception e) {
