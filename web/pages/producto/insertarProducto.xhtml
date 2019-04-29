@@ -86,7 +86,7 @@
                                     <p:fileUpload id="foto" fileUploadListener="#{productoBean.upload}" mode="advanced" dragDropSupport="false"
                                                   multiple="true" update="messages" sizeLimit="1000000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="width:100%" 
                                                   required="true" label="foto" 
-                                                  requiredMessage="Por favor ingrese la foto">
+                                                  requiredMessage="Por favor ingrese la foto" cancelLabel="Cancelar" uploadLabel="Subir" >
                                         <p:message for="foto" />              
                                     </p:fileUpload>
                                     <p:growl id="messages" showDetail="true" />
