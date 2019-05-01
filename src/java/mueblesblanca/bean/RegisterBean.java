@@ -38,7 +38,16 @@ public class RegisterBean implements Serializable {
     public void init() {
         usuarioService = new UsuarioService();
     }
-
+    private void resetInput(){
+        email = "";
+        password = "";
+        firstName = "";
+        secondName = "";
+        firstSurname = "";
+        secondSurname = "";
+        address = "";
+        personalId = "";
+    }
     public String insertar() {
         try {
             usuarioVO = new UsuarioVO();
@@ -53,6 +62,7 @@ public class RegisterBean implements Serializable {
             if(usuarioService.insertar(usuarioVO) > 0){
                  FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha creado la Cuenta"));
+                 resetInput();
                  return "/login.xhtml";
             }else{
                 FacesContext.getCurrentInstance().addMessage(null,
