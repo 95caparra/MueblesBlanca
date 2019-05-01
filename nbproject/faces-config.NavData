@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="pages/rol/listarRol.xhtml" x="1900" y="900" zoom="true"/>
+        <Node id="pages/tipo_documento/listarTipoDocumento.xhtml" x="2540" y="152" zoom="true"/>
+        <Node id="pages/parametria/listarTipoDocumento.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="pages/evento/listarEvento.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="pages/usuario/listarUsuario.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="pages/solicitud/datosPaquete.xhtml" x="2150" y="600" zoom="true"/>
+        <Node id="pages/producto/listarProducto.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="pages/solicitud/insertarDatosSolicitud.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="pages/inicio/inicio.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="sample.xhtml" x="2650" y="300" zoom="true"/>
+        <Node id="messages.xhtml" x="2150" y="300" zoom="true"/>
+        <Node id="docs.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="pages/ciudad/listarCiudad.xhtml" x="929" y="698" zoom="true"/>
+        <Node id="pages/pedido/insertarPedido.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="pages/solicitud/solicitud.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="pages/solicitud/datosPersonalizacionPaquete.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="pages/paquete/insertarPaquete.xhtml" x="2900" y="300" zoom="true"/>
+        <Node id="pages/evento/insertarEvento.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="pages/solicitud/respuestaSolicitud.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="access.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="pages/medida/listarMedida.xhtml" x="2970" y="162" zoom="true"/>
+        <Node id="pages/suministro/informacionSuministro.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="pages/paquete/listarPaqueteAdmin.xhtml" x="400" y="1650" zoom="true"/>
+        <Node id="pages/suministro/listarSuministro.xhtml" x="900" y="1350" zoom="true"/>
+        <Node id="pages/parametria/listarMedidaProducto.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="1500" zoom="true"/>
+        <Node id="codes.html" x="412" y="702" zoom="true"/>
+        <Node id="pages/insumo/informacionInsumo.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="forms.xhtml" x="2170" y="724" zoom="true"/>
+        <Node id="pages/solicitud/listarSolicitud_1.xhtml" x="411" y="573" zoom="true"/>
+        <Node id="single.xhtml" x="650" y="1650" zoom="true"/>
+        <Node id="pages/tipoProducto/listarTipoProducto.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="index1.xhtml" x="49" y="69" zoom="true"/>
+        <Node id="pages/producto/informacionProducto.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="login.xhtml" x="900" y="1500" zoom="true"/>
+        <Node id="panel.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="pages/producto/listarProducto_1.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="pages/empleado/listarEmpleado.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="pages/evento/graficaEventosMeses.xhtml" x="1150" y="1050" zoom="true"/>
+        <Node id="pages/cliente/listarClientes.xhtml" x="638" y="655" zoom="true"/>
+        <Node id="pages/parametria/listarLugares.xhtml" x="2650" y="450" zoom="true"/>
+        <Node id="pages/evento/informacionEvento.xhtml" x="1607" y="707" zoom="true"/>
+        <Node id="pages/insumo/insertarInsumo_1.xhtml" x="1650" y="600" zoom="true"/>
+        <Node id="404.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="womens.html" x="1150" y="1350" zoom="true"/>
+        <Node id="mens.html" x="1900" y="750" zoom="true"/>
+        <Node id="file.xhtml" x="1650" y="1050" zoom="true"/>
+        <Node id="pages/estadoOrden/listarEstadoOrden.xhtml" x="2875" y="109" zoom="true"/>
+        <Node id="pages/parametria/listarTipoEvento.xhtml" x="1890" y="644" zoom="true"/>
+        <Node id="pages/proveedor/listarProveedor.xhtml" x="400" y="1500" zoom="true"/>
+        <Node id="landing.xhtml" x="1400" y="1200" zoom="true"/>
+        <Node id="checkout.html" x="2160" y="210" zoom="true"/>
+        <Node id="contact.html" x="1807" y="519" zoom="true"/>
+        <Node id="pages/paquete/listarPaquete_1.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="pages/insumo/insertarInsumo.xhtml" x="1650" y="900" zoom="true"/>
+        <Node id="pages/insumo/listarInsumo.xhtml" x="2193" y="474" zoom="true"/>
+        <Node id="pages/solicitud/informacionSolicitud.xhtml" x="150" y="1650" zoom="true"/>
+        <Node id="dashboard.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="resources/templates/templateGestion.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="pages/cliente/informacionCliente.xhtml" x="146" y="221" zoom="true"/>
+        <Node id="empty.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="pages/pedido/listarPedido.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="pages/solicitud/listarSolicitud.xhtml" x="150" y="1800" zoom="true"/>
+        <Node id="index_1.xhtml" x="48" y="29" zoom="true"/>
+        <Node id="menu.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="error.xhtml" x="1400" y="1050" zoom="true"/>
+        <Node id="pages/parametria/listarClasificacion.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="charts.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="pages/evento/graficaEventosEstado.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="pages/parametria/listarEstadosEventos.xhtml" x="650" y="1350" zoom="true"/>
+        <Node id="pages/categoria/listarCategoria.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="pages/suministro/insertarSuministro.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="pages/producto/insertarProducto.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="overlay.xhtml" x="400" y="1350" zoom="true"/>
+        <Node id="pages/paquete/informacionPaquete.xhtml" x="650" y="1500" zoom="true"/>
+        <Node id="pages/suministro/insertarSuministro_1.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="misc.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="resources/Modelos3D/Silla Claudia.html" x="650" y="1200" zoom="true"/>
+        <Node id="pages/parametria/listarTipoProducto.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="data.xhtml" x="2446" y="406" zoom="true"/>
+        <Node id="pages/cliente/insertarCliente.xhtml" x="2617" y="633" zoom="true"/>
+        <Node id="pages/empleado/listarEmpleado_1.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="pages/paquete/listarPaquete.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="electronics.html" x="1150" y="750" zoom="true"/>
+        <Node id="pages/parametria/listarRol.xhtml" x="900" y="1200" zoom="true"/>
+        <Node id="pages/evento/detalleEvento.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="pages/paquete/informacionPaquete_1.xhtml" x="2290" y="107" zoom="true"/>
+        <Node id="pages/empleado/insertarPaquete.xhtml" x="1150" y="1200" zoom="true"/>
+        <Node id="pages/pedido/informacionPedido.xhtml" x="150" y="750" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

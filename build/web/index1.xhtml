@@ -5,7 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <h:head>
         <title>Muebles Blanca</title> 
         <!-- for-mobile-apps -->
@@ -47,7 +47,7 @@
                         <div class="search">
                             <input type="search" value="Buscar" onfocus="this.value = '';" 
                                    onblur="if (this.value === '') {
-                                                this.value = 'Buscar';
+                                               this.value = 'Buscar';
                                            }" required=""/>
                         </div>
                         <div class="section_room">
@@ -328,12 +328,18 @@
                                                 <img src="data:image/png;base64,${producto.imagenProducto}" alt="" class="pro-image-back"/>
                                                 <div class="men-cart-pro">
                                                     <div class="inner-men-cart-pro">
-                                                        <a href="single.html" class="link-product-add-cart">Vista Rápida</a>
+                                                        <h:link value="Vista Rápida" outcome="single.xhtml" class="link-product-add-cart" >
+                                                            <f:param  name="idProducto" value="#{producto.idProducto}"/>
+                                                        </h:link>
+                                                        <!--                          <a href="single.html" class="link-product-add-cart">Vista Rápida</a>-->
                                                     </div>
                                                 </div>     
                                             </div>
                                             <div class="item-info-product ">
-                                                <h4><a href="single.html">#{producto.nombreProducto}</a></h4>
+                                                <h4><h:link outcome="single.xhtml" value="#{producto.nombreProducto}">
+                                                        <f:param  name="idProducto" value="#{producto.idProducto}"/>
+                                                    </h:link>
+                                                </h4>
                                                 <div class="info-product-price"> 
                                                     <span class="item_price">$ #{producto.precioUnidadProducto}</span>
                                                 </div>
@@ -921,7 +927,7 @@
                 <div class="col-md-4 footer-left">
                     <h2><a href="index1.xhtml"><img src="resources/imagenes/logo.jpg" alt=" " /></a></h2>
                     <p>Somos fabricadores de muebles para el hogar (salas, comedores y alcobas) 
-                       creamos e innovamos a menudo, síguenos.</p>
+                        creamos e innovamos a menudo, síguenos.</p>
                 </div>
                 <div class="col-md-7 footer-right">
                     <!--<div class="col-sm-6 newsleft">
@@ -933,7 +939,7 @@
                             <input type="submit" value="Submit"/>
                         </form>
                     </div>--> 
-                   <div class="clearfix"></div>
+                    <div class="clearfix"></div>
                     <div class="sign-grds">
                         <div class="col-md-4 sign-gd">
                             <h4>Información</h4>
@@ -991,16 +997,22 @@
                                     <form>
                                         <div class="sign-up">
                                             <h4>Email :</h4>
-                                            <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required=""/>	
+                                            <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                        this.value = 'Type here';
+                                                    }" required=""/>	
                                         </div>
                                         <div class="sign-up">
                                             <h4>Password :</h4>
-                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required=""/>
+                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                        this.value = 'Password';
+                                                    }" required=""/>
 
                                         </div>
                                         <div class="sign-up">
                                             <h4>Re-type Password :</h4>
-                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required=""/>
+                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                        this.value = 'Password';
+                                                    }" required=""/>
 
                                         </div>
                                         <div class="sign-up">
@@ -1014,16 +1026,20 @@
                                     <form>
                                         <div class="sign-in">
                                             <h4>Email :</h4>
-                                            <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required=""/>	
+                                            <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                        this.value = 'Type here';
+                                                    }" required=""/>	
                                         </div>
                                         <div class="sign-in">
                                             <h4>Password :</h4>
-                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required=""/>
+                                            <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                        this.value = 'Password';
+                                                    }" required=""/>
                                             <a href="#">Forgot password?</a>
                                         </div>
                                         <div class="single-bottom">
                                             <input type="checkbox"  id="brand" value=""/>
-                                                <label for="brand"><span></span>Remember Me.</label>
+                                            <label for="brand"><span></span>Remember Me.</label>
                                         </div>
                                         <div class="sign-in">
                                             <input type="submit" value="SIGNIN"/>

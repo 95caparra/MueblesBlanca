@@ -8,6 +8,7 @@ package mueblesblanca.bean;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import mueblesblanca.constante.EstadoEnum;
@@ -108,6 +110,7 @@ public class ProductoBean implements Serializable {
         }
     }
 
+
     public void actualizar(Integer id) {
         try {
             setProductoVO(new ProductoVO());
@@ -139,7 +142,7 @@ public class ProductoBean implements Serializable {
             idProducto = getSelectedProducto().getIdProducto();
 
             productoVO = productoService.consultarPorId(idProducto);
-            
+
             //Código para traer bytes de bd y convertir la imagen a base 64
             InputStream in = new ByteArrayInputStream(productoVO.getFoto());
             if (in != null) {
@@ -160,7 +163,7 @@ public class ProductoBean implements Serializable {
 
                 inputStream.close();
                 outputStream.close();
-                
+
                 imageString = base64Image;
             }
 
@@ -385,7 +388,7 @@ public class ProductoBean implements Serializable {
     public void setImageString(String imageString) {
         this.imageString = imageString;
     }
-    
+
     public String ValorTipoProducto(Integer idTipoProducto) throws Exception {
         if (idTipoProducto != null) {
             TipoProductoVO tipoProducto = tipoProductoService.consultarPorId(idTipoProducto);
@@ -394,7 +397,7 @@ public class ProductoBean implements Serializable {
             return "";
         }
     }
-    
+
     public String ValorMedida(Integer idMedida) throws Exception {
         if (idMedida != null) {
             MedidaVO medida = medidaService.consultarPorId(idMedida);
@@ -402,6 +405,6 @@ public class ProductoBean implements Serializable {
         } else {
             return "";
         }
-    }   
+    }
 
 }
