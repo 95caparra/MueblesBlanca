@@ -59,6 +59,7 @@
                             <p:dataTable id="tableStateDT" var="insumo" value="#{insumoBean.insumos}" widgetVar="insumoTable" multiViewState="true"
                                          rows="10" paginator="true"
                                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         currentPageReportTemplate="{startRecord} de {totalRecords}"
                                          rowsPerPageTemplate="5,10,15"
                                          selectionMode="single" selection="#{insumoBean.selectedInsumo}" rowKey="#{insumo.idInsumo}"
                                          emptyMessage="No tiene insumo" filteredValue="#{insumoBean.insumosFiltro}">
