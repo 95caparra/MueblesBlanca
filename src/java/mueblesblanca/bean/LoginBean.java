@@ -1,5 +1,6 @@
 package mueblesblanca.bean;
 
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -7,59 +8,65 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import mueblesblanca.service.UsuarioService;
+import mueblesblanca.vo.UsuarioVO;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
-public class LoginBean {
+public class LoginBean  implements Serializable{
 
-    private String usuario;
+    private String email;
     private String password;
-    private String ipCliente;
+    private UsuarioService usuarioService;
+    private UsuarioVO usuarioVO;
 
+    public UsuarioService getUsuarioService() {
+        return usuarioService;
+    }
+
+    public void setUsuarioService(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
+    public UsuarioVO getUsuarioVO() {
+        return usuarioVO;
+    }
+
+    public void setUsuarioVO(UsuarioVO usuarioVO) {
+        this.usuarioVO = usuarioVO;
+    }
     @ManagedProperty(value = "#{navegacionBean}")
     private NavegacionBean navegacionBean;
 
     @PostConstruct
     public void init() {
-        usuario = new String();
+        email = new String();
         password = new String();
+        usuarioService = new UsuarioService();
     }
 
-    public boolean estaAutenticado() throws Exception {
-        boolean autenticado = false;
-       // usuarioVO = usuarioService.autenticarUsuario(usuario, password);
-        //if (usuario != null && !usuario.equals("")) {
-         //   if (usuarioVO != null) {
-                autenticado = true;
-           // } else {
-             //   autenticado = false;
-           // }
-        //} else {
-         //   autenticado = false;
-        //}
-        return autenticado;
+    public boolean isAuthenticated() throws Exception {
+        usuarioVO = usuarioService.autenticarUsuario(email, password);
+        return usuarioVO != null;
     }
 
     public String doLogin() throws Exception {
-            if (estaAutenticado()) {
-            return navegacionBean.redireccionInicio;
+        if (isAuthenticated()) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", usuarioVO);
+            return "/index_1.xhtml?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario o clave incorrecto"));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Correo o clave incorrecto"));
         }
         return "";
     }
 
-    public void doLogin(Integer id) throws Exception {
-         navegacionBean.redireccionarDatosPaquete(id);
+    public String getEmail() {
+        return email;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -87,11 +94,4 @@ public class LoginBean {
         }
         return ipAddress;
     }
-
-    public void setIpCliente(String ipCliente) {
-        this.ipCliente = ipCliente;
-    }
-
-    
-
 }

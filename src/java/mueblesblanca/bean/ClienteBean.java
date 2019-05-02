@@ -22,7 +22,6 @@ import mueblesblanca.vo.CiudadVO;
 import mueblesblanca.vo.PersonaNaturalVO;
 import mueblesblanca.vo.RolVO;
 import mueblesblanca.vo.TipoDocumentoVO;
-import org.primefaces.context.RequestContext;
 
 /**
  *

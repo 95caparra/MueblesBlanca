@@ -7,7 +7,9 @@
     xmlns:po="http://primefaces.org/poseidon">
 
     <div class="topbar clearfix">
-        
+        <div class="topbar-left">            
+            <div class="logo"></div>
+        </div>
         <div class="topbar-right">
             <a id="menu-button" href="#">
                 <i class="fa fa-angle-left"></i>
@@ -20,7 +22,7 @@
                 <li class="profile-item">
                     <a href="#">                            
                         <div class="profile-image"></div>
-                        <span class="topbar-item-name">Aceso</span>
+                        <span class="topbar-item-name">#{loginBean.usuarioVO.firstName} #{loginBean.usuarioVO.firstSurname}</span>
                     </a>
                     
                     <ul class="poseidon-menu animated">

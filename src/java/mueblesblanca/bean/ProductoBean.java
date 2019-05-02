@@ -129,7 +129,7 @@ public class ProductoBean implements Serializable {
 
             if (productoService.actualizar(getProductoVO()) > 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se actualizo "));
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "se ha actualizado el producto satisfactoriamente "));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se produjo un error "));
@@ -194,7 +194,7 @@ public class ProductoBean implements Serializable {
 
             if (productoService.insertar(getProductoVO()) > 0) {
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se guardó "));
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Mueble Creado exitoxamente"));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se produjo un error "));
@@ -211,7 +211,7 @@ public class ProductoBean implements Serializable {
         String contentType = uploadedFile.getContentType();
         contents = uploadedFile.getContents(); // Or getInputStream()
         if (contents.length > 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "se subio la imagen "));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Se ha subido la imagen satisfactoriamente"));
         }
         // ... Save it, now!
     }

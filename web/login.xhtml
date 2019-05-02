@@ -12,7 +12,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces Poseidon</title>
+        <title>Login | Usuario</title>
     </h:head>
 
     <h:body styleClass="login-body">
@@ -24,14 +24,10 @@
                 <h:form class="login-form" id="login_form">
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <div class="ui-g-12">
-                        <p:inputText placeholder="Username" value="#{loginBean.usuario}"/>
+                        <p:inputText placeholder="Correo"  id="email" value="#{loginBean.email}" required="true"/>
                     </div>
                     <div class="ui-g-12">
-                        <p:password placeholder="Password" feedback="false" value="#{loginBean.password}"/>
-                    </div>
-                    <div class="ui-g-12 chkbox-container">
-                        <p:selectBooleanCheckbox id="remember-me" />
-                        <p:outputLabel for="remember-me" value="Remember Me"/>
+                        <p:password placeholder="Contraseña" feedback="false" value="#{loginBean.password}" required="true"/>
                     </div>
                     <div class="ui-g-12 button-container">
                         <p:commandButton action="#{loginBean.doLogin}"
@@ -41,6 +37,7 @@
                                          update="@form,growl">
                         </p:commandButton>
                     </div>
+                    <div><center><a href="registro.xhtml">¿No tienes cuenta?. ¡Registrate!</a></center></div>
                 </h:form>
             </div>
         </div>

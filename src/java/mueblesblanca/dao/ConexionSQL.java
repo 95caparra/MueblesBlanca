@@ -18,11 +18,11 @@ public class ConexionSQL extends Conexion {
     public void Conectar() throws Exception{
         try {
             //Drive de conexión
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName ("com.mysql.jdbc.Driver");
             //Colocamos el servidor sql, nombre de nuestra base de datos, usuario y password
             //String conectionURL = "jdbc:sqlserver://SERGIO:1433;databasename=Bd_MueblesBlanca";
             //this.usuario = "root"; this.password = "";
-            String conectionURL = "jdbc:sqlserver://SERGIO:1433;databasename=Bd_MueblesBlanca";
+            String conectionURL = "jdbc:mysql://localhost:3306/mueblesblanca";
             //String conectionURL = "jdbc:sqlserver://172.16.1.64:1433;databasename=Bd_MueblesBlanca";
             this.usuario = "blanca"; this.password = "123456";
             
