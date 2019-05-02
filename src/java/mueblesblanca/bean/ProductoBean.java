@@ -59,6 +59,7 @@ public class ProductoBean implements Serializable {
     private String usuarioModificacion;
     private Integer estadoProducto;
     private Integer selectedEstado;
+    private String descripciónProducto;
     private TipoProductoVO tipoProductoVO;
 
     //objetos y listas/////////
@@ -121,6 +122,7 @@ public class ProductoBean implements Serializable {
             getProductoVO().getTipoProducto().setIdTipoProducto(selectedIdTipoProducto);
             getProductoVO().setCantidadExistente(cantidadExistente);
             getProductoVO().setPrecioUnidadProducto(precioUnidadProducto);
+            getProductoVO().setDescripcionProducto(getDescripciónProducto());
             getProductoVO().getMedida().setIdMedida(selectedMedida);
             getProductoVO().setUsuarioModificacionProducto(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
             getProductoVO().setEstado(estadoProducto);
@@ -180,6 +182,7 @@ public class ProductoBean implements Serializable {
             productoVO.setCantidadExistente(cantidadExistente);
             productoVO.setPrecioUnidadProducto(precioUnidadProducto);
             productoVO.getMedida().setIdMedida(selectedMedida);
+            productoVO.setDescripcionProducto(getDescripciónProducto());
             productoVO.setUsuarioCreacionProducto(String.valueOf(UsuarioEnum.USUARIO_DEFAULT));
             productoVO.setEstado(selectedEstado);
 
@@ -259,6 +262,14 @@ public class ProductoBean implements Serializable {
 
     public void setSelectedMedida(Integer selectedMedida) {
         this.selectedMedida = selectedMedida;
+    }
+
+    public String getDescripciónProducto() {
+        return descripciónProducto;
+    }
+
+    public void setDescripciónProducto(String descripciónProducto) {
+        this.descripciónProducto = descripciónProducto;
     }
 
     public String getUsuarioCreacion() {

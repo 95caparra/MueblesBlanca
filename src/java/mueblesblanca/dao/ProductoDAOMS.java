@@ -23,8 +23,8 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         try {
             this.Conectar();
             String consulta = " INSERT INTO Producto ( NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, "
-                    + "Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Estado, foto)"
-                    + " VALUES(?,?,?,?,?,GETDATE(),?,?,?) ";
+                    + "Id_Medida_Producto, Descripcion_Producto, Fecha_Creacion, Usuario_Creacion, Estado, foto)"
+                    + " VALUES(?,?,?,?,?,?,GETDATE(),?,?,?) ";
 
             System.out.println("QUERY insertar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -34,9 +34,10 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
             pstm.setInt(3, productoVO.getCantidadExistente());
             pstm.setBigDecimal(4, productoVO.getPrecioUnidadProducto());
             pstm.setInt(5, productoVO.getMedida().getIdMedida());
-            pstm.setString(6, productoVO.getUsuarioCreacionProducto());
-            pstm.setInt(7, productoVO.getEstado());
-            pstm.setBytes(8, productoVO.getFoto());
+            pstm.setString(6, productoVO.getDescripcionProducto());
+            pstm.setString(7, productoVO.getUsuarioCreacionProducto());
+            pstm.setInt(8, productoVO.getEstado());
+            pstm.setBytes(9, productoVO.getFoto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -60,6 +61,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                     + " Cantidad_Existente = ?, "
                     + " Precio_Unidad_Producto = ?, "
                     + " Id_Medida_Producto = ?, "
+                    + " Descripcion_Producto = ?, "
                     + " Fecha_Modificacion = GETDATE(), "
                     + " Usuario_Modificacion = ?, "
                     + " Estado = ? "
@@ -73,10 +75,11 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
             pstm.setInt(3, productoVO.getCantidadExistente());
             pstm.setBigDecimal(4, productoVO.getPrecioUnidadProducto());
             pstm.setInt(5, productoVO.getMedida().getIdMedida());
-            pstm.setString(6, productoVO.getUsuarioModificacionProducto());
-            pstm.setInt(7, EstadoEnum.ACTIVO.getIndex());
+            pstm.setString(6, productoVO.getDescripcionProducto());
+            pstm.setString(7, productoVO.getUsuarioModificacionProducto());
+            pstm.setInt(8, EstadoEnum.ACTIVO.getIndex());
 
-            pstm.setInt(8, productoVO.getIdProducto());
+            pstm.setInt(9, productoVO.getIdProducto());
 
             resultado = pstm.executeUpdate();
         } catch (Exception e) {
@@ -120,7 +123,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         ProductoVO productoVO;
         try {
             this.Conectar();
-            String consulta = "SELECT Id_Producto, NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado, foto FROM Producto WHERE estado <> ? ";
+            String consulta = "SELECT Id_Producto, NombreProducto, Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto, Id_Medida_Producto, Descripcion_Producto, Fecha_Creacion, Usuario_Creacion, Fecha_Modificacion, Usuario_Modificacion, Estado, foto FROM Producto WHERE estado <> ? ";
 
             System.out.println("QUERY listar " + consulta);
             PreparedStatement pstm = this.conection.prepareStatement(consulta);
@@ -136,6 +139,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setCantidadExistente(rs.getInt(t++));
                 productoVO.setPrecioUnidadProducto(rs.getBigDecimal(t++));
                 productoVO.getMedida().setIdMedida(rs.getInt(t++));
+                productoVO.setDescripcionProducto(rs.getString(t++));
                 productoVO.setFechaCreacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioCreacionProducto(rs.getString(t++));
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));
@@ -160,7 +164,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
         try {
             this.Conectar();
             String consulta = " SELECT Id_Producto, NombreProducto,Id_Tipo_Producto, Cantidad_Existente, Precio_Unidad_Producto,"
-                    +" Id_Medida_Producto, Fecha_Creacion, Usuario_Creacion, " 
+                    +" Id_Medida_Producto, Descripcion_Producto, Fecha_Creacion, Usuario_Creacion, " 
                     +" Fecha_Modificacion, Usuario_Modificacion, Estado, foto "
                     +" FROM [dbo].[Producto] WHERE [Id_Producto] = ? ";
 
@@ -178,6 +182,7 @@ public class ProductoDAOMS extends ConexionSQL implements ProductoDAO {
                 productoVO.setCantidadExistente(rs.getInt(t++));
                 productoVO.setPrecioUnidadProducto(rs.getBigDecimal(t++));
                 productoVO.getMedida().setIdMedida(rs.getInt(t++));
+                productoVO.setDescripcionProducto(rs.getString(t++));
                 productoVO.setFechaCreacionProducto(rs.getTimestamp(t++));
                 productoVO.setUsuarioCreacionProducto(rs.getString(t++));
                 productoVO.setFechaModificacionProducto(rs.getTimestamp(t++));

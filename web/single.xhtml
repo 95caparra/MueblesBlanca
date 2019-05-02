@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -45,14 +45,15 @@
         <div class="header-bot">
             <div class="container">
                 <div class="col-md-3 header-left">
-                    <h1><a href="index1.xhtml"><img src="resources/imagenes/logo.jpg" alt=""/></a></h1>
+                    <h1><a href="index1.xhtml"><img src="resources/imagenes/logo.jpg" alt=""/></a></h1>                    
                 </div>
                 <div class="col-md-6 header-middle">
                     <form>
                         <div class="search">
-                            <input type="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {
-                                        this.value = 'Buscar';
-                                    }" required=""/>
+                            <input type="search" value="Buscar" onfocus="this.value = '';" 
+                                   onblur="if (this.value === '') {
+                                               this.value = 'Buscar';
+                                           }" required=""/>
                         </div>
                         <div class="section_room">
                             <select id="country" onchange="change_country(this.value)" class="frm-field required">
@@ -84,7 +85,7 @@
         <!-- //header-bot -->
         <!-- banner -->
         <div class="ban-top">
-            <div class="container">
+            <div class="container">    
                 <div class="top_nav_left">
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
@@ -100,9 +101,9 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
                             <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav menu__list">
-                                    <li class="active menu__item "><a class="menu__link" href="index.html">Home <span class="sr-only">(current)</span></a></li>
+                                    <li class="active menu__item menu__item--current"><a class="menu__link" href="index1.xhtml">Home <span class="sr-only">(current)</span></a></li>
                                     <li class="dropdown menu__item">
-                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">men's wear <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salas<span class="caret"></span></a>
                                         <ul class="dropdown-menu multi-column columns-3">
                                             <div class="row">
                                                 <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
@@ -116,6 +117,7 @@
                                                         <li><a href="mens.html">Watches</a></li>
                                                         <li><a href="mens.html">Accessories</a></li>
                                                         <li><a href="mens.html">Bags</a></li>
+                                                        <li><a href="mens.html">CapsHats</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-sm-3 multi-gd-img">
@@ -134,7 +136,7 @@
                                         </ul>
                                     </li>
                                     <li class="dropdown menu__item">
-                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">women's wear <span class="caret"></span></a>
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comedores <span class="caret"></span></a>
                                         <ul class="dropdown-menu multi-column columns-3">
                                             <div class="row">
                                                 <div class="col-sm-3 multi-gd-img">
@@ -145,6 +147,7 @@
                                                         <li><a href="womens.html">Watches</a></li>
                                                         <li><a href="womens.html">Accessories</a></li>
                                                         <li><a href="womens.html">Bags</a></li>
+                                                        <li><a href="womens.html">CapHats</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-sm-3 multi-gd-img">
@@ -165,9 +168,9 @@
                                             </div>
                                         </ul>
                                     </li>
-                                    <li class=" menu__item"><a class="menu__link" href="electronics.html">Electronics</a></li>
-                                    <li class=" menu__item"><a class="menu__link" href="codes.html">Short Codes</a></li>
-                                    <li class=" menu__item"><a class="menu__link" href="contact.html">contact</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="electronics.html">Sillas</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="codes.html">Sofas</a></li>
+                                    <li class=" menu__item"><a class="menu__link" href="contact.html">Salas</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -178,12 +181,10 @@
                         <a href="checkout.html">
                             <h3> <div class="total">
                                     <i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
-
+                                    <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> productos)</div>
                             </h3>
                         </a>
                         <p><a href="javascript:;" class="simpleCart_empty">Vaciar Carrito</a></p>
-
                     </div>	
                 </div>
                 <div class="clearfix"></div>
@@ -193,7 +194,7 @@
         <!-- banner -->
         <div class="page-head">
             <div class="container">
-                <h3>Mueble</h3>
+                <h3><b>Información del Mueble</b></h3>
             </div>
         </div>
         <!-- //banner -->
@@ -203,7 +204,8 @@
                 <div class="container">
                     <div class="col-md-6 single-right-left animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
                         <div class="grid images_3_of_2">
-                            <div class="flexslider">
+                            <!--<div class="flexslider">-->
+                            <div class="">
                                 <!-- FlexSlider -->
                                 <script>
                                     // Can also be used with $(document).ready()
@@ -219,7 +221,7 @@
                                     <li data-thumb="data:image/png;base64,${singleBean.productoVO.imagenProducto}">
                                         <div class="thumb-image"> <img src="data:image/png;base64,${singleBean.productoVO.imagenProducto}" data-imagezoom="true" class="img-responsive"/> </div>
                                     </li>
-                                    <li data-thumb="images/d1.jpg">
+                                    <!--<li data-thumb="images/d1.jpg">
                                         <div class="thumb-image"> <img src="images/d1.jpg" data-imagezoom="true" class="img-responsive"/> </div>
                                     </li>	
                                     <li data-thumb="images/d3.jpg">
@@ -227,14 +229,14 @@
                                     </li>
                                     <li data-thumb="images/d4.jpg">
                                         <div class="thumb-image"> <img src="images/d4.jpg" data-imagezoom="true" class="img-responsive"/> </div>
-                                    </li>	
+                                    </li>-->	
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>	
                         </div>
                     </div>
                     <div class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-                        <h3>#{singleBean.productoVO.nombreProducto}</h3>
+                        <h3><b>#{singleBean.productoVO.nombreProducto}</b></h3>
                         <p><span class="item_price">$ #{singleBean.productoVO.precioUnidadProducto}</span></p>
                         <div class="rating1">
                             <span class="starRating">
@@ -252,17 +254,19 @@
                         </div>
                         <div class="color-quality">
                             <div class="color-quality-right">
-                                <h5>Quality :</h5>
+                                <p></p>
+                                <h5>Cantidad existente: <b>#{singleBean.productoVO.cantidadExistente} Unidades</b></h5>
+                                <h5>Cantidad :</h5>
                                 <select id="country1" onchange="change_country(this.value)" class="frm-field required sect">
-                                    <option value="null">5 Qty</option>
-                                    <option value="null">6 Qty</option> 
-                                    <option value="null">7 Qty</option>					
-                                    <option value="null">10 Qty</option>								
+                                    <option value="null">1</option>
+                                    <option value="null">2</option> 
+                                    <option value="null">3</option>					
+                                    <option value="null">4</option>								
                                 </select>
                             </div>
                         </div>
                         <div class="occasional">
-                            <h5>Types :</h5>
+                            <!--<h5>Types :</h5>
                             <div class="colr ert">
                                 <label class="radio"><input type="radio" name="radio" checked=""/><i></i>Casual Shoes</label>
                             </div>
@@ -272,10 +276,10 @@
                             <div class="colr">
                                 <label class="radio"><input type="radio" name="radio"/><i></i>Formal Shoes</label>
                             </div>
-                            <div class="clearfix"> </div>
+                            <div class="clearfix"> </div>-->
                         </div>
                         <div class="occasion-cart">
-                            <a href="#" class="item_add hvr-outline-out button2">Add to cart</a>
+                            <a href="#" class="item_add hvr-outline-out button2">Añadir al carrito</a>
                         </div>
 
                     </div>
@@ -284,23 +288,22 @@
                     <div class="bootstrap-tab animated wow slideInUp animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInUp;">
                         <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
                             <ul id="myTab" class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Description</a></li>
-                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews(1)</a></li>
+                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Descripción</a></li>
+                                <!--<li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Reviews(1)</a></li>
                                 <li role="presentation" class="dropdown">
                                     <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Information <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
                                         <li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">cleanse</a></li>
                                         <li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">fanny</a></li>
                                     </ul>
-                                </li>
+                                </li>-->
                             </ul>
                             <div id="myTabContent" class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="home" aria-labelledby="home-tab">
-                                    <h5>Product Brief Description</h5>
-                                    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-                                        <span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>
+                                    <h5>Descripción Breve del Producto</h5>
+                                    <p>#{singleBean.productoVO.descripcionProducto}</p>
                                 </div>
-                                <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
+                                <!--<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="profile" aria-labelledby="profile-tab">
                                     <div class="bootstrap-tab-text-grids">
                                         <div class="bootstrap-tab-text-grid">
                                             <div class="bootstrap-tab-text-grid-left">
@@ -318,13 +321,13 @@
                                             <div class="clearfix"> </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown1" aria-labelledby="dropdown1-tab">
+                                </div>-->
+                                <!--<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown1" aria-labelledby="dropdown1-tab">
                                     <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="dropdown2" aria-labelledby="dropdown2-tab">
                                     <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -337,23 +340,23 @@
             <div class="container">
                 <div class="coupons-grids text-center">
                     <div class="col-md-3 coupons-gd">
-                        <h3>Buy your product in a simple way</h3>
+                        <h3>Compra tu producto de una manera sencilla.</h3>
                     </div>
                     <div class="col-md-3 coupons-gd">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        <h4>LOGIN TO YOUR ACCOUNT</h4>
+                        <h4>INGRESE A SU CUENTA</h4>
                         <p>Neque porro quisquam est, qui dolorem ipsum quia dolor
                             sit amet, consectetur.</p>
                     </div>
                     <div class="col-md-3 coupons-gd">
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        <h4>SELECT YOUR ITEM</h4>
+                        <h4>SELECCIONE SU PRODUCTO</h4>
                         <p>Neque porro quisquam est, qui dolorem ipsum quia dolor
                             sit amet, consectetur.</p>
                     </div>
                     <div class="col-md-3 coupons-gd">
                         <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>
-                        <h4>MAKE PAYMENT</h4>
+                        <h4>REALICE SU PAGO</h4>
                         <p>Neque porro quisquam est, qui dolorem ipsum quia dolor
                             sit amet, consectetur.</p>
                     </div>

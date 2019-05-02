@@ -20,7 +20,8 @@ public class ProductoVO {
     private TipoProductoVO tipoProducto;
     private Integer cantidadExistente;
     private BigDecimal precioUnidadProducto;
-    private MedidaVO medida;    
+    private MedidaVO medida;
+    private String descripcionProducto;    
     private Timestamp fechaCreacionProducto;
     private String usuarioCreacionProducto;
     private Timestamp fechaModificacionProducto;
@@ -65,6 +66,14 @@ public class ProductoVO {
 
     public void setPrecioUnidadProducto(BigDecimal precioUnidadProducto) {
         this.precioUnidadProducto = precioUnidadProducto;
+    }
+
+    public String getDescripcionProducto() {
+        return descripcionProducto;
+    }
+
+    public void setDescripcionProducto(String descripcionProducto) {
+        this.descripcionProducto = descripcionProducto;
     }
 
     public Timestamp getFechaCreacionProducto() {

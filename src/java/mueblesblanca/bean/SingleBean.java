@@ -17,7 +17,7 @@ import mueblesblanca.vo.TipoProductoVO;
 
 /**
  *
- * @author sergg
+ * @author Fabian Garcia
  */
 @ManagedBean(name = "singleBean")
 @ViewScoped
